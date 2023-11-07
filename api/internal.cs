@@ -5,11 +5,11 @@ namespace acNET
 {
     public partial class acAPI
     {
-        internal T? GET<T>(string url, string option) where T : BaseBody
+        internal T? GET<T>(string url, string? option=null) where T : BaseBody
         {
             try
             {
-                if (!this.Request(url, option, out string json)) return null;
+                if (!this.Request(url, option??string.Empty, out string json)) return null;
                 return Converter.ParsingJson<T>(json);
             }
             catch (Exception e)

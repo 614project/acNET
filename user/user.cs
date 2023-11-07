@@ -6,7 +6,7 @@ namespace acNET.User
     /// <summary>
     /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
     /// </summary>
-    public class UserInfo : Type.BaseBody
+    public class User : Type.BaseBody
     {
         /// <summary>
         /// 사용자명입니다.
