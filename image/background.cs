@@ -54,7 +54,7 @@ namespace acNET.Image
         /// </summary>
         /// <param name="filename">파일명 (확장자 제외)</param>
         /// <returns>실패시 null, 성공시 저장된 파일명 (확장자 포함)</returns>
-        public string? Save(string filename)
+        public string? SaveBackgroundImage(string filename)
         {
             if(acAPI.SaveImage(this.backgroundImageUrl, filename, out var f)) return f;
             return null;
