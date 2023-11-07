@@ -1,4 +1,6 @@
-﻿using acNET.Image;
+﻿using acNET.Account;
+using acNET.Coin;
+using acNET.Image;
 using acNET.User;
 
 namespace acNET
@@ -40,5 +42,21 @@ namespace acNET
         /// </summary>
         /// <returns>실패시 null</returns>
         public SiteStats? GetSiteStats() => GET<SiteStats>("site/stats");
+        /// <summary>
+        /// 현재 로그인한 계정 정보를 가져옵니다.
+        /// </summary>
+        /// <returns>실패시 null</returns>
+        [Obsolete("미완성")]
+        public UserAccount? GetAccount() => GET<UserAccount>("account/verify_credentials");
+        /// <summary>
+        /// 현재 코인->별조각 환율을 가져옵니다.
+        /// </summary>
+        /// <returns>실패시 null</returns>
+        public ExchangeRate? GetExchangeRate() => GET<ExchangeRate>("coins/exchange_rate");
+        /// <summary>
+        /// 코인샵에서 팔고 있는 상품 목록을 가져옵니다.
+        /// </summary>
+        /// <returns>실패시 null</returns>
+        public List<ShopItem>? GetShopList() => GETLIST<ShopItem>("coins/shop/list");
     }
 }
