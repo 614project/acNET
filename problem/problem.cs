@@ -139,6 +139,6 @@ namespace acNET
         /// <summary>
         /// 별칭입니다.
         /// </summary>
-        string alias;
+        public string alias;
     }
 }
