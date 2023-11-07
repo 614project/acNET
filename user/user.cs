@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace acNET.User
 {
     /// <summary>
-    /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
+    /// 로그인 없이 가져올수 있는 사용자의 정보
     /// </summary>
     public class User : Type.BaseBody
     {
