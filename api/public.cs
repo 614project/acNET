@@ -16,7 +16,7 @@ namespace acNET
         /// </summary>
         /// <param name="handle">사용자 ID</param>
         /// <returns>실패시 null</returns>
-        public Group? GetGroupFromUser(string handle) => GET<Group>("user/organizations", $"?handle={handle}");
+        public List<Group>? GetGroupFromUser(string handle) => GETLIST<Group>("user/organizations", $"?handle={handle}");
         /// <summary>
         /// 사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
         /// </summary>

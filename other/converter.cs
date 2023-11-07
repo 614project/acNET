@@ -44,6 +44,16 @@ namespace acNET
         public static T? ParsingJson<T>(string json) where T : BaseBody
         {
             return JsonConvert.DeserializeObject<T>(json);
-        } 
+        }
+        /// <summary>
+        /// Solved.ac API에서 가져온 문자열 Json을 acNET 내에 있는 클래스의 리스트로 변환합니다.
+        /// </summary>
+        /// <typeparam name="T">acNET.Type.BaseBody를 상속한 클래스</typeparam>
+        /// <param name="json">Json 형식의 문자열 (상위가 배열이여야됨)</param>
+        /// <returns>클래스가 담긴 리스트</returns>
+        public static List<T>? ParsingJsonList<T>(string json) where T : BaseBody
+        {
+            return JsonConvert.DeserializeObject<List<T>>(json);
+        }
     }
 }

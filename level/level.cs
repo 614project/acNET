@@ -33,7 +33,7 @@ Ruby V
 Ruby IV
 Ruby III
 Ruby II
-Ruby I".Split('\n');
+Ruby I".Replace('\r','\0').Split('\n');
 
 
     }

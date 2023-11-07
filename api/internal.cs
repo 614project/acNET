@@ -19,6 +19,20 @@ namespace acNET
             }
         }
 
+        internal List<T>? GETLIST<T>(string url, string? option = null) where T : BaseBody
+        {
+            try
+            {
+                if (!this.Request(url, option ?? string.Empty, out string json)) return null;
+                return Converter.ParsingJsonList<T>(json);
+            }
+            catch (Exception e)
+            {
+                this.Errors.Enqueue(e);
+                return null;
+            }
+        }
+
         internal bool Request(string url, string option, out string content)
         {
             var request = new HttpRequestMessage

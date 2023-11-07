@@ -136,5 +136,16 @@ namespace acNET.User
         /// <param name="api">acNET.API</param>
         /// <returns>실패시 null</returns>
         public Background? GetBackground(acAPI api) => api.GetBackground(this.backgroundId);
+        /// <summary>
+        /// 사용자의 프로필 이미지를 저장합니다.
+        /// </summary>
+        /// <param name="filename">파일명 (확장자 필요없음)</param>
+        /// <returns>실패시 null, 성공시 저장된 파일명 (확장자 포함)</returns>
+        public string? SaveProfileImage(string filename)
+        {
+            if (this.profileImageUrl is null) return null;
+            if(!acAPI.SaveImage(this.profileImageUrl, filename, out var fn)) return null;
+            return fn;
+        }
     }
 }
