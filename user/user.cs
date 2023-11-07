@@ -135,6 +135,6 @@ namespace acNET.User
         /// </summary>
         /// <param name="api">acNET.API</param>
         /// <returns>실패시 null</returns>
-        public Background? GetBackground(API api) => api.Background(this.backgroundId);
+        public Background? GetBackground(acAPI api) => api.GetBackground(this.backgroundId);
     }
 }
