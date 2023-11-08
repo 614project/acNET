@@ -38,7 +38,8 @@ Ruby V
 Ruby IV
 Ruby III
 Ruby II
-Ruby I".Replace('\r','\0').Split('\n');
+Ruby I
+Master".Replace('\r','\0').Split('\n');
 
         /// <summary>
         /// 레벨(티어)값입니다.

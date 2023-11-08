@@ -14,6 +14,9 @@ namespace acNET
         /// </summary>
         public const string APIurl = "https://solved.ac/api/v3/";
 
+        /// <summary>
+        /// acAPI 생성.
+        /// </summary>
         public acAPI()
         {
             this.client = new() { BaseAddress = new(APIurl) };
@@ -35,13 +38,31 @@ namespace acNET
     /// </summary>
     public class acAPIError : Exception
     {
-        public acAPIError() { }
+        /// <summary>
+        /// acAPI 알수없는 예외
+        /// </summary>
+        public acAPIError() { this.Code = -1; }
+        /// <summary>
+        /// acAPI 사유가 있는 예외
+        /// </summary>
+        /// <param name="message">예외 사유</param>
+        /// <param name="code">오류 코드</param>
         public acAPIError(string message,short code=-1) : base(message) { this.Code = code; }
+        /// <summary>
+        /// acAPI 내 일어난 예외
+        /// </summary>
+        /// <param name="message">예외 사유</param>
+        /// <param name="inner">발생한 예외</param>
         public acAPIError(string message, Exception inner) : base(message, inner) { }
-        protected acAPIError(
+        internal protected acAPIError(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-
+        /// <summary>
+        /// acAPI 예외를 생성합니다.
+        /// </summary>
+        /// <param name="message">사유</param>
+        /// <param name="code">오류 코드</param>
+        /// <returns>예외 객체</returns>
         public static acAPIError Create(string message,short code=-1)
         {
             acAPIError error = new acAPIError(message,code);

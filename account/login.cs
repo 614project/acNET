@@ -85,9 +85,18 @@ namespace acNET.Account
         public bool GetTwitterPostOnTierIncreaseBoolean => this.twitterPostOnTierIncrease == "true";
     }
 
+    /// <summary>
+    /// 사용자가 푼 문제에 대한 정보
+    /// </summary>
     public class Solved
     {
+        /// <summary>
+        /// 문제 ID입니다.
+        /// </summary>
         public long id;
+        /// <summary>
+        /// 현재 문제 풀이 상태입니다. 알려진 값은 다음이 있습니다.
+        /// </summary>
         public string tried;
     }
 

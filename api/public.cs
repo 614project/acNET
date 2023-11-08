@@ -2,6 +2,7 @@
 using acNET.Coin;
 using acNET.Image;
 using acNET.Problem;
+using acNET.Ranking;
 using acNET.User;
 
 namespace acNET
@@ -19,7 +20,7 @@ namespace acNET
         /// </summary>
         /// <param name="handle">사용자 ID</param>
         /// <returns>실패시 null</returns>
-        public List<Organizations>? GetOrganizationsFromUser(string handle) => GETLIST<Organizations>("user/organizations", $"?handle={handle}");
+        public List<Organization>? GetOrganizationsFromUser(string handle) => GETLIST<Organization>("user/organizations", $"?handle={handle}");
         /// <summary>
         /// 사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
         /// </summary>
@@ -35,7 +36,7 @@ namespace acNET
         /// <summary>
         /// 사용자가 푼 문제 중 상위 100문제를 가져옵니다.
         /// </summary>
-        /// <param name="">사용자 ID</param>
+        /// <param name="handle">사용자 ID</param>
         /// <returns>실패시 null</returns>
         public Top100? GetTop100FromUser(string handle) => GET<Top100>("user/top_100", $"?handle={handle}");
         /// <summary>
@@ -87,5 +88,35 @@ namespace acNET
         /// </summary>
         /// <returns>실패시 null</returns>
         public List<Level>? GetLevelList() => GETLIST<Level>("problem/level");
+        /// <summary>
+        /// 사용자 티어에 따른 순위를 가져옵니다.
+        /// </summary>
+        /// <param name="page">페이지 (자연수)</param>
+        /// <returns>실패시 null</returns>
+        public UserRanking? GetTierRank(int page) => GET<UserRanking>("ranking/tier",$"?page={page}");
+        /// <summary>
+        /// 사용자 CLASS에 따른 순위를 가져옵니다.
+        /// </summary>
+        /// <param name="page">페이지 (자연수)</param>
+        /// <returns>실패시 null</returns>
+        public UserRanking? GetClassRank(int page) => GET<UserRanking>("ranking/class", $"?page={page}");
+        /// <summary>
+        /// 최장 스트릭에 따른 순위를 가져옵니다.
+        /// </summary>
+        /// <param name="page">페이지 (자연수)</param>
+        /// <returns>실패시 null</returns>
+        public UserRanking? GetStreakRank(int page) => GET<UserRanking>("ranking/streak", $"?page={page}");
+        /// <summary>
+        /// 기여 횟수에 따른 순위를 가져옵니다.
+        /// </summary>
+        /// <param name="page">페이지 (자연수)</param>
+        /// <returns>실패시 null</returns>
+        public UserRanking? GetContributionRank(int page) => GET<UserRanking>("ranking/contribution", $"?page={page}");
+        /// <summary>
+        /// 레이팅에 따른 조직 순위를 가져옵니다.
+        /// </summary>
+        /// <param name="page">페이지 (자연수)</param>
+        /// <returns>실패시 null</returns>
+        public OrganizationRanking? GetOrganizationnRank(int page) => GET<OrganizationRanking>("ranking/organization", $"?page={page}");
     }
 }
