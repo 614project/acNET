@@ -1,9 +1,9 @@
 # acNET
 
-solved.ac API¸¦ ´Ù·ç±â À§ÇÑ C# ·¡ÆÛ ¶óÀÌºê·¯¸®ÀÔ´Ï´Ù.<br><br>
-[solved.ac ºñ°ø½Ä API ¹®¼­]¸¦ Âü°íÇß½À´Ï´Ù.](https://github.com/solvedac/unofficial-documentation)<br>
+solved.ac APIë¥¼ ë‹¤ë£¨ê¸° ìœ„í•œ C# ëž˜í¼ ë¼ì´ë¸ŒëŸ¬ë¦¬ìž…ë‹ˆë‹¤.<br><br>
+[solved.ac ë¹„ê³µì‹ API ë¬¸ì„œ]ë¥¼ ì°¸ê³ í–ˆìŠµë‹ˆë‹¤.(https://github.com/solvedac/unofficial-documentation)<br>
 
-## ¿¹Á¦
+## ì˜ˆì œ
 ```cs
 using acNET;
 
@@ -11,9 +11,9 @@ acAPI api = new();
 var user = api.GetUser("jyunni");
 Console.WriteLine("tier: {0}\nclass: {1}", user.GetTierName, user.@class);
 ```
-## »ç¿ë
-ÀÚ¼¼ÇÑ »ç¿ë¹ýÀº À§Å°¸¦ Âü°íÇØÁÖ¼¼¿ä.
+## ì‚¬ìš©
+ìžì„¸í•œ ì‚¬ìš©ë²•ì€ ìœ„í‚¤ë¥¼ ì°¸ê³ í•´ì£¼ì„¸ìš”.
 
-## µð¹ö±ë
-.NET 6.0 ÀÌ»ó SDK ±×¸®°í (¸¸¾à ¼³Ä¡°¡ ¾ÈµÇÀÖ´Ù¸é) nuget¿¡¼­ Newtonsoft.Json¸¸ ¼³Ä¡ÇÏ½Ã¸é µË´Ï´Ù.<br>
-Å×½ºÆ®½Ã µû·Î ½ÃÀÛ ÇÁ·ÎÁ§Æ®¸¦ »ý¼ºÇØ¼­ ÀÌ ÇÁ·ÎÁ§Æ®¸¦ ÂüÁ¶ÇÏ¿© »ç¿ëÇÏ½Ã¸é µË´Ï´Ù.
+## ë””ë²„ê¹…
+.NET 6.0 ì´ìƒ SDK ê·¸ë¦¬ê³  (ë§Œì•½ ì„¤ì¹˜ê°€ ì•ˆë˜ìžˆë‹¤ë©´) nugetì—ì„œ Newtonsoft.Jsonë§Œ ì„¤ì¹˜í•˜ì‹œë©´ ë©ë‹ˆë‹¤.<br>
+í…ŒìŠ¤íŠ¸ì‹œ ë”°ë¡œ ì‹œìž‘ í”„ë¡œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ì´ í”„ë¡œì íŠ¸ë¥¼ ì°¸ì¡°í•˜ì—¬ ì‚¬ìš©í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
