@@ -93,30 +93,30 @@ namespace acNET
         /// </summary>
         /// <param name="page">페이지 (자연수)</param>
         /// <returns>실패시 null</returns>
-        public UserRanking? GetTierRank(int page) => GET<UserRanking>("ranking/tier",$"?page={page}");
+        public UserRanking? GetTierRanking(int page) => GET<UserRanking>("ranking/tier",$"?page={page}");
         /// <summary>
         /// 사용자 CLASS에 따른 순위를 가져옵니다.
         /// </summary>
         /// <param name="page">페이지 (자연수)</param>
         /// <returns>실패시 null</returns>
-        public UserRanking? GetClassRank(int page) => GET<UserRanking>("ranking/class", $"?page={page}");
+        public UserRanking? GetClassRanking(int page) => GET<UserRanking>("ranking/class", $"?page={page}");
         /// <summary>
         /// 최장 스트릭에 따른 순위를 가져옵니다.
         /// </summary>
         /// <param name="page">페이지 (자연수)</param>
         /// <returns>실패시 null</returns>
-        public UserRanking? GetStreakRank(int page) => GET<UserRanking>("ranking/streak", $"?page={page}");
+        public UserRanking? GetStreakRanking(int page) => GET<UserRanking>("ranking/streak", $"?page={page}");
         /// <summary>
         /// 기여 횟수에 따른 순위를 가져옵니다.
         /// </summary>
         /// <param name="page">페이지 (자연수)</param>
         /// <returns>실패시 null</returns>
-        public UserRanking? GetContributionRank(int page) => GET<UserRanking>("ranking/contribution", $"?page={page}");
+        public UserRanking? GetContributionRanking(int page) => GET<UserRanking>("ranking/contribution", $"?page={page}");
         /// <summary>
         /// 레이팅에 따른 조직 순위를 가져옵니다.
         /// </summary>
         /// <param name="page">페이지 (자연수)</param>
         /// <returns>실패시 null</returns>
-        public OrganizationRanking? GetOrganizationnRank(int page) => GET<OrganizationRanking>("ranking/organization", $"?page={page}");
+        public OrganizationRanking? GetOrganizationRanking(int page) => GET<OrganizationRanking>("ranking/organization", $"?page={page}");
     }
 }
