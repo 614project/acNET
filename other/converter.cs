@@ -1,4 +1,5 @@
 ﻿using acNET.Type;
+using acNET.Problem;
 using Newtonsoft.Json;
 
 namespace acNET
@@ -33,6 +34,16 @@ namespace acNET
         {
             if (value < 0 || value >= Level.Names.Length) return null;
             return Level.Names[value];
+        }
+        /// <summary>
+        /// 레벨(티어) 이름을 레벨 값으로 반환합니다.
+        /// </summary>
+        /// <param name="name">레벨 이름 (예: Gold IV)</param>
+        /// <returns>존재하지 않으면 null</returns>
+        public static long? LevelValue(string name)
+        {
+            for (int i = 0; i < Level.Names.Length; i++) if (Level.Names[i] == name) return i;
+            return null;
         }
 
         /// <summary>
