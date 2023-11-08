@@ -2,6 +2,9 @@
 
 namespace acNET.Image
 {
+    /// <summary>
+    /// 배경 사진의 정보
+    /// </summary>
     public class Background : BaseBody
     {
         /// <summary>
@@ -94,5 +97,12 @@ namespace acNET.Image
         /// 작가의 이름입니다.
         /// </summary>
         public string displayName;
+
+        /// <summary>
+        /// 작가의 sovled.ac 아이디로 유저 정보를 가져옵니다.
+        /// </summary>
+        /// <param name="api">acNET.acAPI</param>
+        /// <returns>실패시 null</returns>
+        public User.User? GetAuthor(acAPI api) => api.GetUser(this.authorId);
     }
 }

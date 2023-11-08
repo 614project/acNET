@@ -14,6 +14,6 @@ namespace acNET.User
         /// <summary>
         /// 문제 목록입니다.
         /// </summary>
-        public List<TaggedProblem> items;
+        public List<Problem.TaggedProblem> items;
     }
 }

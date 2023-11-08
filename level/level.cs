@@ -1,4 +1,4 @@
-﻿namespace acNET
+﻿namespace acNET.Type
 {
 
     public class Level

@@ -1,11 +1,11 @@
 ﻿using acNET.Type;
 
-namespace acNET
+namespace acNET.Site
 {
     /// <summary>
     /// solved.ac 통계
     /// </summary>
-    public class SiteStats : BaseBody
+    public class Stats : BaseBody
     {
         /// <summary>
         /// 여태까지 색인된 백준 문제 수입니다.

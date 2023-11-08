@@ -3,7 +3,7 @@
     /// <summary>
     /// 사용자가 속한 조직 목록를 가져옵니다.
     /// </summary>
-    public class Group : Type.BaseBody
+    public class Organizations : Type.BaseBody
     {
         /// <summary>
         /// 조직의 ID입니다.

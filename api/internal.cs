@@ -14,6 +14,28 @@ namespace acNET
             }
             catch (Exception e)
             {
+                if (e is acAPIError)
+                {
+                    acAPIError error = (acAPIError)e;
+                    if (url.StartsWith("account"))
+                    {
+                        if (error.Code == 403)
+                        {
+                            this.Errors.Enqueue(acAPIError.Create("권한이 없습니다. (또는 solvedacToken이 올바르지 않습니다.)", -403));
+                            return null;
+                        }
+                        if (error.Code == 404)
+                        {
+                            this.Errors.Enqueue(acAPIError.Create("리딤 코드가 올바르지 않습니다.",-404));
+                            return null;
+                        }
+                    }
+                    else if(url.StartsWith("problem/lookup") && error.Code == 400)
+                    {
+                        this.Errors.Enqueue(acAPIError.Create("problemIds 를 잘못 입력한것 같습니다. 쉼표로 구분한 문제 ID 목록을 입력해야합니다.", -400));
+                        return null;
+                    }
+                }
                 this.Errors.Enqueue(e);
                 return null;
             }
@@ -43,8 +65,7 @@ namespace acNET
             var response = client.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
             if ((int)response.StatusCode < 200 || (int)response.StatusCode > 299)
             {
-                content = response.StatusCode.ToString();
-                return false;
+                throw acAPIError.Create("서버에서 반환에 실패했습니다.",(short)response.StatusCode);
             }
             var responseInfo = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             content = responseInfo;

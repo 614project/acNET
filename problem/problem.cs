@@ -1,9 +1,12 @@
 ﻿using acNET.Type;
 using Newtonsoft.Json;
 
-namespace acNET
+namespace acNET.Problem
 {
-    public class TaggedProblem : BaseBody
+    /// <summary>
+    /// 문제 정보입니다.
+    /// </summary>
+    public class Problem : BaseBody
     {
         /// <summary>
         /// 문제 ID입니다.
@@ -57,6 +60,17 @@ namespace acNET
         /// 공식 문제 여부입니다.
         /// </summary>
         public bool official;
+    }
+
+    /// <summary>
+    /// 태그가 포함된 문제 정보입니다.
+    /// </summary>
+    public class TaggedProblem : Problem
+    {
+        /// <summary>
+        /// 태그 목록입니다.
+        /// </summary>
+        public List<ProblemTag> tags; 
         /// <summary>
         /// 레벨(티어)값을 레벨 이름으로 가져옵니다.
         /// </summary>

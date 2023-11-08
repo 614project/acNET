@@ -12,6 +12,7 @@ var user = api.GetUser("jyunni");
 Console.WriteLine("tier: {0}\nclass: {1}", user.GetTierName, user.@class);
 ```
 ## 사용
+깃허브 리포지토리에서 Packages 항목에 있는 최신 버전의 nuget을 추가하여 사용하시면 됩니다!<br>
 자세한 사용법은 위키를 참고해주세요.
 
 ## 디버깅

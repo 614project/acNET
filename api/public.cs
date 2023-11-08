@@ -1,6 +1,7 @@
 ﻿using acNET.Account;
 using acNET.Coin;
 using acNET.Image;
+using acNET.Problem;
 using acNET.User;
 
 namespace acNET
@@ -18,7 +19,7 @@ namespace acNET
         /// </summary>
         /// <param name="handle">사용자 ID</param>
         /// <returns>실패시 null</returns>
-        public List<Group>? GetGroupFromUser(string handle) => GETLIST<Group>("user/organizations", $"?handle={handle}");
+        public List<Organizations>? GetOrganizationsFromUser(string handle) => GETLIST<Organizations>("user/organizations", $"?handle={handle}");
         /// <summary>
         /// 사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
         /// </summary>
@@ -41,7 +42,7 @@ namespace acNET
         /// solved.ac 통계를 가져옵니다.
         /// </summary>
         /// <returns>실패시 null</returns>
-        public SiteStats? GetSiteStats() => GET<SiteStats>("site/stats");
+        public Site.Stats? GetSiteStats() => GET<Site.Stats>("site/stats");
         /// <summary>
         /// 현재 로그인한 계정 정보를 가져옵니다.
         /// </summary>
@@ -58,5 +59,28 @@ namespace acNET
         /// </summary>
         /// <returns>실패시 null</returns>
         public List<ShopItem>? GetShopList() => GETLIST<ShopItem>("coins/shop/list");
+        /// <summary>
+        /// 문제 개수를 문제 CLASS별로 가져옵니다.
+        /// </summary>
+        /// <returns>실패시 null</returns>
+        public List<ClassInfo>? GetClassList() => GETLIST<ClassInfo>("problem/class");
+        /// <summary>
+        /// 해당하는 ID의 문제를 가져옵니다.
+        /// </summary>
+        /// <param name="problemId">문제 ID</param>
+        /// <returns>실패시 null</returns>
+        public Problem.Problem? GetProblem(long problemId) => GET<Problem.Problem>("problem/show", $"?problemId={problemId}");
+        /// <summary>
+        /// 해당하는 ID의 문제 목록을 가져옵니다.
+        /// </summary>
+        /// <param name="problemIds">문제 ID 배열</param>
+        /// <returns>실패시 null</returns>
+        public List<Problem.Problem>? GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',', problemIds));
+        /// <summary>
+        /// 해당하는 ID의 문제 목록을 가져옵니다.
+        /// </summary>
+        /// <param name="problemIds">쉼표로 구분한 문제 ID 목록</param>
+        /// <returns>실패시 null</returns>
+        public List<Problem.Problem>? GetProblemList(string problemIds) => GETLIST<Problem.Problem>("problem/lookup", $"?problemIds={problemIds}");
     }
 }
