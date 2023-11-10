@@ -43,22 +43,14 @@
         /// </summary>
         public OrganizationType GetEnumType
         {
-            get
+            get => this.type switch
             {
-                switch(this.type)
-                {
-                    case "community":
-                        return OrganizationType.community;
-                    case "university":
-                        return OrganizationType.university;
-                    case "company":
-                        return OrganizationType.company;
-                    case "high_school":
-                        return OrganizationType.high_school;
-                    default:
-                        return OrganizationType.unknown;
-                }
-            }
+                "community" => OrganizationType.community,
+                "university" => OrganizationType.university,
+                "company" => OrganizationType.company,
+                "high_school" => OrganizationType.high_school,
+                _ => OrganizationType.unknown
+            };
         }
     }
 
