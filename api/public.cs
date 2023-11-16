@@ -1,4 +1,5 @@
 ﻿using acNET.Account;
+using acNET.Badge;
 using acNET.Coin;
 using acNET.Image;
 using acNET.Problem;
@@ -118,5 +119,11 @@ namespace acNET
         /// <param name="page">페이지 (자연수)</param>
         /// <returns>실패시 null</returns>
         public OrganizationRanking? GetOrganizationRanking(int page) => GET<OrganizationRanking>("ranking/organization", $"?page={page}");
+        /// <summary>
+        /// 뱃지의 정보를 가져옵니다.
+        /// </summary>
+        /// <param name="badgeId">뱃지 ID</param>
+        /// <returns>실패시 null</returns>
+        public Badge.Badge? GetBadge(string badgeId) => GET<Badge.Badge>("badge/show", $"?badgeId={badgeId}");
     }
 }

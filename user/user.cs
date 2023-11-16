@@ -131,11 +131,17 @@ namespace acNET.User
         /// </summary>
         public string? GetTierName => Converter.LevelName(this.tier);
         /// <summary>
-        /// 배경의 정보를 가져옵니다.
+        /// 유저의 배경 정보를 가져옵니다.
         /// </summary>
-        /// <param name="api">acNET.API</param>
+        /// <param name="api">acNET.acAPI</param>
         /// <returns>실패시 null</returns>
         public Background? GetBackground(acAPI api) => api.GetBackground(this.backgroundId);
+        /// <summary>
+        /// 유저의 뱃지 정보를 가져옵니다.
+        /// </summary>
+        /// <param name="api">acNET.acAPI</param>
+        /// <returns>실패시 null</returns>
+        public Badge.Badge? GetBadge(acAPI api) => api.GetBadge(this.badgeId);
         /// <summary>
         /// 사용자의 프로필 이미지를 저장합니다.
         /// </summary>

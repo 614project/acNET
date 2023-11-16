@@ -1,9 +1,11 @@
-﻿namespace acNET.Badge
+﻿using acNET.Type;
+
+namespace acNET.Badge
 {
     /// <summary>
     /// 사용자가 사용할수 있는 뱃지입니다.
     /// </summary>
-    public class Badge
+    public class Badge : BaseBody
     {
         /// <summary>
         /// 뱃지의 ID입니다.
