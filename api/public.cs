@@ -125,5 +125,17 @@ namespace acNET
         /// <param name="badgeId">뱃지 ID</param>
         /// <returns>실패시 null</returns>
         public Badge.Badge? GetBadge(string badgeId) => GET<Badge.Badge>("badge/show", $"?badgeId={badgeId}");
+        /// <summary>
+        /// 유저의 티어별 기여도를 가져옵니다. (추측)
+        /// </summary>
+        /// <param name="handle">사용자 ID</param>
+        /// <returns>실패시 null</returns>
+        public List<UserContributionStat>? GetUserContributionStats(string handle) => GETLIST<UserContributionStat>("user/contribution_stats", $"?handle={handle}");
+        /// <summary>
+        /// 유저의 클래스별 진행도를 가져옵니다. (추측)
+        /// </summary>
+        /// <param name="handle">사용자 ID</param>
+        /// <returns>실패시 null</returns>
+        public List<UserClassStat>? GetUserClassStats(string handle) => GETLIST<UserClassStat>("user/class_stats", $"?handle={handle}");
     }
 }

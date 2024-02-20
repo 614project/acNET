@@ -62,7 +62,7 @@ namespace acNET
                 Method = HttpMethod.Get,
                 RequestUri = new(APIurl + url + option),
             };
-            var response = client.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var response = _client.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
             if ((int)response.StatusCode < 200 || (int)response.StatusCode > 299)
             {
                 throw acAPIError.Create("서버에서 반환에 실패했습니다.",(short)response.StatusCode);

@@ -7,7 +7,7 @@ namespace acNET
     /// </summary>
     public partial class acAPI : IDisposable
     {
-        HttpClient client;
+        HttpClient _client;
 
         /// <summary>
         /// solved.ac api 기본 주소.
@@ -19,7 +19,7 @@ namespace acNET
         /// </summary>
         public acAPI()
         {
-            this.client = new() { BaseAddress = new(APIurl) };
+            this._client = new() { BaseAddress = new(APIurl) };
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace acNET
 
         public void Dispose()
         {
-            this.client.Dispose();
+            this._client.Dispose();
         }
     }
 
