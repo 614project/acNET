@@ -101,37 +101,6 @@ namespace acNET.Problem
     }
 
     /// <summary>
-    /// 문제 태그
-    /// </summary>
-    public class ProblemTag : BaseBody
-    {
-        /// <summary>
-        /// 태그의 ID입니다.
-        /// </summary>
-        public string key;
-        /// <summary>
-        /// (알수없음.)
-        /// </summary>
-        public bool isMeta;
-        /// <summary>
-        /// 백준에서 사용되는 이 태그의 ID입니다.
-        /// </summary>
-        public long bojTagId;
-        /// <summary>
-        /// 이 태그를 포함하는 문제의 수입니다.
-        /// </summary>
-        public long problemCount;
-        /// <summary>
-        /// 언어별 태그의 이름 목록입니다.
-        /// </summary>
-        public List<DisplayName> displayNames;
-        /// <summary>
-        /// 태그의 별칭입니다.
-        /// </summary>
-        public List<Alias> aliases;
-    }
-
-    /// <summary>
     /// 표시된 이름
     /// </summary>
     public class DisplayName
