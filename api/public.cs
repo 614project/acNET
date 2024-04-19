@@ -16,7 +16,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public User.UserInfomation? GetUser(string handle) => GET<User.UserInfomation>("user/show", $"?handle={handle}");
+    public User.RankedUser? GetUser(string handle) => GET<User.RankedUser>("user/show", $"?handle={handle}");
     /// <summary>
     /// 사용자가 속한 조직 목록를 가져옵니다.
     /// </summary>
@@ -143,7 +143,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public SearchResult<UserInfomation>? GetSearchUser(string query) => GET<SearchResult<UserInfomation>>("search/user" , $"?query={query}");
+    public SearchResult<RankedUser>? GetSearchUser(string query) => GET<SearchResult<RankedUser>>("search/user" , $"?query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 문제 태그를 검색합니다.
     /// </summary>

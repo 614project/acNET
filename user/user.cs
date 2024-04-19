@@ -6,7 +6,7 @@ namespace acNET.User;
 /// <summary>
 /// 로그인 없이 가져올수 있는 사용자의 정보
 /// </summary>
-public class UserInfomation : Type.BaseBody
+public class RankedUser : Type.BaseBody
 {
     /// <summary>
     /// 사용자명입니다.
