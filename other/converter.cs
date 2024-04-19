@@ -5,12 +5,12 @@ using Newtonsoft.Json;
 namespace acNET
 {
     /// <summary>
-    /// Sovled.ac API 에서 추출한 값을 C# 데이터 형식에 맞게 변환하기 위한 클래스.
+    /// sovled.ac API 에서 추출한 값을 C# 데이터 형식에 맞게 변환하기 위한 클래스.
     /// </summary>
     public static class Converter
     {
         /// <summary>
-        /// Solved.ac API의 시간 형식을 C# DateTime으로 변환합니다.
+        /// solved.ac API의 시간 형식을 C# DateTime으로 변환합니다.
         /// </summary>
         /// <param name="time">Solved.ac API에서 제공하는 시간 문자열</param>
         /// <returns>변환 실패시 null을 반환합니다.</returns>
@@ -47,7 +47,7 @@ namespace acNET
         }
 
         /// <summary>
-        /// Solved.ac API에서 가져온 문자열 Json을 acNET 내에 있는 클래스로 변환합니다.
+        /// solved.ac API에서 가져온 문자열 Json을 acNET 내에 있는 클래스로 변환합니다.
         /// </summary>
         /// <typeparam name="T">acNET.Type.BaseBody를 상속한 클래스</typeparam>
         /// <param name="json">Json 형식의 문자열</param>
@@ -57,7 +57,7 @@ namespace acNET
             return JsonConvert.DeserializeObject<T>(json);
         }
         /// <summary>
-        /// Solved.ac API에서 가져온 문자열 Json을 acNET 내에 있는 클래스의 리스트로 변환합니다.
+        /// solved.ac API에서 가져온 문자열 Json을 acNET 내에 있는 클래스의 리스트로 변환합니다.
         /// </summary>
         /// <typeparam name="T">acNET.Type.BaseBody를 상속한 클래스</typeparam>
         /// <param name="json">Json 형식의 문자열 (상위가 배열이여야됨)</param>
