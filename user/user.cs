@@ -1,13 +1,12 @@
 ﻿using acNET.Image;
 using Newtonsoft.Json;
-using System.Reflection.Metadata;
 
 namespace acNET.User;
 
 /// <summary>
 /// 로그인 없이 가져올수 있는 사용자의 정보
 /// </summary>
-public class User : Type.BaseBody
+public class UserInfomation : Type.BaseBody
 {
     /// <summary>
     /// 사용자명입니다.

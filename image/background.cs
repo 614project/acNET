@@ -103,6 +103,6 @@ namespace acNET.Image
         /// </summary>
         /// <param name="api">acNET.acAPI</param>
         /// <returns>실패시 null</returns>
-        public User.User? GetAuthor(acAPI api) => api.GetUser(this.authorId);
+        public User.UserInfomation? GetAuthor(acAPI api) => api.GetUser(this.authorId);
     }
 }

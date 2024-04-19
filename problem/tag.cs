@@ -45,32 +45,17 @@ public class TagStat : BaseBody
     /// <summary>
     /// solved.ac에 등록된 해당 태그의 문제 수입니다.
     /// </summary>
-    public string total;
+    public long total;
     /// <summary>
     /// 사용자가 푼 문제 수입니다.
     /// </summary>
-    public string solved;
+    public long solved;
     /// <summary>
     /// 사용자가 부분 성공한 문제 수입니다.
     /// </summary>
-    public string partial;
+    public long partial;
     /// <summary>
     /// 사용자가 시도해본 문제 수입니다.
     /// </summary>
-    public string tried;
-}
-
-/// <summary>
-/// 모든 태그 별 진행도 입니다.
-/// </summary>
-public class ProblemTagStats : BaseBody
-{
-    /// <summary>
-    /// solved.ac에 등록된 모든 태그의 개수입니다.
-    /// </summary>
-    public int count;
-    /// <summary>
-    /// 태그 별 진행도 목록입니다.
-    /// </summary>
-    public List<TagStat> items;
+    public long tried;
 }

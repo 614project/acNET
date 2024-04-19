@@ -5,7 +5,7 @@ namespace acNET.Account
     /// <summary>
     /// 로그인을 통해 얻을수 있는 자세한 유저 정보
     /// </summary>
-    public class DetailedUser : User.User
+    public class DetailedUser : User.UserInfomation
     {
         /// <summary>
         /// 계정의 이메일 주소입니다.

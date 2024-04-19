@@ -4,6 +4,7 @@ using acNET.Coin;
 using acNET.Image;
 using acNET.Problem;
 using acNET.Ranking;
+using acNET.Search;
 using acNET.User;
 
 namespace acNET;
@@ -15,7 +16,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public User.User? GetUser(string handle) => GET<User.User>("user/show", $"?handle={handle}");
+    public User.UserInfomation? GetUser(string handle) => GET<User.UserInfomation>("user/show", $"?handle={handle}");
     /// <summary>
     /// 사용자가 속한 조직 목록를 가져옵니다.
     /// </summary>
@@ -136,5 +137,24 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public ProblemTagStats? GetProblemTagStats(string handle) => GET<ProblemTagStats>("user/problem_tag_stats" , $"?handle={handle}");
+    public SearchResult<TagStat>? GetProblemTagStats(string handle) => GET<SearchResult<TagStat>>("user/problem_tag_stats" , $"?handle={handle}");
+    /// <summary>
+    /// 주어진 쿼리에 따라 사용자를 검색합니다.
+    /// </summary>
+    /// <param name="query">쿼리 문자열</param>
+    /// <returns>실패시 null</returns>
+    public SearchResult<UserInfomation>? GetSearchUser(string query) => GET<SearchResult<UserInfomation>>("search/user" , $"?query={query}");
+    /// <summary>
+    /// 주어진 쿼리에 따라 문제 태그를 검색합니다.
+    /// </summary>
+    /// <param name="query">쿼리 문자열</param>
+    /// <returns>실패시 null</returns>
+    public SearchResult<ProblemTag>? GetSearchTag(string query) => GET<SearchResult<ProblemTag>>("search/tag" , $"?query={query}");
+    /// <summary>
+    /// 주어진 쿼리에 따라 문제를 검색합니다.
+    /// </summary>
+    /// <param name="query">쿼리 문자열</param>
+    /// <param name="descending_order">내림차순으로 정렬할지에 대한 여부입니다. 기본은 오름차순입니다.</param>
+    /// <returns>실패시 null</returns>
+    public SearchResult<TaggedProblem>? GetSearchProblem(string query,bool descending_order=false) => GET<SearchResult<TaggedProblem>>("search/problem" , $"?direction={(descending_order?"desc":"asc")}&query={query}");
 }
