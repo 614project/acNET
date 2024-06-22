@@ -78,11 +78,11 @@ public class RankedUser : Type.BaseBody
     /// </summary>
     public long reverseRivalCount;
     /// <summary>
-    /// 최대 연속 문제 풀이일 수입니다.
+    /// 유지한 최대 스트릭의 길이입니다. (일 단위)
     /// </summary>
     public long maxStreak;
     /// <summary>
-    /// 사용자가 가지고 있는 코인의 수입니다.
+    /// 사용자가 가지고 있는 코인의 수 × 100입니다. (예: 코인 0.15를 가지고 있을경우 이 값은 15가 됩니다.)
     /// </summary>
     public long coins;
     /// <summary>
@@ -114,15 +114,24 @@ public class RankedUser : Type.BaseBody
     /// </summary>
     public bool isReverseRival;
     /// <summary>
-    /// 아레나 티어(레벨)값입니다.
+    /// 현재 아레나 티어입니다.
     /// </summary>
     public long arenaTier;
     /// <summary>
-    /// 아레나 참여로 계산된 사용자의 아레나 레이팅입니다.
+    /// 현재 아레나 레이팅입니다.
     /// </summary>
     public long arenaRating;
+    /// <summary>
+    /// 역대 받은 아레나 티어 중 최고점일 때의 아레나 티어입니다.
+    /// </summary>
     public long arenaMaxTier;
+    /// <summary>
+    /// 역대 받은 아레나 레이팅 중 최고점일 때의 아레나 레이팅입니다.
+    /// </summary>
     public long arenaMaxRating;
+    /// <summary>
+    /// 참여한 아레나 라운드 수입니다.
+    /// </summary>
     public long arenaCompetedRoundCount;
     public bool blocked;
     public bool reverseBlocked;
@@ -142,6 +151,10 @@ public class RankedUser : Type.BaseBody
     /// 사용자의 티어(레벨)값을 티어 이름으로 가져옵니다.
     /// </summary>
     public string? GetTierName => Converter.LevelName(this.tier);
+    /// <summary>
+    /// 사용자의 아레나 티어(레벨)값을 아레나 티어 이름으로 가져옵니다.
+    /// </summary>
+    public string? GetArenaTierName => Converter.ArenaName(this.arenaTier);
     /// <summary>
     /// 유저의 배경 정보를 가져옵니다.
     /// </summary>
@@ -164,45 +177,5 @@ public class RankedUser : Type.BaseBody
         if (this.profileImageUrl is null) return null;
         if(!acAPI.SaveImage(this.profileImageUrl, filename, out var fn)) return null;
         return fn;
-    }
-    /// <summary>
-    /// 사용자의 정보를 보기 좋게 문자열로 변환해줍니다.
-    /// </summary>
-    /// <returns>문자열</returns>
-    public override string ToString()
-    {
-        return $@"handle: {handle},
-bio: {bio},
-badgeId: {badgeId},
-backgroundId: {backgroundId},
-profileImageUrl: {profileImageUrl},
-solvedCount: {solvedCount},
-voteCount: {voteCount},
-class: {@class},
-classDecoration: {classDecoration},
-rivalCount: {rivalCount},
-reverseRivalCount: {reverseRivalCount},
-tier: {tier},
-rating: {rating},
-ratingByProblemsSum: {ratingByProblemsSum},
-ratingByClass: {ratingByClass},
-ratingBySolvedCount: {ratingBySolvedCount},
-ratingByVoteCount: {ratingByVoteCount},
-arenaTier: {arenaTier},
-arenaRating: {arenaRating},
-arenaMaxTier: {arenaMaxTier},
-arenaMaxRating: {arenaMaxRating},
-arenaCompetedRoundCount: {arenaCompetedRoundCount},
-maxStreak: {maxStreak},
-coins: {coins},
-stardusts: {stardusts},
-joinedAt: {joinedAt},
-bannedUntil: {bannedUntil},
-proUntil: {proUntil},
-rank: {rank},
-isRival: {isRival},
-isReverseRival: {isReverseRival},
-blocked: {blocked},
-reverseBlocked: {reverseBlocked}";
     }
 }

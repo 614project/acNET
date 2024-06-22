@@ -15,8 +15,9 @@ public partial class acAPI
     /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
     /// </summary>
     /// <param name="handle">사용자 ID</param>
+    /// <param name="language">응답을 받을 언어입니다.</param>
     /// <returns>실패시 null</returns>
-    public User.RankedUser? GetUser(string handle) => GET<User.RankedUser>("user/show", $"?handle={handle}");
+    public RankedUser? GetUser(string handle,solvedacLanguage language=solvedacLanguage.Korean) => GET<RankedUser>("user/show", $"?handle={handle}",_convert_language(language));
     /// <summary>
     /// 사용자가 속한 조직 목록를 가져옵니다.
     /// </summary>

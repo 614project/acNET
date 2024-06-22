@@ -7,11 +7,11 @@ namespace acNET;
 
 public partial class acAPI
 {
-    internal T? GET<T>(string url, string? option=null) where T : BaseBody
+    internal T? GET<T>(string url, string? option=null,Header? head=null) where T : BaseBody
     {
         try
         {
-            if (!this.GetRequest(url, option??string.Empty, out string json)) return null;
+            if (!this.GetRequest(url, option??string.Empty, out string json,head)) return null;
             return Converter.ParsingJson<T>(json);
         }
         catch (Exception e)
@@ -42,7 +42,6 @@ public partial class acAPI
             return null;
         }
     }
-
     internal List<T>? GETLIST<T>(string url, string? option = null) where T : BaseBody
     {
         try
@@ -56,11 +55,13 @@ public partial class acAPI
             return null;
         }
     }
-
-    internal bool GetRequest(string url, string option, out string content)
+    internal record Header(string key, string value);
+    internal bool GetRequest(string url, string option, out string content,Header? header = null)
     {
         RestRequest request = new(url + option , Method.Get);
-        var response = _client.Execute(request);
+        if (header is Header head)
+            request.AddHeader(head.key , head.value);
+            var response = _client.Execute(request);
         if ((int)response.StatusCode < 200 || (int)response.StatusCode > 299)
         {
             throw acAPIError.Create("서버에서 반환에 실패했습니다.",(short)response.StatusCode);

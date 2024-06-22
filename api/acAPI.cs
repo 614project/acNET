@@ -8,12 +8,10 @@ namespace acNET;
 public partial class acAPI : IDisposable
 {
     RestClient _client;
-
     /// <summary>
     /// solved.ac api 기본 주소.
     /// </summary>
     public const string DefaultUrl = "https://solved.ac/api/v3/";
-
     /// <summary>
     /// acAPI 생성.
     /// </summary>
@@ -22,12 +20,10 @@ public partial class acAPI : IDisposable
     {
         this._client = new(url);
     }
-
     /// <summary>
     /// acNET.API 사용 도중 발생한 오류가 저장되는 큐입니다.
     /// </summary>
     public readonly Queue<Exception> Errors = new();
-
     /// <summary>
     /// acAPI 리소스를 정리합니다.
     /// </summary>
@@ -81,4 +77,12 @@ public class acAPIError : Exception
     /// 오류 코드입니다. (0~599: API 응답 코드, -1: 알수 없음, 이외: 위키 참고)
     /// </summary>
     public short Code { get; init; }
+    /// <summary>
+    /// 상태 코드가 같이 출력되는 예외 메시지입니다.
+    /// </summary>
+    /// <returns>예외 문자열</returns>
+    public override string ToString()
+    {
+        return base.ToString() + $"\nHTTP response status codes: {Code}";
+    }
 }
