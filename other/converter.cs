@@ -26,10 +26,10 @@ namespace acNET
         }
 
         /// <summary>
-        /// 정수형 레벨(티어)값을 레벨 이름으로 반환합니다.
+        /// 정수형 레벨(티어)값을 레벨 이름으로 반환합니다. (예: Gold IV)
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>음수 또는 레벨 갯수 이상의 값을 넣을경우 null이 반환됩니다.</returns>
+        /// <param name="value">레벨(티어)값</param>
+        /// <returns>음수 또는 레벨 개수 이상의 값을 넣을경우 null이 반환됩니다.</returns>
         public static string? LevelName(long value)
         {
             if (value < 0 || value >= Level.Names.Length) return null;
@@ -45,7 +45,17 @@ namespace acNET
             for (int i = 0; i < Level.Names.Length; i++) if (Level.Names[i] == name) return i;
             return null;
         }
-
+        /// <summary>
+        /// 정수형 레벨(아레나)값을 아레나 티어 이름으로 변환합니다. (예: A+)
+        /// </summary>
+        /// <param name="value">레벨(아레나)값</param>
+        /// <returns></returns>
+        public static string? ArenaName(long value)
+        {
+            if (value < 0 || value >= Arena.SolvedArena.Names.Length)
+                return null;
+            return Arena.SolvedArena.Names[value];
+        }
         /// <summary>
         /// solved.ac API에서 가져온 문자열 Json을 acNET 내에 있는 클래스로 변환합니다.
         /// </summary>

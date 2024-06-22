@@ -14,6 +14,13 @@ public partial class acAPI
 {
     //background
     /// <summary>
+    /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
+    /// </summary>
+    /// <param name="handle">사용자 ID</param>
+    /// <param name="language">응답을 받을 언어입니다.</param>
+    /// <returns>실패시 null</returns>
+    public RankedUser? GetUser(string handle,solvedacLanguage language) => GET<RankedUser>("user/show", $"?handle={handle}",_convert_language(language));
+    /// <summary>
     /// 배경의 정보를 가져옵니다.
     /// </summary>
     /// <param name="backgroundId">배경 ID</param>

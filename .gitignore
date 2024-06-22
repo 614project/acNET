@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Visual Studio ∆ƒ¿œµÈ
+# Visual Studio √Ü√Ñ√Ä√è¬µ√©
 acNET.sln
 
 # User-specific files
@@ -365,5 +365,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# token
+# My token
 token.txt
