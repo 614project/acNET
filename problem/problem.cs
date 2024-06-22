@@ -60,6 +60,10 @@ namespace acNET.Problem
         /// 공식 문제 여부입니다.
         /// </summary>
         public bool official;
+        /// <summary>
+        /// 문제 레벨에 맞는 티어 이름을 가져옵니다.
+        /// </summary>
+        public string? GetLevelName => Converter.LevelName(level);
     }
 
     /// <summary>
@@ -74,7 +78,7 @@ namespace acNET.Problem
         /// <summary>
         /// 레벨(티어)값을 레벨 이름으로 가져옵니다.
         /// </summary>
-        public string? GetLevelName => Converter.LevelName(this.level);
+        public new string? GetLevelName => Converter.LevelName(this.level);
     }
 
     /// <summary>
