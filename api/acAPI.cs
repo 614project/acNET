@@ -23,7 +23,7 @@ public partial class acAPI : IDisposable
     /// <summary>
     /// acNET.API 사용 도중 발생한 오류가 저장되는 큐입니다.
     /// </summary>
-    public readonly Queue<Exception> Errors = new();
+    public Queue<Exception> Errors { get; init; } = new();
     /// <summary>
     /// acAPI 리소스를 정리합니다.
     /// </summary>
