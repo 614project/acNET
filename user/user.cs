@@ -6,7 +6,7 @@ namespace acNET.User;
 /// <summary>
 /// 로그인 없이 가져올수 있는 사용자의 정보
 /// </summary>
-public class User : Type.BaseBody
+public class RankedUser : Type.BaseBody
 {
     /// <summary>
     /// 사용자명입니다.
@@ -113,7 +113,19 @@ public class User : Type.BaseBody
     /// 역라이벌 여부입니다.
     /// </summary>
     public bool isReverseRival;
-
+    /// <summary>
+    /// 아레나 티어(레벨)값입니다.
+    /// </summary>
+    public long arenaTier;
+    /// <summary>
+    /// 아레나 참여로 계산된 사용자의 아레나 레이팅입니다.
+    /// </summary>
+    public long arenaRating;
+    public long arenaMaxTier;
+    public long arenaMaxRating;
+    public long arenaCompetedRoundCount;
+    public bool blocked;
+    public bool reverseBlocked;
     /// <summary>
     /// 가입한 날짜를 C# DateTime으로 가져옵니다.
     /// </summary>
@@ -152,5 +164,45 @@ public class User : Type.BaseBody
         if (this.profileImageUrl is null) return null;
         if(!acAPI.SaveImage(this.profileImageUrl, filename, out var fn)) return null;
         return fn;
+    }
+    /// <summary>
+    /// 사용자의 정보를 보기 좋게 문자열로 변환해줍니다.
+    /// </summary>
+    /// <returns>문자열</returns>
+    public override string ToString()
+    {
+        return $@"handle: {handle},
+bio: {bio},
+badgeId: {badgeId},
+backgroundId: {backgroundId},
+profileImageUrl: {profileImageUrl},
+solvedCount: {solvedCount},
+voteCount: {voteCount},
+class: {@class},
+classDecoration: {classDecoration},
+rivalCount: {rivalCount},
+reverseRivalCount: {reverseRivalCount},
+tier: {tier},
+rating: {rating},
+ratingByProblemsSum: {ratingByProblemsSum},
+ratingByClass: {ratingByClass},
+ratingBySolvedCount: {ratingBySolvedCount},
+ratingByVoteCount: {ratingByVoteCount},
+arenaTier: {arenaTier},
+arenaRating: {arenaRating},
+arenaMaxTier: {arenaMaxTier},
+arenaMaxRating: {arenaMaxRating},
+arenaCompetedRoundCount: {arenaCompetedRoundCount},
+maxStreak: {maxStreak},
+coins: {coins},
+stardusts: {stardusts},
+joinedAt: {joinedAt},
+bannedUntil: {bannedUntil},
+proUntil: {proUntil},
+rank: {rank},
+isRival: {isRival},
+isReverseRival: {isReverseRival},
+blocked: {blocked},
+reverseBlocked: {reverseBlocked}";
     }
 }
