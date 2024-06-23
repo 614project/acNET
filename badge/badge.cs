@@ -37,9 +37,6 @@ namespace acNET.Badge
         /// </summary>
         /// <param name="filename">파일명</param>
         /// <returns>확장자가 포함된 파일명</returns>
-        public string? SaveBadgeImage(string filename) {
-            acAPI.SaveImage(this.badgeImageUrl, filename, out string f);
-            return f;
-        }
+        public bool SaveBadgeImage(string filename) => acAPI.SaveFile(this.badgeImageUrl, filename);
     }
 }

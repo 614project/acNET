@@ -72,7 +72,7 @@ public partial class acAPI
 
     }
     [Obsolete("C#이 쓰지말레요")]
-    internal bool SaveImage(string url, string filename, out string fullname)
+    internal static bool SaveImage(string url, string filename, out string fullname)
     {
         try
         {
@@ -94,8 +94,16 @@ public partial class acAPI
             return false;
         }
     }
-    internal void SaveImage(string url,string savepath)
+    internal static bool SaveFile(string url,string savepath)
     {
-        File.WriteAllBytes(savepath , _client.DownloadData(new(url)) ?? throw acAPIError.Create("이미지를 다운로드 하는데 실패했습니다."));
+        using (RestClient client = new())
+        {
+            if (client.DownloadData(new(url)) is byte[] binary)
+            {
+                File.WriteAllBytes(savepath , binary);
+                return true;
+            }
+        }
+        return false;
     }
 }

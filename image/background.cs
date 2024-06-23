@@ -1,4 +1,5 @@
 ﻿using acNET.Type;
+using RestSharp;
 
 namespace acNET.Image
 {
@@ -10,19 +11,19 @@ namespace acNET.Image
         /// <summary>
         /// 배경의 ID입니다.
         /// </summary>
-        public string backgroundId;
+        public string backgroundId = string.Empty;
         /// <summary>
         /// 배경 사진으로 가는 하이퍼링크입니다.
         /// </summary>
-        public string backgroundImageUrl;
+        public string backgroundImageUrl = string.Empty;
         /// <summary>
         /// fallbackBackgroundImageUrl
         /// </summary>
-        public string? fallbackBackgroundImageUrl;
+        public string? fallbackBackgroundImageUrl = null;
         /// <summary>
         /// 배경 비디오로 가는 하이퍼링크입니다.
         /// </summary>
-        public string? backgroundVideoUrl;
+        public string? backgroundVideoUrl = null;
         /// <summary>
         /// 해당 배경을 획득한 사용자의 수입니다.
         /// </summary>
@@ -30,15 +31,15 @@ namespace acNET.Image
         /// <summary>
         /// 배경의 이름입니다.
         /// </summary>
-        public string displayName;
+        public string displayName = string.Empty;
         /// <summary>
         /// 배경의 설명입니다.
         /// </summary>
-        public string displayDescription;
+        public string displayDescription = string.Empty;
         /// <summary>
         /// 해당 배경을 얻을 수 있는 조건입니다.
         /// </summary>
-        public string conditions;
+        public string conditions = string.Empty;
         /// <summary>
         /// 해당 배경을 얻을 수 있는 조건이 숨겨져 있는지 여부입니다.
         /// </summary>
@@ -51,17 +52,18 @@ namespace acNET.Image
         /// 해당 배경을 만든 사람들의 정보입니다.
         /// </summary>
         public List<AuthorsInfo> authors;
-
         /// <summary>
         /// 배경 이미지를 저장합니다.
         /// </summary>
-        /// <param name="filename">파일명 (확장자 제외)</param>
-        /// <returns>실패시 null, 성공시 저장된 파일명 (확장자 포함)</returns>
-        public string? SaveBackgroundImage(string filename)
-        {
-            if(acAPI.SaveImage(this.backgroundImageUrl, filename, out var f)) return f;
-            return null;
-        }
+        /// <param name="filename">저장될 파일 경로 (파일명 포함)</param>
+        /// <returns>실패시 false, 성공시 true</returns>
+        public bool SaveBackgroundImage(string filename) => acAPI.SaveFile(this.backgroundImageUrl, filename);
+        /// <summary>
+        /// 배경 동영상을 저장합니다.
+        /// </summary>
+        /// <param name="filename">저장될 파일 경로 (파일명 포함)</param>
+        /// <returns>실패시 false, 성공시 true</returns>
+        public bool SaveBackgroundVideo(string filename) => this.backgroundVideoUrl is null ? false : acAPI.SaveFile(this.backgroundVideoUrl , filename);
     }
 
     /// <summary>
