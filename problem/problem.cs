@@ -75,10 +75,6 @@ namespace acNET.Problem
         /// 태그 목록입니다.
         /// </summary>
         public List<ProblemTag> tags; 
-        /// <summary>
-        /// 레벨(티어)값을 레벨 이름으로 가져옵니다.
-        /// </summary>
-        public new string? GetLevelName => Converter.LevelName(this.level);
     }
 
     /// <summary>
