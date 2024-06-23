@@ -55,19 +55,19 @@ public partial class acAPI
     /// </summary>
     /// <param name="problemId">문제 ID</param>
     /// <returns>실패시 null</returns>
-    public Problem.Problem? GetProblem(long problemId) => GET<Problem.Problem>("problem/show", $"?problemId={problemId}");
+    public TaggedProblem? GetProblem(long problemId) => GET<TaggedProblem>("problem/show", $"?problemId={problemId}");
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
     /// <param name="problemIds">문제 ID 배열</param>
     /// <returns>실패시 null</returns>
-    public List<Problem.Problem>? GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',', problemIds));
+    public List<TaggedProblem>? GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',', problemIds));
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
     /// <param name="problemIds">쉼표로 구분한 문제 ID 목록 (공백이 없어야 됩니다.)</param>
     /// <returns>실패시 null</returns>
-    public List<Problem.Problem>? GetProblemList(string problemIds) => GETLIST<Problem.Problem>("problem/lookup", $"?problemIds={problemIds}");
+    public List<TaggedProblem>? GetProblemList(string problemIds) => GETLIST<TaggedProblem>("problem/lookup", $"?problemIds={problemIds}");
     /// <summary>
     /// 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>

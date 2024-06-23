@@ -2,6 +2,7 @@
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace acNET;
 
@@ -68,8 +69,10 @@ public partial class acAPI
         }
         content = response.Content;
         return true;
+
     }
-    internal static bool SaveImage(string url, string filename, out string fullname)
+    [Obsolete("C#이 쓰지말레요")]
+    internal bool SaveImage(string url, string filename, out string fullname)
     {
         try
         {
@@ -90,5 +93,9 @@ public partial class acAPI
             fullname = e.Message;
             return false;
         }
+    }
+    internal void SaveImage(string url,string savepath)
+    {
+        File.WriteAllBytes(savepath , _client.DownloadData(new(url)) ?? throw acAPIError.Create("이미지를 다운로드 하는데 실패했습니다."));
     }
 }
