@@ -170,12 +170,12 @@ public class RankedUser : Type.BaseBody
     /// <summary>
     /// 사용자의 프로필 이미지를 저장합니다.
     /// </summary>
-    /// <param name="filename">파일명 (확장자 필요없음)</param>
-    /// <returns>실패시 null, 성공시 저장된 파일명 (확장자 포함)</returns>
-    public string? SaveProfileImage(string filename)
+    /// <param name="filename">저장될 파일 경로 (파일명 포함)</param>
+    /// <returns>실패시 false, 성공시 true</returns>
+    public bool SaveProfileImage(string filename)
     {
-        if (this.profileImageUrl is null) return null;
-        if(!acAPI.SaveImage(this.profileImageUrl, filename, out var fn)) return null;
-        return fn;
+        if (this.profileImageUrl is null)
+            return false;
+        return acAPI.SaveFile(this.profileImageUrl , filename);
     }
 }
