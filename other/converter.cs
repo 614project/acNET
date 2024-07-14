@@ -76,5 +76,15 @@ namespace acNET
         {
             return JsonConvert.DeserializeObject<List<T>>(json);
         }
+        /// <summary>
+        /// 정수형 레벨(티어)값에 맞는 색을 6자리 Hex 코드로 변환합니다.
+        /// </summary>
+        /// <param name="value">음수가 아닌 정수 레벨(티어)값</param>
+        /// <returns>'#rrggbb' 형식으로 길이가 7인 문자열을 반환합니다. (변환 실패시 '#000000')</returns>
+        public static string LevelColor(long value)
+        {
+            if (value < 0 || value >= Level.Colors.Length) return "#000000";
+            return Level.Colors[value];
+        }
     }
 }

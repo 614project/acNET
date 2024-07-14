@@ -10,11 +10,11 @@ namespace acNET.Ranking
         /// <summary>
         /// 순위가 배정된 사용자의 수입니다.
         /// </summary>
-        public long count;
+        public long count{ get; set; }
         /// <summary>
         /// 티어 순위로 정렬된 사용자 목록입니다.
         /// </summary>
-        public List<User.RankedUser> items;
+        public List<User.RankedUser> items{ get; set; }
     }
 
     /// <summary>
@@ -25,10 +25,10 @@ namespace acNET.Ranking
         /// <summary>
         /// 순위가 배정된 사용자의 수입니다.
         /// </summary>
-        public long count;
+        public long count{ get; set; }
         /// <summary>
         /// 티어 순위로 정렬된 사용자 목록입니다.
         /// </summary>
-        public List<User.Organization> items;
+        public List<User.Organization> items{ get; set; }
     }
 }

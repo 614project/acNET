@@ -10,9 +10,9 @@ public class Top100 : BaseBody
     /// <summary>
     /// 문제 수입니다.
     /// </summary>
-    public long count;
+    public long count { get; set; }
     /// <summary>
     /// 문제 목록입니다.
     /// </summary>
-    public List<Problem.TaggedProblem> items;
+    public List<Problem.TaggedProblem> items { get; set; }
 }

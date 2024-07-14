@@ -43,6 +43,12 @@ public partial class acAPI
     //        return null;
     //    }
     //}
+    internal T? GETwithoutERROR<T>(string url,string? option = null,Header? head = null) where T: BaseBody
+    {
+        var ret = GET<T>(url , out var e , option , head);
+        if (e is acAPIError ex) this.Errors.Enqueue(ex);
+        return ret;
+    }
     internal T? GET<T>(string url,out acAPIError? error, string? option = null, Header? head = null) where T : BaseBody
     {
         //요청 실패시

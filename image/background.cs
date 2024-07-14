@@ -1,5 +1,4 @@
 ﻿using acNET.Type;
-using RestSharp;
 
 namespace acNET.Image
 {
@@ -11,47 +10,47 @@ namespace acNET.Image
         /// <summary>
         /// 배경의 ID입니다.
         /// </summary>
-        public string backgroundId = string.Empty;
+        public string backgroundId { get; set; } = string.Empty;
         /// <summary>
         /// 배경 사진으로 가는 하이퍼링크입니다.
         /// </summary>
-        public string backgroundImageUrl = string.Empty;
+        public string backgroundImageUrl { get; set; } = string.Empty;
         /// <summary>
         /// fallbackBackgroundImageUrl
         /// </summary>
-        public string? fallbackBackgroundImageUrl = null;
+        public string? fallbackBackgroundImageUrl { get; set; } = null;
         /// <summary>
         /// 배경 비디오로 가는 하이퍼링크입니다.
         /// </summary>
-        public string? backgroundVideoUrl = null;
+        public string? backgroundVideoUrl { get; set; } = null;
         /// <summary>
         /// 해당 배경을 획득한 사용자의 수입니다.
         /// </summary>
-        public long unlockedUserCount;
+        public long unlockedUserCount { get; set; }
         /// <summary>
         /// 배경의 이름입니다.
         /// </summary>
-        public string displayName = string.Empty;
+        public string displayName { get; set; } = string.Empty;
         /// <summary>
         /// 배경의 설명입니다.
         /// </summary>
-        public string displayDescription = string.Empty;
+        public string displayDescription { get; set; } = string.Empty;
         /// <summary>
         /// 해당 배경을 얻을 수 있는 조건입니다.
         /// </summary>
-        public string conditions = string.Empty;
+        public string conditions { get; set; } = string.Empty;
         /// <summary>
         /// 해당 배경을 얻을 수 있는 조건이 숨겨져 있는지 여부입니다.
         /// </summary>
-        public bool hiddenConditions;
+        public bool hiddenConditions { get; set; }
         /// <summary>
         /// 해당 배경이 일러스트인지 여부입니다.
         /// </summary>
-        public bool isIllust;
+        public bool isIllust { get; set; }
         /// <summary>
         /// 해당 배경을 만든 사람들의 정보입니다.
         /// </summary>
-        public List<AuthorsInfo> authors;
+        public List<AuthorsInfo> authors { get; set; }
         /// <summary>
         /// 배경 이미지를 저장합니다.
         /// </summary>
@@ -74,31 +73,31 @@ namespace acNET.Image
         /// <summary>
         /// 작가의 ID입니다.
         /// </summary>
-        public string authorId;
+        public string authorId { get; set; } = string.Empty;
         /// <summary>
         /// 작가의 역할입니다.
         /// </summary>
-        public string role;
+        public string role { get; set; } = string.Empty;
         /// <summary>
         /// 작가의 홈페이지로 가는 하이퍼링크입니다.
         /// </summary>
-        public string? authorUrl;
+        public string? authorUrl { get; set; } = null;
         /// <summary>
         /// 작가의 사용자 ID입니다.
         /// </summary>
-        public string handle;
+        public string handle { get; set; } = string.Empty;
         /// <summary>
         /// 작가의 X(트위터) ID입니다.
         /// </summary>
-        public string? twitter;
+        public string? twitter { get; set; } = null;
         /// <summary>
         /// 작가의 인스타그램 ID입니다.
         /// </summary>
-        public string? instagram;
+        public string? instagram { get; set; } = null;
         /// <summary>
         /// 작가의 이름입니다.
         /// </summary>
-        public string displayName;
+        public string displayName { get; set; } = string.Empty;
 
         /// <summary>
         /// 작가의 sovled.ac 아이디로 유저 정보를 가져옵니다.

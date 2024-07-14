@@ -10,27 +10,27 @@ public class ProblemTag : BaseBody
     /// <summary>
     /// 태그의 ID입니다.
     /// </summary>
-    public string key;
+    public string key { get; set; }
     /// <summary>
     /// (알수없음.)
     /// </summary>
-    public bool isMeta;
+    public bool isMeta { get; set; }
     /// <summary>
     /// 백준에서 사용되는 이 태그의 ID입니다.
     /// </summary>
-    public long bojTagId;
+    public long bojTagId { get; set; }
     /// <summary>
     /// 이 태그를 포함하는 문제의 수입니다.
     /// </summary>
-    public long problemCount;
+    public long problemCount { get; set; }
     /// <summary>
     /// 언어별 태그의 이름 목록입니다.
     /// </summary>
-    public List<DisplayName> displayNames;
+    public List<DisplayName> displayNames { get; set; }
     /// <summary>
     /// 태그의 별칭입니다.
     /// </summary>
-    public List<Alias> aliases;
+    public List<Alias> aliases { get; set; }
 }
 
 /// <summary>
@@ -41,21 +41,21 @@ public class TagStat : BaseBody
     /// <summary>
     /// 태그에 대한 정보입니다.
     /// </summary>
-    public ProblemTag tag;
+    public ProblemTag tag { get; set; }
     /// <summary>
     /// solved.ac에 등록된 해당 태그의 문제 수입니다.
     /// </summary>
-    public long total;
+    public long total { get; set; }
     /// <summary>
     /// 사용자가 푼 문제 수입니다.
     /// </summary>
-    public long solved;
+    public long solved { get; set; }
     /// <summary>
     /// 사용자가 부분 성공한 문제 수입니다.
     /// </summary>
-    public long partial;
+    public long partial { get; set; }
     /// <summary>
     /// 사용자가 시도해본 문제 수입니다.
     /// </summary>
-    public long tried;
+    public long tried { get; set; }
 }
