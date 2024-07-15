@@ -10,11 +10,11 @@ namespace acNET.Account
         /// <summary>
         /// 계정의 이메일 주소입니다.
         /// </summary>
-        public string email;
+        public string email { get; set; } = string.Empty;
         /// <summary>
         /// 사용자의 solved.ac 설정 정보입니다.
         /// </summary>
-        public Settings settings;
+        public Settings settings { get; set; }
     }
 
     /// <summary>
@@ -25,43 +25,43 @@ namespace acNET.Account
         /// <summary>
         /// 사이트 디자인 테마입니다.
         /// </summary>
-        public string screenTheme;
+        public string screenTheme { get; set; }
         /// <summary>
         /// 태그 이름을 나타낼 때 사용할 언어입니다.
         /// </summary>
-        public string tagDisplayLanguage;
+        public string tagDisplayLanguage { get; set; }
         /// <summary>
         /// 해결한 문제의 난이도 아이콘입니다.
         /// </summary>
-        public string iconSchemeSolved;
+        public string iconSchemeSolved { get; set; }
         /// <summary>
         /// 해결하지 못한 문제의 난이도 아이콘입니다.
         /// </summary>
-        public string iconSchemeNotSolved;
+        public string iconSchemeNotSolved { get; set; }
         /// <summary>
         /// 문제 목록의 기본 정렬 순서입니다.
         /// </summary>
-        public string problemSortBy;
+        public string problemSortBy { get; set; }
         /// <summary>
         /// 트윗에 핸들을 포함하는지 여부입니다.
         /// </summary>
-        public string twitterPostHandle;
+        public string twitterPostHandle     { get; set; }
         /// <summary>
         /// CLASS가 올랐을 때 트윗을 보내는지 여부입니다.
         /// </summary>
-        public string twitterPostOnClassIncrease;
+        public string twitterPostOnClassIncrease { get; set; }
         /// <summary>
         /// 문제를 처음 해결했을 때 트윗을 보내는지 여부입니다.
         /// </summary>
-        public string twitterPostOnProblemSolve;
+        public string twitterPostOnProblemSolve { get; set; }
         /// <summary>
         /// AC 레이팅이 올랐을 때 트윗을 보내는지 여부입니다.
         /// </summary>
-        public string twitterPostOnRatingIncrease;
+        public string twitterPostOnRatingIncrease { get; set; }
         /// <summary>
         /// 티어가 올랐을 때 트윗을 보내는지 여부입니다.
         /// </summary>
-        public string twitterPostOnTierIncrease;
+        public string twitterPostOnTierIncrease { get; set; }
 
         /// <summary>
         /// 트윗에 핸들을 포함하는지 여부입니다. (bool)
@@ -93,11 +93,11 @@ namespace acNET.Account
         /// <summary>
         /// 문제 ID입니다.
         /// </summary>
-        public long id;
+        public long id { get; set; }
         /// <summary>
         /// 현재 문제 풀이 상태입니다. 알려진 값은 다음이 있습니다.
         /// </summary>
-        public string tried;
+        public string tried { get; set; }
     }
 
     /// <summary>
@@ -108,10 +108,10 @@ namespace acNET.Account
         /// <summary>
         /// 계정의 사용자 정보입니다.
         /// </summary>
-        public DetailedUser user;
+        public DetailedUser user { get; set; }
         /// <summary>
         /// 해당 계정의 사용자가 푼 문제 정보입니다.
         /// </summary>
-        public List<Solved> solved;
+        public List<Solved> solved { get; set; }
     }
 }

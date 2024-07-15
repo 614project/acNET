@@ -10,7 +10,7 @@ public class ProblemTag : BaseBody
     /// <summary>
     /// 태그의 ID입니다.
     /// </summary>
-    public string key { get; set; }
+    public string key { get; set; } = string.Empty;
     /// <summary>
     /// (알수없음.)
     /// </summary>
@@ -26,11 +26,11 @@ public class ProblemTag : BaseBody
     /// <summary>
     /// 언어별 태그의 이름 목록입니다.
     /// </summary>
-    public List<DisplayName> displayNames { get; set; }
+    public List<DisplayName> displayNames { get; set; } = null!;
     /// <summary>
     /// 태그의 별칭입니다.
     /// </summary>
-    public List<Alias> aliases { get; set; }
+    public List<Alias> aliases { get; set; } = null!;
 }
 
 /// <summary>
@@ -41,7 +41,7 @@ public class TagStat : BaseBody
     /// <summary>
     /// 태그에 대한 정보입니다.
     /// </summary>
-    public ProblemTag tag { get; set; }
+    public ProblemTag tag { get; set; } = null!;
     /// <summary>
     /// solved.ac에 등록된 해당 태그의 문제 수입니다.
     /// </summary>

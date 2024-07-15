@@ -14,7 +14,7 @@ public class ShopItem : BaseBody
     /// <summary>
     /// 판매하고 있는 아이템입니다.
     /// </summary>
-    public Item item{ get; set; }
+    public Item item { get; set; } = null!;
     /// <summary>
     /// 1회 구매에 획득하는 개수입니다.
     /// </summary>
@@ -26,7 +26,7 @@ public class ShopItem : BaseBody
     /// <summary>
     /// 가격의 단위입니다.
     /// </summary>
-    public string priceUnit{ get; set; }
+    public string priceUnit { get; set; } = string.Empty;
     /// <summary>
     /// 아이템 사용 시간의 제한 여부입니다.
     /// </summary>

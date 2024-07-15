@@ -14,7 +14,7 @@ namespace acNET.Ranking
         /// <summary>
         /// 티어 순위로 정렬된 사용자 목록입니다.
         /// </summary>
-        public List<User.RankedUser> items{ get; set; }
+        public List<User.RankedUser> items { get; set; } = null!;
     }
 
     /// <summary>
@@ -29,6 +29,6 @@ namespace acNET.Ranking
         /// <summary>
         /// 티어 순위로 정렬된 사용자 목록입니다.
         /// </summary>
-        public List<User.Organization> items{ get; set; }
+        public List<User.Organization> items { get; set; } = null!;
     }
 }

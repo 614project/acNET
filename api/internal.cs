@@ -65,18 +65,24 @@ public partial class acAPI
         error = null;
         return Converter.ParsingJson<T>(json);
     }
-    internal List<T>? GETLIST<T>(string url, string? option = null) where T : BaseBody
+    internal List<T>? GETLIST<T>(string url,out acAPIError? error, string? option = null) where T : BaseBody
     {
-        try
+        if (!this.GetRequest(url, option ?? string.Empty, out string json, out var e))
         {
-            if (!this.GetRequest(url, option ?? string.Empty, out string json,out var e)) return null;
-            return Converter.ParsingJsonList<T>(json);
-        }
-        catch (Exception e)
-        {
-            this.Errors.Enqueue(e);
+            if ((error = (e is acAPIError ace) ? ace : null) is null)
+            {
+                this.Errors.Enqueue(e!);
+            }
             return null;
         }
+        error = null;
+        return Converter.ParsingJsonList<T>(json);
+    }
+    internal List<T>? GETListWithoutError<T>(string url, string? option = null, Header? head = null) where T : BaseBody
+    {
+        var ret = GETLIST<T>(url, out var e, option);
+        if (e is acAPIError ace) this.Errors.Enqueue(ace);
+        return ret;
     }
     internal record Header(string key, string value);
     internal bool GetRequest(string url, string option, out string content,out Exception? error, Header? header = null)

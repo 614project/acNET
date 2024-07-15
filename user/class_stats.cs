@@ -8,6 +8,9 @@ public class UserClassStat : Type.BaseBody
     /// 총 문제 수입니다.
     /// </summary>
     public int total{ get; set; }
+    /// <summary>
+    /// 총 문제를 해결한 수입니다.
+    /// </summary>
     public int totalSolved{ get; set; }
     /// <summary>
     /// 에센셜 문제 수입니다.
@@ -19,5 +22,5 @@ public class UserClassStat : Type.BaseBody
     /// </summary>
     [JsonProperty("class")]
     public int @class{ get; set; }
-    public string? decoration{ get; set; }
+    public string? decoration { get; set; } = null;
 }

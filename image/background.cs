@@ -50,7 +50,7 @@ namespace acNET.Image
         /// <summary>
         /// 해당 배경을 만든 사람들의 정보입니다.
         /// </summary>
-        public List<AuthorsInfo> authors { get; set; }
+        public List<AuthorsInfo> authors { get; set; } = null!;
         /// <summary>
         /// 배경 이미지를 저장합니다.
         /// </summary>

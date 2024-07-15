@@ -15,11 +15,11 @@ namespace acNET.Problem
         /// <summary>
         /// 한국어 문제 제목입니다. HTML 엔티티나 LaTeX 수식을 포함할 수 있습니다.
         /// </summary>
-        public string titleKo { get; set; }
+        public string titleKo { get; set; } = string.Empty;
         /// <summary>
         /// 언어별 문제 제목입니다.
         /// </summary>
-        public List<ProblemTitle> titles { get; set; }
+        public List<ProblemTitle> titles { get; set; } = null!;
         /// <summary>
         /// 채점 가능 여부입니다.
         /// </summary>
@@ -78,7 +78,7 @@ namespace acNET.Problem
         /// <summary>
         /// 태그 목록입니다.
         /// </summary>
-        public List<ProblemTag> tags { get; set; }
+        public List<ProblemTag> tags { get; set; } = null!;
     }
 
     /// <summary>
@@ -89,15 +89,15 @@ namespace acNET.Problem
         /// <summary>
         /// 언어입니다.
         /// </summary>
-        public string language { get; set; }
+        public string language { get; set; } = string.Empty;
         /// <summary>
         /// 표시되는 언어의 이름입니다.
         /// </summary>
-        public string languageDisplayName { get; set; }
+        public string languageDisplayName { get; set; } = string.Empty;
         /// <summary>
         /// 문제의 제목입니다.
         /// </summary>
-        public string title { get; set; }
+        public string title { get; set; } = string.Empty;
         /// <summary>
         /// 원본과 동일한지 여부입니다.
         /// </summary>
@@ -112,16 +112,16 @@ namespace acNET.Problem
         /// <summary>
         /// 언어입니다.
         /// </summary>
-        public string language { get; set; }
+        public string language { get; set; } = string.Empty;
         /// <summary>
         /// 태그의 이름입니다.
         /// </summary>
-        public string name { get; set; }
+        public string name { get; set; } = string.Empty;
         /// <summary>
         /// 태그의 짧은 이름입니다.
         /// </summary>
         [JsonProperty("short")]
-        public string @short; //임시방편
+        public string @short { get; set; } = string.Empty;
     }
 
     /// <summary>
@@ -132,6 +132,6 @@ namespace acNET.Problem
         /// <summary>
         /// 별칭입니다.
         /// </summary>
-        public string alias { get; set; }
+        public string alias { get; set; } = string.Empty;
     }
 }
