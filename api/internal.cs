@@ -1,48 +1,12 @@
 ﻿using acNET.Type;
+using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Authenticators;
-using System.Net;
-using System.Runtime.CompilerServices;
+using System.Data.SqlTypes;
 
 namespace acNET;
 
 public partial class acAPI
 {
-    //internal T? GET<T>(string url, string? option=null,Header? head=null) where T : BaseBody
-    //{
-    //    try
-    //    {
-    //        if (!this.GetRequest(url, option??string.Empty, out string json,head)) return null;
-    //        return Converter.ParsingJson<T>(json);
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        if (e is acAPIError)
-    //        {
-    //            acAPIError error = (acAPIError)e;
-    //            if (url.StartsWith("account"))
-    //            {
-    //                if (error.Code == 403)
-    //                {
-    //                    this.Errors.Enqueue(acAPIError.Create("권한이 없습니다. (또는 solvedacToken이 올바르지 않습니다.)", -403));
-    //                    return null;
-    //                }
-    //                if (error.Code == 404)
-    //                {
-    //                    this.Errors.Enqueue(acAPIError.Create("리딤 코드가 올바르지 않습니다.",-404));
-    //                    return null;
-    //                }
-    //            }
-    //            else if(url.StartsWith("problem/lookup") && error.Code == 400)
-    //            {
-    //                this.Errors.Enqueue(acAPIError.Create("problemIds 를 잘못 입력한것 같습니다. 쉼표로 구분한 문제 ID 목록을 입력해야합니다.", -400));
-    //                return null;
-    //            }
-    //        }
-    //        this.Errors.Enqueue(e);
-    //        return null;
-    //    }
-    //}
     internal T? GETwithoutERROR<T>(string url,string? option = null,Header? head = null) where T: BaseBody
     {
         var ret = GET<T>(url , out var e , option , head);
@@ -85,6 +49,39 @@ public partial class acAPI
         return ret;
     }
     internal record Header(string key, string value);
+    internal async Task<(T?,Exception?)> GetAsync<T>(string url,string? option=null,Header? header = null)
+    {
+        var ret = await AsyncGetRequest(new(url , option ?? string.Empty , header));
+        if (ret.success) return (JsonConvert.DeserializeObject<T>(ret.content), null);
+        return (default(T), ret.error);
+    }
+    internal record GetRequestForm(string url,string option,Header? header = null)
+    {
+        public string fullurl => url + option;
+    }
+    internal record GetResponse(Exception? error,string content) { public bool success => error is null; }
+    internal async Task<GetResponse> AsyncGetRequest(GetRequestForm form)
+    {
+        //return await Task.Run(() => {
+        try
+        {
+            RestRequest request = new(form.fullurl , Method.Get);
+            if (form.header is Header head)
+                request.AddHeader(head.key , head.value);
+            var ret = await _client.ExecuteAsync(request);
+            int code = (int)ret.StatusCode;
+            if (code < 200 || code >= 300)
+            {
+                return new GetResponse(acAPIError.Create("서버에서 반환에 실패했습니다." , form.option , (short)code) , ret.Content ?? string.Empty);
+            }
+            return new GetResponse(null , ret.Content ?? string.Empty);
+        }
+        catch (Exception ex)
+        {
+            return new GetResponse(ex , ex.Message);
+        }
+        //});
+    }
     internal bool GetRequest(string url, string option, out string content,out Exception? error, Header? header = null)
     {
         try
@@ -98,7 +95,7 @@ public partial class acAPI
             if ((int)response.StatusCode < 200 || (int)response.StatusCode > 299)
             {
                 content = string.Empty;
-                error = acAPIError.Create("서버에서 반환에 실패했습니다." , (short)response.StatusCode);
+                error = acAPIError.Create("서버에서 반환에 실패했습니다." , option, (short)response.StatusCode);
                 return false;
             }
             content = response.Content ?? string.Empty;
