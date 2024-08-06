@@ -152,6 +152,10 @@ public class RankedUser : Type.BaseBody
     /// </summary>
     public string? GetTierName => Converter.LevelName(this.tier);
     /// <summary>
+    /// 문제 레벨에 맞는 티어 색깔을 가져옵니다. (7자리 Hex 코드입니다.)
+    /// </summary>
+    public string? GetTierColor => Converter.LevelColor(this.tier);
+    /// <summary>
     /// 사용자의 아레나 티어(레벨)값을 아레나 티어 이름으로 가져옵니다.
     /// </summary>
     public string? GetArenaTierName => Converter.ArenaName(this.arenaTier);
@@ -166,7 +170,7 @@ public class RankedUser : Type.BaseBody
     /// </summary>
     /// <param name="api">acNET.acAPI</param>
     /// <returns>실패시 null</returns>
-    public Badge.Badge? GetBadge(acAPI api) => api.GetBadge(this.badgeId);
+    public Badge.Badge? GetBadge(acAPI api) => this.badgeId is null ? null : api.GetBadge(this.badgeId);
     /// <summary>
     /// 사용자의 프로필 이미지를 저장합니다.
     /// </summary>

@@ -513,4 +513,24 @@ public partial class acAPI
     /// <returns>실패시 null</returns>
     public Top100? GetTop100FromUser(string handle, out acAPIError? error) => GET<Top100>("user/top_100", out error, $"?handle={handle}");
     #endregion
+    #region PostFromTitle
+    /// <summary>
+    /// 해당 제목의 게시글을 가져옵니다.
+    /// </summary>
+    /// <param name="postId">요청할 게시글의 제목</param>
+    /// <returns>게시글을 가져옵니다. 실패시 null</returns>
+    public Post? GetPostFromTitle(string postId) => GETwithoutERROR<Post>("post/show" , $"?postId={postId}");
+    /// <summary>
+    /// 해당 제목의 게시글을 가져옵니다.
+    /// </summary>
+    /// <param name="postId">요청할 게시글의 제목</param>
+    /// <returns>게시글을 가져옵니다. 실패시 null</returns>
+    public Post? GetPostFromTitle(string postId,out acAPIError? error) => GET<Post>("post/show" ,out error, $"?postId={postId}");
+    /// <summary>
+    /// 해당 제목의 게시글을 가져옵니다.
+    /// </summary>
+    /// <param name="postId">요청할 게시글의 제목</param>
+    /// <returns>게시글을 가져옵니다. 실패시 null</returns>
+    public async Task<(Post?,Exception?)>GetPostFromTitleAsync(string postId) => await GetAsync<Post>("post/show" , $"?postId={postId}");
+    #endregion
 }
