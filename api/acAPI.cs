@@ -48,7 +48,14 @@ public class acAPIError : Exception
     /// </summary>
     /// <param name="message">예외 사유</param>
     /// <param name="code">오류 코드</param>
-    public acAPIError(string message,short code=-1) : base(message) { this.Code = code; }
+    public acAPIError(string message,short code=-1) : base(message + $"(코드: {code})") { this.Code = code; }
+    /// <summary>
+    /// acAPI 사유가 있는 예외
+    /// </summary>
+    /// <param name="query">쿼리</param>
+    /// <param name="message">예외 사유</param>
+    /// <param name="code">오류 코드</param>
+    public acAPIError(string message, string query, short code = -1) : base(message + $"(요청: {query})" + $"(코드: {code})") { this.Code = code; }
     /// <summary>
     /// acAPI 내 일어난 예외
     /// </summary>
@@ -72,7 +79,18 @@ public class acAPIError : Exception
         acAPIError error = new acAPIError(message,code);
         return error;
     }
-
+    /// <summary>
+    /// acAPI 예외를 생성합니다.
+    /// </summary>
+    /// <param name="message">사유</param>
+    /// <param name="code">오류 코드</param>
+    /// <param name="query">쿼리</param>
+    /// <returns>예외 객체</returns>
+    public static acAPIError Create(string message , string query, short code = -1)
+    {
+        acAPIError error = new acAPIError(message , query, code);
+        return error;
+    }
     /// <summary>
     /// 오류 코드입니다. (0~599: API 응답 코드, -1: 알수 없음, 이외: 위키 참고)
     /// </summary>
