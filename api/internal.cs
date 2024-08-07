@@ -8,41 +8,6 @@ namespace acNET;
 
 public partial class acAPI
 {
-    //internal T? GET<T>(string url, string? option=null,Header? head=null) where T : BaseBody
-    //{
-    //    try
-    //    {
-    //        if (!this.GetRequest(url, option??string.Empty, out string json,head)) return null;
-    //        return Converter.ParsingJson<T>(json);
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        if (e is acAPIError)
-    //        {
-    //            acAPIError error = (acAPIError)e;
-    //            if (url.StartsWith("account"))
-    //            {
-    //                if (error.Code == 403)
-    //                {
-    //                    this.Errors.Enqueue(acAPIError.Create("권한이 없습니다. (또는 solvedacToken이 올바르지 않습니다.)", -403));
-    //                    return null;
-    //                }
-    //                if (error.Code == 404)
-    //                {
-    //                    this.Errors.Enqueue(acAPIError.Create("리딤 코드가 올바르지 않습니다.",-404));
-    //                    return null;
-    //                }
-    //            }
-    //            else if(url.StartsWith("problem/lookup") && error.Code == 400)
-    //            {
-    //                this.Errors.Enqueue(acAPIError.Create("problemIds 를 잘못 입력한것 같습니다. 쉼표로 구분한 문제 ID 목록을 입력해야합니다.", -400));
-    //                return null;
-    //            }
-    //        }
-    //        this.Errors.Enqueue(e);
-    //        return null;
-    //    }
-    //}
     internal T? GETwithoutERROR<T>(string url,string? option = null,Header? head = null) where T: BaseBody
     {
         var ret = GET<T>(url , out var e , option , head);

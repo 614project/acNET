@@ -1,6 +1,4 @@
-﻿using acNET.Account;
-using acNET.Badge;
-using acNET.Coin;
+﻿using acNET.Coin;
 using acNET.Image;
 using acNET.Problem;
 using acNET.Ranking;
