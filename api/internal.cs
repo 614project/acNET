@@ -6,28 +6,6 @@ namespace acNET;
 
 public partial class acAPI
 {
-    internal T? GETwithoutERROR<T>(string url,string? option = null,Header? head = null) where T: BaseBody
-    {
-        var ret = GET<T>(url , out var e , option , head);
-        if (e is acAPIError ex) this.Errors.Enqueue(ex);
-        return ret;
-    }
-    internal T? GET<T>(string url,out acAPIError? error, string? option = null, Header? head = null) where T : BaseBody
-    {
-        //요청 실패시
-        if (!this.GetRequest(url , option ?? string.Empty , out string json ,out var ex, head))
-        {
-            //만약 acAPI 에러가 아니라면, 큐에 삽입
-            if ((error = (ex is acAPIError ace) ? ace : null) is null)
-            {
-                this.Errors.Enqueue(ex!);
-            }
-            return null;
-        }
-        //성공시
-        error = null;
-        return Converter.ParsingJson<T>(json);
-    }
     internal acAPIResult<T> Get<T>(string url, string? option = null, Header? head = null)
     {
         if (this.GetRequest(url , option ?? string.Empty , out string json , out var ex , head))
@@ -69,7 +47,6 @@ public partial class acAPI
     internal record GetResponse(Exception? error,string content) { public bool success => error is null; }
     internal async Task<GetResponse> AsyncGetRequest(GetRequestForm form)
     {
-        //return await Task.Run(() => {
         try
         {
             RestRequest request = new(form.fullurl , Method.Get);
@@ -87,7 +64,6 @@ public partial class acAPI
         {
             return new GetResponse(ex , ex.Message);
         }
-        //});
     }
     internal bool GetRequest(string url, string option, out string content,out Exception? error, Header? header = null)
     {

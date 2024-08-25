@@ -160,7 +160,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<UserRanking?> GetClassRanking(int page) => Get<UserRanking>("ranking/class"  , $"?page={page}");
+    public acAPIResult<UserRanking> GetClassRanking(int page) => Get<UserRanking>("ranking/class"  , $"?page={page}");
     /// <summary>
     /// 사용자 CLASS에 따른 순위를 가져옵니다.
     /// </summary>
