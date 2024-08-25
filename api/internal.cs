@@ -49,11 +49,11 @@ public partial class acAPI
         return ret;
     }
     internal record Header(string key, string value);
-    internal async Task<(T?,Exception?)> GetAsync<T>(string url,string? option=null,Header? header = null)
+    internal async Task<AsyncResult<T>> GetAsync<T>(string url,string? option=null,Header? header = null)
     {
         var ret = await AsyncGetRequest(new(url , option ?? string.Empty , header));
-        if (ret.success) return (JsonConvert.DeserializeObject<T>(ret.content), null);
-        return (default(T), ret.error);
+        if (ret.success) return new(JsonConvert.DeserializeObject<T>(ret.content), null);
+        return new(default, ret.error);
     }
     internal record GetRequestForm(string url,string option,Header? header = null)
     {

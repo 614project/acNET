@@ -11,6 +11,13 @@ namespace acNET;
 
 public partial class acAPI
 {
+    /// <summary>
+    /// 비동기 처리 결과입니다.
+    /// </summary>
+    /// <typeparam name="T">반환할 데이터 형식</typeparam>
+    /// <param name="result">결과 (null 일경우 실패)</param>
+    /// <param name="exception">예외 (null일경우 성공)</param>
+    public record AsyncResult<T>(T? result,Exception? exception);
     #region Background
     /// <summary>
     /// 배경의 정보를 가져옵니다.
@@ -30,7 +37,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="backgroundId">배경 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(Background?,Exception?)> GetBackgroundAsync(string backgroundId) => await GetAsync<Background>("background/show" , $"?backgroundId={backgroundId}");
+    public async Task<AsyncResult<Background>> GetBackgroundAsync(string backgroundId) => await GetAsync<Background>("background/show" , $"?backgroundId={backgroundId}");
     #endregion
     #region Badge
     /// <summary>
@@ -44,7 +51,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="badgeId">뱃지 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(Badge.Badge?,Exception?)> GetBadgeAsync(string badgeId) => await GetAsync<Badge.Badge>("badge/show" , $"?badgeId={badgeId}");
+    public async Task<AsyncResult<Badge.Badge>> GetBadgeAsync(string badgeId) => await GetAsync<Badge.Badge>("badge/show" , $"?badgeId={badgeId}");
     /// <summary>
     /// 뱃지의 정보를 가져옵니다.
     /// </summary>
@@ -63,7 +70,7 @@ public partial class acAPI
     /// 현재 코인->별조각 환율을 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public async Task<(ExchangeRate?,Exception?)> GetExchangeRateAsync() => await GetAsync<ExchangeRate>("coins/exchange_rate");
+    public async Task<AsyncResult<ExchangeRate>> GetExchangeRateAsync() => await GetAsync<ExchangeRate>("coins/exchange_rate");
     /// <summary>
     /// 현재 코인->별조각 환율을 가져옵니다.
     /// </summary>
@@ -86,7 +93,7 @@ public partial class acAPI
     /// 코인샵에서 팔고 있는 상품 목록을 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public async Task<(List<ShopItem>?,Exception?)> GetShopListAsync() => await GetAsync<List<ShopItem>>("coins/shop/list");
+    public async Task<AsyncResult<List<ShopItem>>> GetShopListAsync() => await GetAsync<List<ShopItem>>("coins/shop/list");
     #endregion
     #region ClassList
     /// <summary>
@@ -98,7 +105,7 @@ public partial class acAPI
     /// 문제 개수를 문제 CLASS별로 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public async Task<(List<ClassInfo>?,Exception?)> GetClassListAsync() => await GetAsync<List<ClassInfo>>("problem/class");
+    public async Task<AsyncResult<List<ClassInfo>>> GetClassListAsync() => await GetAsync<List<ClassInfo>>("problem/class");
     /// <summary>
     /// 문제 개수를 문제 CLASS별로 가져옵니다.
     /// </summary>
@@ -117,7 +124,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="problemId">문제 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(TaggedProblem?,Exception?)> GetProblemAsync(long problemId) => await GetAsync<TaggedProblem>("problem/show" , $"?problemId={problemId}");
+    public async Task<AsyncResult<TaggedProblem>> GetProblemAsync(long problemId) => await GetAsync<TaggedProblem>("problem/show" , $"?problemId={problemId}");
     /// <summary>
     /// 해당하는 ID의 문제를 가져옵니다.
     /// </summary>
@@ -151,13 +158,13 @@ public partial class acAPI
     /// </summary>
     /// <param name="problemIds">쉼표로 구분한 문제 ID 목록 (공백이 없어야 됩니다.)</param>
     /// <returns>실패시 null</returns>
-    public async Task<(List<TaggedProblem>?,Exception?)> GetProblemListAsync(string problemIds) => await GetAsync<List<TaggedProblem>>("problem/lookup" , $"?problemIds={problemIds}");
+    public async Task<AsyncResult<List<TaggedProblem>>> GetProblemListAsync(string problemIds) => await GetAsync<List<TaggedProblem>>("problem/lookup" , $"?problemIds={problemIds}");
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
     /// <param name="problemIds">문제 ID 배열</param>
     /// <returns>실패시 null</returns>
-    public async Task<(List<TaggedProblem>?,Exception?)> GetProblemListAsync(params long[] problemIds) => await GetProblemListAsync(string.Join(',' , problemIds));
+    public async Task<AsyncResult<List<TaggedProblem>>> GetProblemListAsync(params long[] problemIds) => await GetProblemListAsync(string.Join(',' , problemIds));
     #endregion
     #region LevelList
     /// <summary>
@@ -174,7 +181,7 @@ public partial class acAPI
     /// 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public async Task<(List<Level>?,Exception?)> GetLevelListAsync() => await GetAsync<List<Level>>("problem/level");
+    public async Task<AsyncResult<List<Level>>> GetLevelListAsync() => await GetAsync<List<Level>>("problem/level");
     #endregion
     #region TierRanking
     /// <summary>
@@ -188,7 +195,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public async Task<(UserRanking?,Exception?)> GetTierRankingAsync(int page) => await GetAsync<UserRanking>("ranking/tier" , $"?page={page}");
+    public async Task<AsyncResult<UserRanking>> GetTierRankingAsync(int page) => await GetAsync<UserRanking>("ranking/tier" , $"?page={page}");
     /// <summary>
     /// 사용자 레이팅에 따른 순위를 가져옵니다.
     /// </summary>
@@ -209,7 +216,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public async Task<(UserRanking?,Exception?)> GetClassRankingAsync(int page) => await GetAsync<UserRanking>("ranking/class" , $"?page={page}");
+    public async Task<AsyncResult<UserRanking>> GetClassRankingAsync(int page) => await GetAsync<UserRanking>("ranking/class" , $"?page={page}");
     /// <summary>
     /// 사용자 CLASS에 따른 순위를 가져옵니다.
     /// </summary>
@@ -230,7 +237,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public async Task<(UserRanking?,Exception?)> GetStreakRankingAsync(int page) => await GetAsync<UserRanking>("ranking/streak" , $"?page={page}");
+    public async Task<AsyncResult<UserRanking>> GetStreakRankingAsync(int page) => await GetAsync<UserRanking>("ranking/streak" , $"?page={page}");
     /// <summary>
     /// 최장 스트릭에 따른 순위를 가져옵니다.
     /// </summary>
@@ -251,7 +258,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public async Task<(UserRanking?,Exception?)> GetContributionRankingAsync(int page) => await GetAsync<UserRanking>("ranking/contribution" , $"?page={page}");
+    public async Task<AsyncResult<UserRanking>> GetContributionRankingAsync(int page) => await GetAsync<UserRanking>("ranking/contribution" , $"?page={page}");
     /// <summary>
     /// 기여 횟수에 따른 순위를 가져옵니다.
     /// </summary>
@@ -266,7 +273,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public async Task<(OrganizationRanking?,Exception?)> GetOrganizationRankingAsync(int page) => await GetAsync<OrganizationRanking>("ranking/organization" , $"?page={page}");
+    public async Task<AsyncResult<OrganizationRanking>> GetOrganizationRankingAsync(int page) => await GetAsync<OrganizationRanking>("ranking/organization" , $"?page={page}");
     /// <summary>
     /// 레이팅에 따른 조직 순위를 가져옵니다.
     /// </summary>
@@ -300,7 +307,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public async Task<(SearchResult<RankedUser>?,Exception?)> GetSearchUserAsync(string query) => await GetAsync<SearchResult<RankedUser>>("search/user" , $"?query={query}");
+    public async Task<AsyncResult<SearchResult<RankedUser>>> GetSearchUserAsync(string query) => await GetAsync<SearchResult<RankedUser>>("search/user" , $"?query={query}");
     #endregion
     #region SearchTag
     /// <summary>
@@ -321,7 +328,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public async Task<(SearchResult<ProblemTag>?,Exception?)> GetSearchTagAsync(string query) => await GetAsync<SearchResult<ProblemTag>>("search/tag" , $"?query={query}");
+    public async Task<AsyncResult<SearchResult<ProblemTag>>> GetSearchTagAsync(string query) => await GetAsync<SearchResult<ProblemTag>>("search/tag" , $"?query={query}");
     #endregion
     #region SearchProblem
     /// <summary>
@@ -345,7 +352,7 @@ public partial class acAPI
     /// <param name="query">쿼리 문자열</param>
     /// <param name="descending_order">내림차순으로 정렬할지에 대한 여부입니다. 기본은 오름차순입니다.</param>
     /// <returns>실패시 null</returns>
-    public async Task<(SearchResult<TaggedProblem>?,Exception?)> GetSearchProblemAsync(string query , bool descending_order = false) => await GetAsync<SearchResult<TaggedProblem>>("search/problem" , $"?direction={(descending_order ? "desc" : "asc")}&query={query}");
+    public async Task<AsyncResult<SearchResult<TaggedProblem>>> GetSearchProblemAsync(string query , bool descending_order = false) => await GetAsync<SearchResult<TaggedProblem>>("search/problem" , $"?direction={(descending_order ? "desc" : "asc")}&query={query}");
     #endregion
     #region UserContributionStats
     /// <summary>
@@ -366,7 +373,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(List<UserContributionStat>?,Exception?)> GetUserContributionStatsAsync(string handle) => await GetAsync<List<UserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
+    public async Task<AsyncResult<List<UserContributionStat>>> GetUserContributionStatsAsync(string handle) => await GetAsync<List<UserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
     #endregion
     #region UserClassStats
     /// <summary>
@@ -387,7 +394,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(List<UserClassStat>?,Exception?)> GetUserClassStatsAsync(string handle) => await GetAsync<List<UserClassStat>>("user/class_stats" , $"?handle={handle}");
+    public async Task<AsyncResult<List<UserClassStat>>> GetUserClassStatsAsync(string handle) => await GetAsync<List<UserClassStat>>("user/class_stats" , $"?handle={handle}");
     #endregion
     #region ProblemTagStats
     /// <summary>
@@ -408,7 +415,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(SearchResult<TagStat>?,Exception?)> GetProblemTagStatsAsync(string handle) => await GetAsync<SearchResult<TagStat>>("user/problem_tag_stats" , $"?handle={handle}");
+    public async Task<AsyncResult<SearchResult<TagStat>>> GetProblemTagStatsAsync(string handle) => await GetAsync<SearchResult<TagStat>>("user/problem_tag_stats" , $"?handle={handle}");
     #endregion
     #region SiteStats
     /// <summary>
@@ -426,7 +433,7 @@ public partial class acAPI
     /// solved.ac 통계를 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public async Task<(Site.Stats?,Exception?)> GetSiteStatsAsync() => await GetAsync<Site.Stats>("site/stats");
+    public async Task<AsyncResult<Site.Stats>> GetSiteStatsAsync() => await GetAsync<Site.Stats>("site/stats");
     #endregion
     #region OriganizationFromUser
     /// <summary>
@@ -446,7 +453,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(List<Organization>?,Exception?)> GetOrganizationsFromUserAsync(string handle) => await GetAsync<List<Organization>>("user/organizations", $"?handle={handle}");
+    public async Task<AsyncResult<List<Organization>>> GetOrganizationsFromUserAsync(string handle) => await GetAsync<List<Organization>>("user/organizations", $"?handle={handle}");
     #endregion
     #region SolvedFromUser
     /// <summary>
@@ -460,7 +467,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(UserSolvedInfo?,Exception?)> GetSolvedFromUserAsync(string handle) => await GetAsync<UserSolvedInfo>("user/problem_stats" , $"?handle={handle}");
+    public async Task<AsyncResult<UserSolvedInfo>> GetSolvedFromUserAsync(string handle) => await GetAsync<UserSolvedInfo>("user/problem_stats" , $"?handle={handle}");
     #endregion
     #region User
     /// <summary>
@@ -474,7 +481,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(RankedUser?,Exception?)> GetUserAsync(string handle) => await GetAsync<RankedUser>("user/show" , $"?handle={handle}");
+    public async Task<AsyncResult<RankedUser>> GetUserAsync(string handle) => await GetAsync<RankedUser>("user/show" , $"?handle={handle}");
     /// <summary>
     /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
     /// </summary>
@@ -502,7 +509,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public async Task<(Top100?,Exception?)> GetTop100FromUserAsync(string handle) => await GetAsync<Top100>("user/top_100" , $"?handle={handle}");
+    public async Task<AsyncResult<Top100>> GetTop100FromUserAsync(string handle) => await GetAsync<Top100>("user/top_100" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 푼 문제 중 상위 100문제를 가져옵니다.
     /// </summary>
@@ -522,6 +529,7 @@ public partial class acAPI
     /// 해당 제목의 게시글을 가져옵니다.
     /// </summary>
     /// <param name="postId">요청할 게시글의 제목</param>
+    /// <param name="error">요청에 성공했으나 응답에 실패한 경우의 예외. 만약 null 일경우 C# 런타임 에러</param>
     /// <returns>게시글을 가져옵니다. 실패시 null</returns>
     public Post? GetPostFromTitle(string postId,out acAPIError? error) => GET<Post>("post/show" ,out error, $"?postId={postId}");
     /// <summary>
@@ -529,6 +537,6 @@ public partial class acAPI
     /// </summary>
     /// <param name="postId">요청할 게시글의 제목</param>
     /// <returns>게시글을 가져옵니다. 실패시 null</returns>
-    public async Task<(Post?,Exception?)>GetPostFromTitleAsync(string postId) => await GetAsync<Post>("post/show" , $"?postId={postId}");
+    public async Task<AsyncResult<Post>>GetPostFromTitleAsync(string postId) => await GetAsync<Post>("post/show" , $"?postId={postId}");
     #endregion
 }
