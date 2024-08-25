@@ -1,7 +1,6 @@
 ﻿using acNET.Type;
 using Newtonsoft.Json;
 using RestSharp;
-using System.Data.SqlTypes;
 
 namespace acNET;
 
@@ -28,6 +27,14 @@ public partial class acAPI
         //성공시
         error = null;
         return Converter.ParsingJson<T>(json);
+    }
+    internal acAPIResult<T> Get<T>(string url, string? option = null, Header? head = null)
+    {
+        if (this.GetRequest(url , option ?? string.Empty , out string json , out var ex , head))
+        {
+            return new(JsonConvert.DeserializeObject<T>(json), null);
+        }
+        return new(default(T) , ex);
     }
     internal List<T>? GETLIST<T>(string url,out acAPIError? error, string? option = null) where T : BaseBody
     {
