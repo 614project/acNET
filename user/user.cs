@@ -164,13 +164,13 @@ public class RankedUser : Type.BaseBody
     /// </summary>
     /// <param name="api">acNET.acAPI</param>
     /// <returns>실패시 null</returns>
-    public Background? GetBackground(acAPI api) => api.GetBackground(this.backgroundId);
+    public acAPI.acResult<Background> GetBackground(acAPI api) => api.GetBackground(this.backgroundId);
     /// <summary>
     /// 유저의 뱃지 정보를 가져옵니다.
     /// </summary>
     /// <param name="api">acNET.acAPI</param>
     /// <returns>실패시 null</returns>
-    public Badge.Badge? GetBadge(acAPI api) => this.badgeId is null ? null : api.GetBadge(this.badgeId);
+    public acAPI.acResult<Badge.Badge> GetBadge(acAPI api) => this.badgeId is null ? new(null,null) : api.GetBadge(this.badgeId);
     /// <summary>
     /// 사용자의 프로필 이미지를 저장합니다.
     /// </summary>

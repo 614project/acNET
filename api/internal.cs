@@ -6,7 +6,7 @@ namespace acNET;
 
 public partial class acAPI
 {
-    internal acAPIResult<T> Get<T>(string url, string? option = null, Header? head = null)
+    internal acResult<T> Get<T>(string url, string? option = null, Header? head = null)
     {
         if (this.GetRequest(url , option ?? string.Empty , out string json , out var ex , head))
         {

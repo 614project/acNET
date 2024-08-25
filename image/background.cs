@@ -1,4 +1,5 @@
 ﻿using acNET.Type;
+using System.Security.AccessControl;
 
 namespace acNET.Image
 {
@@ -104,6 +105,12 @@ namespace acNET.Image
         /// </summary>
         /// <param name="api">acNET.acAPI</param>
         /// <returns>실패시 null</returns>
-        public User.RankedUser? GetAuthor(acAPI api) => api.GetUser(this.authorId);
+        public acAPI.acResult<User.RankedUser> GetAuthor(acAPI api) => api.GetUser(this.authorId);
+        /// <summary>
+        /// 작가의 sovled.ac 아이디로 유저 정보를 가져옵니다.(비동기)
+        /// </summary>
+        /// <param name="api">acNET.acAPI</param>
+        /// <returns>실패시 null</returns>
+        public async Task<acAPI.AsyncResult<User.RankedUser>> GetAuthorAsync(acAPI api) => await api.GetUserAsync(this.authorId);
     }
 }

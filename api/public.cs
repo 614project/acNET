@@ -3,6 +3,7 @@ using acNET.Image;
 using acNET.Problem;
 using acNET.Ranking;
 using acNET.Search;
+using acNET.Type;
 using acNET.User;
 
 namespace acNET;
@@ -14,23 +15,26 @@ public partial class acAPI
     /// 비동기 처리 결과입니다.
     /// </summary>
     /// <typeparam name="T">반환할 데이터 형식</typeparam>
-    /// <param name="result">결과 (null 일경우 실패)</param>
-    /// <param name="exception">예외 (null일경우 성공)</param>
-    public record AsyncResult<T>(T? result,Exception? exception);
+    /// <param name="Result">결과 (null 일경우 실패)</param>
+    /// <param name="Exception">예외 (null일경우 성공)</param>
+    public record AsyncResult<T>(T? Result,Exception? Exception);
     /// <summary>
     ///API 처리 결과입니다. (동기)
     /// </summary>
     /// <typeparam name="T">반환할 데이터 형식</typeparam>
     /// <param name="Result">결과 (null일경우 실패)</param>
     /// <param name="Exception">예외 (null일경우 성공)</param>
-    public record acAPIResult<T>(T? Result,Exception? Exception);
+    public record acResult<T>(T? Result,Exception? Exception)
+    {
+        public override string ToString() => Exception is not null ? Exception.ToString() : $"{Result}";
+    }
     #region Background
     /// <summary>
     /// 배경의 정보를 가져옵니다.
     /// </summary>
     /// <param name="backgroundId">배경 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<Background> GetBackground(string backgroundId) => Get<Background>("background/show" , $"?backgroundId={backgroundId}");
+    public acResult<Background> GetBackground(in string backgroundId) => Get<Background>("background/show" , $"?backgroundId={backgroundId}");
     /// <summary>
     /// 배경의 정보를 가져옵니다.
     /// </summary>
@@ -44,7 +48,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="badgeId">뱃지 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<Badge.Badge> GetBadge(string badgeId) => Get<Badge.Badge>("badge/show" , $"?badgeId={badgeId}");
+    public acResult<Badge.Badge> GetBadge(in string badgeId) => Get<Badge.Badge>("badge/show" , $"?badgeId={badgeId}");
     /// <summary>
     /// 뱃지의 정보를 가져옵니다.
     /// </summary>
@@ -57,7 +61,7 @@ public partial class acAPI
     /// 현재 코인->별조각 환율을 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public acAPIResult<ExchangeRate> GetExchangeRate() => Get<ExchangeRate>("coins/exchange_rate");
+    public acResult<ExchangeRate> GetExchangeRate() => Get<ExchangeRate>("coins/exchange_rate");
     /// <summary>
     /// 현재 코인->별조각 환율을 가져옵니다.
     /// </summary>
@@ -69,7 +73,7 @@ public partial class acAPI
     /// 코인샵에서 팔고 있는 상품 목록을 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<ShopItem>> GetShopList() => Get<List<ShopItem>>("coins/shop/list");
+    public acResult<List<ShopItem>> GetShopList() => Get<List<ShopItem>>("coins/shop/list");
     /// <summary>
     /// 코인샵에서 팔고 있는 상품 목록을 가져옵니다.
     /// </summary>
@@ -81,7 +85,7 @@ public partial class acAPI
     /// 문제 개수를 문제 CLASS별로 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<ClassInfo>> GetClassList() => Get<List<ClassInfo>>("problem/class");
+    public acResult<List<ClassInfo>> GetClassList() => Get<List<ClassInfo>>("problem/class");
     /// <summary>
     /// 문제 개수를 문제 CLASS별로 가져옵니다.
     /// </summary>
@@ -94,7 +98,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="problemId">문제 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<TaggedProblem> GetProblem(long problemId) => Get<TaggedProblem>("problem/show" , $"?problemId={problemId}");
+    public acResult<TaggedProblem> GetProblem(long problemId) => Get<TaggedProblem>("problem/show" , $"?problemId={problemId}");
     /// <summary>
     /// 해당하는 ID의 문제를 가져옵니다.
     /// </summary>
@@ -108,13 +112,13 @@ public partial class acAPI
     /// </summary>
     /// <param name="problemIds">문제 ID 배열</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<TaggedProblem>> GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',' , problemIds));
+    public acResult<List<TaggedProblem>> GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',' , problemIds));
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
     /// <param name="problemIds">쉼표로 구분한 문제 ID 목록 (공백이 없어야 됩니다.)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<TaggedProblem>> GetProblemList(string problemIds) => Get<List<TaggedProblem>>("problem/lookup" , $"?problemIds={problemIds}");
+    public acResult<List<TaggedProblem>> GetProblemList(in string problemIds) => Get<List<TaggedProblem>>("problem/lookup" , $"?problemIds={problemIds}");
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
@@ -133,7 +137,7 @@ public partial class acAPI
     /// 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<Level>> GetLevelList() => Get<List<Level>>("problem/level");
+    public acResult<List<Level>> GetLevelList() => Get<List<Level>>("problem/level");
     /// <summary>
     /// 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
@@ -146,7 +150,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<UserRanking> GetTierRanking(int page) => Get<UserRanking>("ranking/tier" , $"?page={page}");
+    public acResult<UserRanking> GetTierRanking(int page) => Get<UserRanking>("ranking/tier" , $"?page={page}");
     /// <summary>
     /// 사용자 레이팅에 따른 순위를 가져옵니다.
     /// </summary>
@@ -160,7 +164,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<UserRanking> GetClassRanking(int page) => Get<UserRanking>("ranking/class"  , $"?page={page}");
+    public acResult<UserRanking> GetClassRanking(int page) => Get<UserRanking>("ranking/class"  , $"?page={page}");
     /// <summary>
     /// 사용자 CLASS에 따른 순위를 가져옵니다.
     /// </summary>
@@ -174,7 +178,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<UserRanking> GetStreakRanking(int page) => Get<UserRanking>("ranking/streak" , $"?page={page}");
+    public acResult<UserRanking> GetStreakRanking(int page) => Get<UserRanking>("ranking/streak" , $"?page={page}");
     /// <summary>
     /// 최장 스트릭에 따른 순위를 가져옵니다.
     /// </summary>
@@ -188,7 +192,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<UserRanking> GetContributionRanking(int page) => Get<UserRanking>("ranking/contribution" , $"?page={page}");
+    public acResult<UserRanking> GetContributionRanking(int page) => Get<UserRanking>("ranking/contribution" , $"?page={page}");
     /// <summary>
     /// 기여 횟수에 따른 순위를 가져옵니다.
     /// </summary>
@@ -208,7 +212,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<OrganizationRanking> GetOrganizationRanking(int page) => Get<OrganizationRanking>("ranking/organization" , $"?page={page}");
+    public acResult<OrganizationRanking> GetOrganizationRanking(int page) => Get<OrganizationRanking>("ranking/organization" , $"?page={page}");
     #endregion
     #region SearchUser
     /// <summary>
@@ -216,7 +220,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<SearchResult<RankedUser>> GetSearchUser(string query) => Get<SearchResult<RankedUser>>("search/user" , $"?query={query}");
+    public acResult<SearchResult<RankedUser>> GetSearchUser(in string query) => Get<SearchResult<RankedUser>>("search/user" , $"?query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 사용자를 검색합니다.
     /// </summary>
@@ -230,7 +234,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<SearchResult<ProblemTag>> GetSearchTag(string query) => Get<SearchResult<ProblemTag>>("search/tag" , $"?query={query}");
+    public acResult<SearchResult<ProblemTag>> GetSearchTag(in string query) => Get<SearchResult<ProblemTag>>("search/tag" , $"?query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 문제 태그를 검색합니다.
     /// </summary>
@@ -245,7 +249,7 @@ public partial class acAPI
     /// <param name="query">쿼리 문자열</param>
     /// <param name="descending_order">내림차순으로 정렬할지에 대한 여부입니다. 기본은 오름차순입니다.</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<SearchResult<TaggedProblem>> GetSearchProblem(string query , bool descending_order = false) => Get<SearchResult<TaggedProblem>>("search/problem" , $"?direction={(descending_order ? "desc" : "asc")}&query={query}");
+    public acResult<SearchResult<TaggedProblem>> GetSearchProblem(in string query , bool descending_order = false) => Get<SearchResult<TaggedProblem>>("search/problem" , $"?direction={(descending_order ? "desc" : "asc")}&query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 문제를 검색합니다.
     /// </summary>
@@ -260,7 +264,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<UserContributionStat>> GetUserContributionStats(string handle) => Get<List<UserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
+    public acResult<List<UserContributionStat>> GetUserContributionStats(in string handle) => Get<List<UserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
     /// <summary>
     /// 유저의 티어별 기여도를 가져옵니다. (추측)
     /// </summary>
@@ -274,7 +278,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<UserClassStat>> GetUserClassStats(string handle) => Get<List<UserClassStat>>("user/class_stats" , $"?handle={handle}");
+    public acResult<List<UserClassStat>> GetUserClassStats(in string handle) => Get<List<UserClassStat>>("user/class_stats" , $"?handle={handle}");
     /// <summary>
     /// 유저의 클래스별 진행도를 가져옵니다. (추측)
     /// </summary>
@@ -288,7 +292,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<SearchResult<TagStat>> GetProblemTagStats(string handle) => Get<SearchResult<TagStat>>("user/problem_tag_stats" , $"?handle={handle}");
+    public acResult<SearchResult<TagStat>> GetProblemTagStats(in string handle) => Get<SearchResult<TagStat>>("user/problem_tag_stats" , $"?handle={handle}");
     /// <summary>
     /// 유저의 태그별 진행도를 가져옵니다. (추측)
     /// </summary>
@@ -301,7 +305,7 @@ public partial class acAPI
     /// solved.ac 통계를 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public acAPIResult<Site.Stats> GetSiteStats() => Get<Site.Stats>("site/stats");
+    public acResult<Site.Stats> GetSiteStats() => Get<Site.Stats>("site/stats");
     /// <summary>
     /// solved.ac 통계를 가져옵니다.
     /// </summary>
@@ -314,7 +318,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<List<Organization>> GetOrganizationsFromUser(string handle) => Get<List<Organization>>("user/organizations" , $"?handle={handle}");
+    public acResult<List<Organization>> GetOrganizationsFromUser(in string handle) => Get<List<Organization>>("user/organizations" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 속한 조직 목록를 가져옵니다.
     /// </summary>
@@ -328,7 +332,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<UserSolvedInfo> GetSolvedFromUser(string handle) => Get<UserSolvedInfo>("user/problem_stats" , $"?handle={handle}");
+    public acResult<UserSolvedInfo> GetSolvedFromUser(in string handle) => Get<UserSolvedInfo>("user/problem_stats" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
@@ -342,7 +346,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<RankedUser> GetUser(string handle) => Get<RankedUser>("user/show" , $"?handle={handle}");
+    public acResult<RankedUser> GetUser(in string handle) => Get<RankedUser>("user/show" , $"?handle={handle}");
     /// <summary>
     /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
     /// </summary>
@@ -355,7 +359,7 @@ public partial class acAPI
     /// <param name="handle">사용자 ID</param>
     /// <param name="language">응답을 받을 언어입니다.</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<RankedUser> GetUser(string handle , solvedacLanguage language) => Get<RankedUser>("user/show" , $"?handle={handle}" , _convert_language(language));
+    public acResult<RankedUser> GetUser(in string handle , solvedacLanguage language) => Get<RankedUser>("user/show" , $"?handle={handle}" , _convert_language(language));
     #endregion
     #region Top100FromUser
     /// <summary>
@@ -363,7 +367,7 @@ public partial class acAPI
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public acAPIResult<Top100> GetTop100FromUser(string handle) => Get<Top100>("user/top_100" , $"?handle={handle}");
+    public acResult<Top100> GetTop100FromUser(in string handle) => Get<Top100>("user/top_100" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 푼 문제 중 상위 100문제를 가져옵니다.
     /// </summary>
@@ -377,12 +381,26 @@ public partial class acAPI
     /// </summary>
     /// <param name="postId">요청할 게시글의 제목</param>
     /// <returns>게시글을 가져옵니다. 실패시 null</returns>
-    public acAPIResult<Post> GetPostFromTitle(string postId) => Get<Post>("post/show" , $"?postId={postId}");
+    public acResult<Post> GetPostFromTitle(in string postId) => Get<Post>("post/show" , $"?postId={postId}");
     /// <summary>
     /// 해당 제목의 게시글을 가져옵니다.
     /// </summary>
     /// <param name="postId">요청할 게시글의 제목</param>
     /// <returns>게시글을 가져옵니다. 실패시 null</returns>
     public async Task<AsyncResult<Post>>GetPostFromTitleAsync(string postId) => await GetAsync<Post>("post/show" , $"?postId={postId}");
+    #endregion
+    #region AdditionalInfo
+    /// <summary>
+    /// 해당 핸들을 가진 사용자의 부가 정보를 가져옵니다.
+    /// </summary>
+    /// <param name="handle">요청할 사용자명</param>
+    /// <returns>부가 정보를 가져옵니다. 실패시 null</returns>
+    public acResult<AdditionalInformation> GetUserAdditionalInfo(in string handle) => Get<AdditionalInformation>("user/additional_info" , $"?handle={handle}");
+    /// <summary>
+    /// 해당 핸들을 가진 사용자의 부가 정보를 가져옵니다.
+    /// </summary>
+    /// <param name="handle">요청할 사용자명</param>
+    /// <returns>부가 정보를 가져옵니다. 실패시 null</returns>
+    public async Task<AsyncResult<AdditionalInformation>> GetUserAdditionalInfoAsync(string handle) => await GetAsync<AdditionalInformation>("user/additional_info" , $"?handle={handle}");
     #endregion
 }
