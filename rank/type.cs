@@ -5,7 +5,7 @@ namespace acNET.Ranking
     /// <summary>
     /// 유저들의 순위 정보
     /// </summary>
-    public class UserRanking : BaseBody
+    public class UserRanking : Jsonable
     {
         /// <summary>
         /// 순위가 배정된 사용자의 수입니다.
@@ -20,7 +20,7 @@ namespace acNET.Ranking
     /// <summary>
     /// 조직들의 순위 정보
     /// </summary>
-    public class OrganizationRanking : BaseBody
+    public class OrganizationRanking : Jsonable
     {
         /// <summary>
         /// 순위가 배정된 사용자의 수입니다.

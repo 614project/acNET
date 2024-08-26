@@ -367,3 +367,6 @@ FodyWeavers.xsd
 
 # My token
 token.txt
+
+# sln
+*.sln

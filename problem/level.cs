@@ -3,7 +3,7 @@
 /// <summary>
 /// 수준별 문제
 /// </summary>
-public class Level : Type.BaseBody
+public class Level : Type.Jsonable
 {
     /// <summary>
     /// 레벨값 마다 지정된 레벨 이름이 모인 문자열 배열

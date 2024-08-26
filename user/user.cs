@@ -6,7 +6,7 @@ namespace acNET.User;
 /// <summary>
 /// 로그인 없이 가져올수 있는 사용자의 정보
 /// </summary>
-public class RankedUser : Type.BaseBody
+public class RankedUser : Type.Jsonable
 {
     /// <summary>
     /// 사용자명입니다.
@@ -31,40 +31,40 @@ public class RankedUser : Type.BaseBody
     /// <summary>
     /// 사용자가 푼 문제 수입니다.
     /// </summary>
-    public long solvedCount { get; set; }
+    public int solvedCount { get; set; }
     /// <summary>
     /// 사용자가 난이도 기여를 한 횟수입니다.
     /// </summary>
-    public long voteCount { get; set; }
+    public int voteCount { get; set; }
     /// <summary>
     /// 사용자의 티어(레벨)값입니다.
     /// </summary>
-    public long tier { get; set; }
+    public int tier { get; set; }
     /// <summary>
     /// 사용자의 레이팅입니다.
     /// </summary>
-    public long rating { get; set; }
+    public int rating { get; set; }
     /// <summary>
     /// 푼 문제의 난이도 합으로 계산한 사용자의 레이팅입니다.
     /// </summary>
-    public long ratingByProblemsSum { get; set; }
+    public int ratingByProblemsSum { get; set; }
     /// <summary>
     /// 취득한 클래스에 따른 사용자의 레이팅입니다.
     /// </summary>
-    public long ratingByClass { get; set; }
+    public int ratingByClass { get; set; }
     /// <summary>
     /// 푼 문제 수로 계산한 사용자의 레이팅입니다.
     /// </summary>
-    public long ratingBySolvedCount { get; set; }
+    public int ratingBySolvedCount { get; set; }
     /// <summary>
     /// 문제 난이도에 기여한 횟수로 계산한 사용자의 레이팅입니다.
     /// </summary>
-    public long ratingByVoteCount { get; set; }
+    public int ratingByVoteCount { get; set; }
     /// <summary>
     /// 사용자가 취득한 Class입니다.
     /// </summary>
     [JsonProperty("class")]
-    public long @class { get; set; }
+    public int @class { get; set; }
     /// <summary>
     /// 클래스 치장입니다.
     /// </summary>
@@ -72,23 +72,23 @@ public class RankedUser : Type.BaseBody
     /// <summary>
     /// 사용자의 라이벌 수입니다.
     /// </summary>
-    public long rivalCount { get; set; }
+    public int rivalCount { get; set; }
     /// <summary>
     /// 사용자의 역라이벌 수입니다.
     /// </summary>
-    public long reverseRivalCount { get; set; }
+    public int reverseRivalCount { get; set; }
     /// <summary>
     /// 유지한 최대 스트릭의 길이입니다. (일 단위)
     /// </summary>
-    public long maxStreak { get; set; }
+    public int maxStreak { get; set; }
     /// <summary>
     /// 사용자가 가지고 있는 코인의 수 × 100입니다. (예: 코인 0.15를 가지고 있을경우 이 값은 15가 됩니다.)
     /// </summary>
-    public long coins { get; set; }
+    public int coins { get; set; }
     /// <summary>
     /// 사용자가 가지고 있는 별가루의 수입니다.
     /// </summary>
-    public long stardusts { get; set; }
+    public int stardusts { get; set; }
     /// <summary>
     /// 사용자가 가입한 날짜입니다.
     /// </summary>
@@ -104,7 +104,7 @@ public class RankedUser : Type.BaseBody
     /// <summary>
     /// 사용자의 순위입니다.
     /// </summary>
-    public long rank { get; set; }
+    public int rank { get; set; }
     /// <summary>
     /// 라이벌 여부입니다.
     /// </summary>
@@ -116,25 +116,30 @@ public class RankedUser : Type.BaseBody
     /// <summary>
     /// 현재 아레나 티어입니다.
     /// </summary>
-    public long arenaTier { get; set; }
+    public int arenaTier { get; set; }
     /// <summary>
     /// 현재 아레나 레이팅입니다.
     /// </summary>
-    public long arenaRating { get; set; }
+    public int arenaRating { get; set; }
     /// <summary>
     /// 역대 받은 아레나 티어 중 최고점일 때의 아레나 티어입니다.
     /// </summary>
-    public long arenaMaxTier { get; set; }
+    public int arenaMaxTier { get; set; }
     /// <summary>
     /// 역대 받은 아레나 레이팅 중 최고점일 때의 아레나 레이팅입니다.
     /// </summary>
-    public long arenaMaxRating { get; set; }
+    public int arenaMaxRating { get; set; }
     /// <summary>
     /// 참여한 아레나 라운드 수입니다.
     /// </summary>
-    public long arenaCompetedRoundCount { get; set; }
+    public int arenaCompetedRoundCount { get; set; }
     public bool blocked { get; set; }
     public bool reverseBlocked { get; set; }
+
+    /// <summary>
+    /// 정확한 가격의 보유 코인을 가져옵니다.
+    /// </summary>
+    public double GetExactCoin => coins * 0.01;
     /// <summary>
     /// 가입한 날짜를 C# DateTime으로 가져옵니다.
     /// </summary>

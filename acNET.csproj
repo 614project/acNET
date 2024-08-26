@@ -17,12 +17,16 @@
 		<PackageTags>wrapper, api, library</PackageTags>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>1.0.0</FileVersion>
-		<Version>0.7.2</Version>
+		<Version>0.8.1</Version>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IncludeSymbols>True</IncludeSymbols>
 		<ApplicationIcon>acNETIcon.ico</ApplicationIcon>
 		<Authors>614project</Authors>
 		<PackAsTool>True</PackAsTool>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -1,6 +1,6 @@
 ﻿namespace acNET.User;
 
-public class UserContributionStat : Type.BaseBody
+public class UserContributionStat : Type.Jsonable
 {
     public int total{ get; set; }
     public int solved{ get; set; }

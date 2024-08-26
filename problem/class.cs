@@ -6,7 +6,7 @@ namespace acNET.Problem
     /// <summary>
     /// 클래스 별 정보
     /// </summary>
-    public class ClassInfo : BaseBody
+    public class ClassInfo : Jsonable
     {
         /// <summary>
         /// 클래스 값입니다. (1 이상, 10 이하의 값이 들어있습니다)

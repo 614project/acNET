@@ -3,7 +3,7 @@
 /// <summary>
 /// 사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
 /// </summary>
-public class UserSolvedInfo : Type.BaseBody
+public class UserSolvedInfo : Type.Jsonable
 {
     /// <summary>
     /// 문제의 레벨값.

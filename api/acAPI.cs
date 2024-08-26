@@ -92,7 +92,7 @@ public class acAPIError : Exception
         return error;
     }
     /// <summary>
-    /// 오류 코드입니다. (0~599: API 응답 코드, -1: 알수 없음, 이외: 위키 참고)
+    /// 오류 코드입니다. (0~599: API 응답 코드, -1: 알수 없음)
     /// </summary>
     public short Code { get; init; }
     /// <summary>

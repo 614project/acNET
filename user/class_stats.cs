@@ -2,7 +2,7 @@
 
 namespace acNET.User;
 
-public class UserClassStat : Type.BaseBody
+public class UserClassStat : Type.Jsonable
 {
     /// <summary>
     /// 총 문제 수입니다.

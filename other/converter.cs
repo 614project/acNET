@@ -30,7 +30,7 @@ namespace acNET
         /// </summary>
         /// <param name="value">레벨(티어)값</param>
         /// <returns>음수 또는 레벨 개수 이상의 값을 넣을경우 null이 반환됩니다.</returns>
-        public static string? LevelName(long value)
+        public static string? LevelName(int value)
         {
             if (value < 0 || value >= Level.Names.Length) return null;
             return Level.Names[value];
@@ -40,7 +40,7 @@ namespace acNET
         /// </summary>
         /// <param name="name">레벨 이름 (예: Gold IV)</param>
         /// <returns>존재하지 않으면 null</returns>
-        public static long? LevelValue(string name)
+        public static int? LevelValue(string name)
         {
             for (int i = 0; i < Level.Names.Length; i++) if (Level.Names[i] == name) return i;
             return null;
@@ -62,7 +62,7 @@ namespace acNET
         /// <typeparam name="T">acNET.Type.BaseBody를 상속한 클래스</typeparam>
         /// <param name="json">Json 형식의 문자열</param>
         /// <returns>클래스 내 변수에 값이 담긴채로 반환</returns>
-        public static T? ParsingJson<T>(string json) where T : BaseBody
+        public static T? ParsingJson<T>(string json) where T : Jsonable
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
@@ -72,7 +72,7 @@ namespace acNET
         /// <typeparam name="T">acNET.Type.BaseBody를 상속한 클래스</typeparam>
         /// <param name="json">Json 형식의 문자열 (상위가 배열이여야됨)</param>
         /// <returns>클래스가 담긴 리스트</returns>
-        public static List<T>? ParsingJsonList<T>(string json) where T : BaseBody
+        public static List<T>? ParsingJsonList<T>(string json) where T : Jsonable
         {
             return JsonConvert.DeserializeObject<List<T>>(json);
         }

@@ -103,7 +103,7 @@ namespace acNET.Account
     /// <summary>
     /// 현재 로그인한 계정 정보
     /// </summary>
-    public class UserAccount : BaseBody
+    public class UserAccount : Jsonable
     {
         /// <summary>
         /// 계정의 사용자 정보입니다.

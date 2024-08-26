@@ -5,7 +5,7 @@ namespace acNET.User;
 /// <summary>
 /// 상위 100문제
 /// </summary>
-public class Top100 : BaseBody
+public class Top100 : Jsonable
 {
     /// <summary>
     /// 문제 수입니다.

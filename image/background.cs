@@ -6,7 +6,7 @@ namespace acNET.Image
     /// <summary>
     /// 배경 사진의 정보
     /// </summary>
-    public class Background : BaseBody
+    public class Background : Jsonable
     {
         /// <summary>
         /// 배경의 ID입니다.
@@ -69,7 +69,7 @@ namespace acNET.Image
     /// <summary>
     /// 제작자의 정보입니다.
     /// </summary>
-    public class AuthorsInfo : BaseBody
+    public class AuthorsInfo : Jsonable
     {
         /// <summary>
         /// 작가의 ID입니다.
@@ -111,6 +111,6 @@ namespace acNET.Image
         /// </summary>
         /// <param name="api">acNET.acAPI</param>
         /// <returns>실패시 null</returns>
-        public async Task<acAPI.AsyncResult<User.RankedUser>> GetAuthorAsync(acAPI api) => await api.GetUserAsync(this.authorId);
+        public async Task<acAPI.acResult<User.RankedUser>> GetAuthorAsync(acAPI api) => await api.GetUserAsync(this.authorId);
     }
 }

@@ -14,7 +14,7 @@ public partial class acAPI
         }
         return new(default(T) , ex);
     }
-    internal List<T>? GETLIST<T>(string url,out acAPIError? error, string? option = null) where T : BaseBody
+    internal List<T>? GETLIST<T>(string url,out acAPIError? error, string? option = null) where T : Jsonable
     {
         if (!this.GetRequest(url, option ?? string.Empty, out string json, out var e))
         {
@@ -27,14 +27,14 @@ public partial class acAPI
         error = null;
         return Converter.ParsingJsonList<T>(json);
     }
-    internal List<T>? GETListWithoutError<T>(string url, string? option = null, Header? head = null) where T : BaseBody
+    internal List<T>? GETListWithoutError<T>(string url, string? option = null, Header? head = null) where T : Jsonable
     {
         var ret = GETLIST<T>(url, out var e, option);
         if (e is acAPIError ace) this.Errors.Enqueue(ace);
         return ret;
     }
     internal record Header(string key, string value);
-    internal async Task<AsyncResult<T>> GetAsync<T>(string url,string? option=null,Header? header = null)
+    internal async Task<acResult<T>> GetAsync<T>(string url,string? option=null,Header? header = null)
     {
         var ret = await AsyncGetRequest(new(url , option ?? string.Empty , header));
         if (ret.success) return new(JsonConvert.DeserializeObject<T>(ret.content), null);

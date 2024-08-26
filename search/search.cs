@@ -5,7 +5,7 @@ namespace acNET.Search;
 /// <summary>
 /// 검색 결과입니다.
 /// </summary>
-public class SearchResult<T> : BaseBody where T : BaseBody
+public class SearchResult<T> : Jsonable where T : Jsonable
 {
     /// <summary>
     /// 찾은 목록 수입니다.

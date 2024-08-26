@@ -6,7 +6,7 @@ namespace acNET;
 /// <summary>
 /// solved.ac의 게시글입니다.
 /// </summary>
-public class Post : BaseBody
+public class Post : Jsonable
 {
     /// <summary>
     /// 게시글의 아이디입니다.

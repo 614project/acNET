@@ -3,7 +3,7 @@
 /// <summary>
 /// 사용자가 속한 조직 목록를 가져옵니다.
 /// </summary>
-public class Organization : Type.BaseBody
+public class Organization : Type.Jsonable
 {
     /// <summary>
     /// 조직의 ID입니다.

@@ -5,7 +5,7 @@ namespace acNET.Problem;
 /// <summary>
 /// 문제 태그
 /// </summary>
-public class ProblemTag : BaseBody
+public class ProblemTag : Jsonable
 {
     /// <summary>
     /// 태그의 ID입니다.
@@ -36,7 +36,7 @@ public class ProblemTag : BaseBody
 /// <summary>
 /// 문제 태그의 진행도 입니다.
 /// </summary>
-public class TagStat : BaseBody
+public class TagStat : Jsonable
 {
     /// <summary>
     /// 태그에 대한 정보입니다.

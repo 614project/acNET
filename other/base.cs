@@ -5,7 +5,7 @@ namespace acNET.Type
     /// <summary>
     /// acAPI 로 가져올수 있는 기본 클래스
     /// </summary>
-    public abstract class BaseBody
+    public abstract class Jsonable
     {
         /// <summary>
         /// 해당 클래스를 Json 형식의 문자열로 변환합니다.

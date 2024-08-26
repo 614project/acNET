@@ -5,7 +5,7 @@ namespace acNET.Coin
     /// <summary>
     /// 코인->별조각 환율
     /// </summary>
-    public class ExchangeRate : BaseBody
+    public class ExchangeRate : Jsonable
     {
         /// <summary>
         /// 코인->별조각 환율입니다. 수수료 1%는 제외되어 있습니다.

@@ -5,7 +5,7 @@ namespace acNET.Coin;
 /// <summary>
 /// 코인샵에서 판매하고 있는 상품입니다.
 /// </summary>
-public class ShopItem : BaseBody
+public class ShopItem : Jsonable
 {
     /// <summary>
     /// 상품의 ID입니다.
@@ -40,8 +40,8 @@ public class ShopItem : BaseBody
     /// 이 아이템이 코인으로 구매하는지에 대한 여부입니다.
     /// </summary>
     public bool IsRequireCoin => priceUnit == "coins";
-/// <summary>
-/// 정확한 가격입니다.
-/// </summary>
-public double RealPrice => IsRequireCoin ? this.price * 0.01 : this.price;
+    /// <summary>
+    /// 코인/별조각 여부에 따라 정확한 가격을 구합니다.
+    /// </summary>
+    public double RealPrice => IsRequireCoin ? this.price * 0.01 : this.price;
 }
