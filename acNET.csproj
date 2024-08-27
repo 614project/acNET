@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -13,11 +13,11 @@
 		<Title>acNET</Title>
 		<Copyright>made by 614project</Copyright>
 		<PackageIcon>acNETIcon.png</PackageIcon>
-		<PackageReadmeFile>Nuget.md</PackageReadmeFile>
+		<PackageReadmeFile>nuget.md</PackageReadmeFile>
 		<PackageTags>wrapper, api, library</PackageTags>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>1.0.0</FileVersion>
-		<Version>0.8.1</Version>
+		<Version>0.8.2</Version>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IncludeSymbols>True</IncludeSymbols>
 		<ApplicationIcon>acNETIcon.ico</ApplicationIcon>
@@ -38,7 +38,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="nuget.md" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Include="acNETIcon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="nuget.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,10 +59,6 @@
 
 	<ItemGroup>
 		<None Include="acNETIcon.png" Pack="true" PackagePath="\" />
-		<None Update="Nuget.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
 		<None Update="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
