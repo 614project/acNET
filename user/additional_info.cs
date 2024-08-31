@@ -39,4 +39,8 @@ public class AdditionalInformation : Jsonable
     /// 사용자의 모국어 이름입니다.
     /// </summary>
     public string? nameNative { get; set; }
+    /// <summary>
+    /// DateTime 형식으로 생년월일을 가져옵니다. 명시되지 않은 연도,월,일은 1을 기본값으로 가집니다. (예: '1년 6월 14일'일 경우 사용자가 연도를 입력하지 않았다는 뜻입니다.)
+    /// </summary>
+    public DateTime GetBirthDate => new(birthYear ?? 1 , birthMonth ?? 1 , birthDay ?? 1);
 }

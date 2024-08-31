@@ -1,6 +1,7 @@
 ﻿using acNET.Type;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Globalization;
 
 namespace acNET;
 
@@ -27,42 +28,23 @@ public partial class acAPI
         error = null;
         return Converter.ParsingJsonList<T>(json);
     }
-    internal List<T>? GETListWithoutError<T>(string url, string? option = null, Header? head = null) where T : Jsonable
-    {
-        var ret = GETLIST<T>(url, out var e, option);
-        if (e is acAPIError ace) this.Errors.Enqueue(ace);
-        return ret;
-    }
     internal record Header(string key, string value);
-    internal async Task<acResult<T>> GetAsync<T>(string url,string? option=null,Header? header = null)
-    {
-        var ret = await AsyncGetRequest(new(url , option ?? string.Empty , header));
-        if (ret.success) return new(JsonConvert.DeserializeObject<T>(ret.content), null);
-        return new(default, ret.error);
-    }
-    internal record GetRequestForm(string url,string option,Header? header = null)
-    {
-        public string fullurl => url + option;
-    }
     internal record GetResponse(Exception? error,string content) { public bool success => error is null; }
-    internal async Task<GetResponse> AsyncGetRequest(GetRequestForm form)
+    internal async Task<acResult<T>> AsyncGetRequest<T>(RestRequest request)
     {
         try
         {
-            RestRequest request = new(form.fullurl , Method.Get);
-            if (form.header is Header head)
-                request.AddHeader(head.key , head.value);
             var ret = await _client.ExecuteAsync(request);
             int code = (int)ret.StatusCode;
             if (code < 200 || code >= 300)
             {
-                return new GetResponse(acAPIError.Create("서버에서 반환에 실패했습니다." , form.option , (short)code) , ret.Content ?? string.Empty);
+                return new(default,acAPIError.Create("서버에서 반환에 실패했습니다." ,string.Join('&',request.Parameters.Select(x=>$"{x.Name}={x.Value}")) ,(short)code));
             }
-            return new GetResponse(null , ret.Content ?? string.Empty);
+            return new(JsonConvert.DeserializeObject<T>(ret.Content ?? string.Empty),null);
         }
         catch (Exception ex)
         {
-            return new GetResponse(ex , ex.Message);
+            return new(default,ex);
         }
     }
     internal bool GetRequest(string url, string option, out string content,out Exception? error, Header? header = null)

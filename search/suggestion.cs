@@ -1,10 +1,5 @@
 ﻿using acNET.Type;
 using acNET.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace acNET.Search;
 
@@ -51,11 +46,11 @@ public class AutoComplete : Jsonable
     /// <summary>
     /// 자동 완성 제목입니다. 만약 href이 없을 경우 누르면 해당 값으로 자동 완성합니다.
     /// </summary>
-    public string caption { get; set; }
+    public string caption { get; set; } = string.Empty;
     /// <summary>
     /// 자동 완성 요소의 설명입니다.
     /// </summary>
-    public string description { get; set; }
+    public string description { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -70,7 +65,7 @@ public class BriefProblem : Jsonable
     /// <summary>
     /// 문제 제목입니다.
     /// </summary>
-    public string title { get; set; }
+    public string title { get; set; } = string.Empty;
     /// <summary>
     /// 문제 난이도입니다.
     /// </summary>
@@ -82,11 +77,11 @@ public class BriefProblem : Jsonable
     /// <summary>
     /// 자동 완성 제목입니다. 만약 href이 없을 경우 누르면 해당 값으로 자동 완성합니다.
     /// </summary>
-    public string caption { get; set; }
+    public string caption { get; set; } = string.Empty;
     /// <summary>
     /// 자동 완성 요소의 설명입니다.
     /// </summary>
-    public string description { get; set; }
+    public string description { get; set; } = string.Empty;
     /// <summary>
     /// 문제 주소입니다.
     /// </summary>
@@ -106,23 +101,23 @@ public class BriefProblemTag : Jsonable
     /// <summary>
     /// solved.ac에서 쓰는 태그 ID입니다.
     /// </summary>
-    public string key { get; set; }
+    public string key { get; set; } = string.Empty;
     /// <summary>
     /// 태그 이름입니다. 사용자 언어에 따라 번역되지 않습니다.
     /// </summary>
-    public string name { get; set; }
+    public string name { get; set; } = string.Empty;
     /// <summary>
     /// 태그가 붙은 문제 수입니다.
     /// </summary>
-    public string problemCount { get; set; }
+    public string problemCount { get; set; } = string.Empty;
     /// <summary>
     /// 자동 완성 제목입니다. 만약 href이 없을 경우 누르면 해당 값으로 자동 완성합니다.
     /// </summary>
-    public string caption { get; set; }
+    public string caption { get; set; } = string.Empty;
     /// <summary>
     /// 자동 완성 요소의 설명입니다.
     /// </summary>
-    public string description { get; set; }
+    public string description { get; set; } = string.Empty;
     /// <summary>
     /// 하이퍼링크입니다.
     /// </summary>

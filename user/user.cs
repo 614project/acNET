@@ -11,11 +11,11 @@ public class RankedUser : Type.Jsonable
     /// <summary>
     /// 사용자명입니다.
     /// </summary>
-    public string handle { get; set; }
+    public string handle { get; set; } = string.Empty;
     /// <summary>
     /// 사용자의 자기소개입니다.
     /// </summary>
-    public string bio { get; set; }
+    public string bio { get; set; } = string.Empty;
     /// <summary>
     /// 사용자가 지금 사용 중인 뱃지의 아이디입니다.
     /// </summary>
@@ -23,7 +23,7 @@ public class RankedUser : Type.Jsonable
     /// <summary>
     /// 사용자가 지금 사용 중인 배경의 아이디입니다.
     /// </summary>
-    public string backgroundId { get; set; }
+    public string backgroundId { get; set; } = string.Empty;
     /// <summary>
     /// 사용자의 프로필 사진으로 가는 하이퍼링크입니다.
     /// </summary>
@@ -68,7 +68,7 @@ public class RankedUser : Type.Jsonable
     /// <summary>
     /// 클래스 치장입니다.
     /// </summary>
-    public string classDecoration{ get; set; }
+    public string classDecoration { get; set; } = string.Empty;
     /// <summary>
     /// 사용자의 라이벌 수입니다.
     /// </summary>
@@ -92,15 +92,15 @@ public class RankedUser : Type.Jsonable
     /// <summary>
     /// 사용자가 가입한 날짜입니다.
     /// </summary>
-    public string joinedAt { get; set; }
+    public string joinedAt { get; set; } = string.Empty;
     /// <summary>
     /// 사용자의 정지 종료 날짜입니다.
     /// </summary>
-    public string bannedUntil { get; set; }
+    public string bannedUntil { get; set; } = string.Empty;
     /// <summary>
     /// 사용자의 PRO 종료 날짜입니다.
     /// </summary>
-    public string proUntil { get; set; }
+    public string proUntil { get; set; } = string.Empty;
     /// <summary>
     /// 사용자의 순위입니다.
     /// </summary>
