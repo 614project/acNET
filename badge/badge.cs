@@ -36,6 +36,6 @@ public class Badge : Jsonable
     /// 뱃지 사진을 저장합니다.
     /// </summary>
     /// <param name="filename">파일명</param>
-    /// <returns>확장자가 포함된 파일명</returns>
-    public bool SaveBadgeImage(string filename) => acAPI.SaveFile(this.badgeImageUrl, filename);
+    /// <returns>성공시 null, 실패시 Exception</returns>
+    public async Task<Exception?> SaveBadgeImage(string filename) => await acAPI.SaveFile(this.badgeImageUrl, filename);
 }

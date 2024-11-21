@@ -56,14 +56,14 @@ namespace acNET.Image
         /// 배경 이미지를 저장합니다.
         /// </summary>
         /// <param name="filename">저장될 파일 경로 (파일명 포함)</param>
-        /// <returns>실패시 false, 성공시 true</returns>
-        public bool SaveBackgroundImage(string filename) => acAPI.SaveFile(this.backgroundImageUrl, filename);
+        /// <returns>성공시 null, 실패시 Exception</returns>
+        public async Task<Exception?> SaveBackgroundImage(string filename) => await acAPI.SaveFile(this.backgroundImageUrl , filename);
         /// <summary>
         /// 배경 동영상을 저장합니다.
         /// </summary>
         /// <param name="filename">저장될 파일 경로 (파일명 포함)</param>
-        /// <returns>실패시 false, 성공시 true</returns>
-        public bool SaveBackgroundVideo(string filename) => this.backgroundVideoUrl is null ? false : acAPI.SaveFile(this.backgroundVideoUrl , filename);
+        /// <returns>성공시 null, 실패시 Exception</returns>
+        public async Task<Exception?> SaveBackgroundVideo(string filename) => await acAPI.SaveFile(this.backgroundVideoUrl ?? string.Empty , filename);
     }
 
     /// <summary>
