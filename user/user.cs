@@ -180,11 +180,6 @@ public class RankedUser : Type.Jsonable
     /// 사용자의 프로필 이미지를 저장합니다.
     /// </summary>
     /// <param name="filename">저장될 파일 경로 (파일명 포함)</param>
-    /// <returns>실패시 false, 성공시 true</returns>
-    public bool SaveProfileImage(string filename)
-    {
-        if (this.profileImageUrl is null)
-            return false;
-        return acAPI.SaveFile(this.profileImageUrl , filename);
-    }
+    /// <returns>성공시 null, 실패시 Exception</returns>
+    public async Task<Exception?> SaveBadgeImage(string filename) => await acAPI.SaveFile(this.profileImageUrl ?? string.Empty , filename);
 }

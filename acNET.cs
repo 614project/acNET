@@ -5,3 +5,12 @@
  * 
  * copyright 614project.
  */
+
+/*
+ * 미리 정의된 IsExternalInit가 없다는 오류 <<< vs2022 버그...? 일지도
+ * https://stackoverflow.com/questions/64749385/predefined-type-system-runtime-compilerservices-isexternalinit-is-not-defined
+ */
+namespace System.Runtime.CompilerServices
+{
+    internal static class IsExternalInit { }
+}
