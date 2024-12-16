@@ -1,10 +1,13 @@
-﻿namespace acNET;
+﻿using System.Net;
+
+namespace acNET;
 
 /// <summary>
 /// solved.ac API 를 다룰수 있는 객체입니다.
 /// </summary>
 public partial class acAPI : IDisposable
 {
+    readonly CookieContainer _cookie;
     readonly HttpClient _client;
     /// <summary>
     /// solved.ac api 기본 주소.
@@ -16,8 +19,9 @@ public partial class acAPI : IDisposable
     /// <param name="url">solved.ac API 링크</param>
     public acAPI(string url = DefaultUrl)
     {
-        this._client = new() {
-            BaseAddress = new(url)
+        this._cookie = new();
+        this._client = new(new HttpClientHandler() { CookieContainer = _cookie }) {
+            BaseAddress = new(url),
         };
     }
     /// <summary>

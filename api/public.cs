@@ -39,6 +39,11 @@ public partial class acAPI
         /// <returns>문자열</returns>
         public override string ToString() => Exception is not null ? Exception.ToString() : Result?.ToString() ?? string.Empty;
     }
+
+    #region AccountVerifyCredentials
+    //public acResult<RankedUser> GetAccountVerifyCredentials()
+    #endregion
+
     #region Background
     /// <summary>
     /// 배경의 정보를 가져옵니다.
@@ -226,7 +231,6 @@ public partial class acAPI
     public async Task<acResult<OrganizationRanking>> GetOrganizationRankingAsync(int page) => await GetAsync<OrganizationRanking>("ranking/organization" , $"?page={page}");
     #endregion
     #region InOriganizationRanking
-    #endregion
     /// <summary>
     /// 레이팅에 따른 조직 순위를 가져옵니다.
     /// </summary>
@@ -241,6 +245,23 @@ public partial class acAPI
     /// <param name="organizationId">단체 ID</param>
     /// <returns>실패시 null</returns>
     public async Task<acResult<OrganizationRanking>> GetInOrganizationRankingAsync(int page , int organizationId) => await GetAsync<OrganizationRanking>("ranking/in_organization" , $"?organizationId={organizationId}&page={page}");
+    #endregion
+    #region ArenaInOriganizationRanking
+    /// <summary>
+    /// 해당 단체에 속한 사용자 중에서 아레나 레이팅이 높은 사용자가 먼저 오도록 정렬한 목록을 가져옵니다.
+    /// </summary>
+    /// <param name="page">페이지 (자연수)</param>
+    /// <param name="organizationId">단체 ID</param>
+    /// <returns>실패시 null</returns>
+    public acResult<OrganizationRanking> GetArenaInOrganizationRanking(int page , int organizationId) => Get<OrganizationRanking>("ranking/arena_in_organization" , $"?organizationId={organizationId}&page={page}");
+    /// <summary>
+    /// 해당 단체에 속한 사용자 중에서 아레나 레이팅이 높은 사용자가 먼저 오도록 정렬한 목록을 가져옵니다.
+    /// </summary>
+    /// <param name="page">페이지 (자연수)</param>
+    /// <param name="organizationId">단체 ID</param>
+    /// <returns>실패시 null</returns>
+    public async Task<acResult<OrganizationRanking>> GetArenaInOrganizationRankingAsync(int page , int organizationId) => await GetAsync<OrganizationRanking>("ranking/arena_in_organization" , $"?organizationId={organizationId}&page={page}");
+    #endregion
     #region SearchUser
     /// <summary>
     /// 주어진 쿼리에 따라 사용자를 검색합니다.
@@ -287,13 +308,13 @@ public partial class acAPI
     #endregion
     #region UserContributionStats
     /// <summary>
-    /// 유저의 티어별 기여도를 가져옵니다. (추측)
+    /// 해당 핸들의 사용자가 기여한 문제 수를 문제 수준별로 나누어 가져옵니다.
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
     public acResult<List<UserContributionStat>> GetUserContributionStats(in string handle) => Get<List<UserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
     /// <summary>
-    /// 유저의 티어별 기여도를 가져옵니다. (추측)
+    /// 해당 핸들의 사용자가 기여한 문제 수를 문제 수준별로 나누어 가져옵니다.
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
@@ -315,13 +336,13 @@ public partial class acAPI
     #endregion
     #region ProblemTagStats
     /// <summary>
-    /// 유저의 태그별 진행도를 가져옵니다. (추측)
+    /// 해당 핸들의 사용자가 푼 문제 수를 태그별로 나누어 가져옵니다.
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
     public acResult<SearchResult<TagStat>> GetProblemTagStats(in string handle) => Get<SearchResult<TagStat>>("user/problem_tag_stats" , $"?handle={handle}");
     /// <summary>
-    /// 유저의 태그별 진행도를 가져옵니다. (추측)
+    /// 해당 핸들의 사용자가 푼 문제 수를 태그별로 나누어 가져옵니다.
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
@@ -430,7 +451,6 @@ public partial class acAPI
     /// <param name="query">쿼리 문자열</param>
     /// <returns>자동 완성 및 상위 검색 결과를 반환합니다.</returns>
     public acResult<Suggestion> GetSearchAutoComplete(in string query) => Get<Suggestion>("search/suggestion" , $"?query={query}");
-
     /// <summary>
     /// 주어진 쿼리에 따라 검색할 때 도움이 되도록 자동 완성 및 상위 검색 결과를 반환합니다. 자동 완성 결과는 언어에 의존적입니다.
     /// </summary>

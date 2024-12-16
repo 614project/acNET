@@ -1,4 +1,7 @@
-﻿namespace acNET;
+﻿using Newtonsoft.Json.Linq;
+using System.Net;
+
+namespace acNET;
 
 public partial class acAPI
 {
@@ -39,4 +42,14 @@ public partial class acAPI
             });
         }
     }
+    /// <summary>
+    /// 쿠키에 저장될 solvedacToken입니다. 이를 설정할 경우 계정과 관련된 API를 사용하실수 있습니다. (아직 설정된 토큰이 없는 경우 빈 문자열을 반환합니다.)
+    /// </summary>
+    //public string SolvedacToken {
+    //    set => this._cookie.Add(this._client.BaseAddress , new Cookie("solvedacToken" , value));
+    //    get {
+    //        try { return this._cookie.GetCookies(this._client.BaseAddress)["solvedacToken"].Value; }
+    //        catch { return string.Empty; }
+    //    }
+    //}
 }
