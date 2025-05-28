@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace acNET.Arena;
+namespace AcNET.Arena;
 
-public class SolvedArena
+/// <summary>
+/// Arena와 관련된 정보
+/// </summary>
+public static class SolvedArena
 {
+    /// <summary>
+    /// 아레나 티어 목록
+    /// </summary>
     public static readonly string[] Names = {
         "Unrated",
         "C",

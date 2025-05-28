@@ -1,20 +1,20 @@
-﻿using acNET.Type;
-using acNET.Problem;
+﻿using AcNET.Type;
+using AcNET.Problem;
 using Newtonsoft.Json;
 
-namespace acNET;
+namespace AcNET;
 
 /// <summary>
 /// sovled.ac API 에서 추출한 값을 C# 데이터 형식에 맞게 변환하기 위한 클래스.
 /// </summary>
-public static class Converter
+public static class SolvedConverter
 {
     /// <summary>
     /// solved.ac API의 시간 형식을 C# DateTime으로 변환합니다.
     /// </summary>
     /// <param name="time">Solved.ac API에서 제공하는 시간 문자열</param>
     /// <returns>변환 실패시 null을 반환합니다.</returns>
-    public static DateTime? Time(string time)
+    public static DateTime? ToTime(string time)
     {
         return DateTime.TryParseExact(
             string.Join(' ', time.Remove(time.Length - 1).Split('T')),
@@ -32,8 +32,8 @@ public static class Converter
     /// <returns>음수 또는 레벨 개수 이상의 값을 넣을경우 null이 반환됩니다.</returns>
     public static string? LevelName(int value)
     {
-        if (value < 0 || value >= Level.Names.Length) return null;
-        return Level.Names[value];
+        if (value < 0 || value >= SolvedLevel.Names.Length) return null;
+        return SolvedLevel.Names[value];
     }
     /// <summary>
     /// 레벨(티어) 이름을 레벨 값으로 반환합니다.
@@ -42,7 +42,7 @@ public static class Converter
     /// <returns>존재하지 않으면 null</returns>
     public static int? LevelValue(string name)
     {
-        for (int i = 0; i < Level.Names.Length; i++) if (Level.Names[i] == name) return i;
+        for (int i = 0; i < SolvedLevel.Names.Length; i++) if (SolvedLevel.Names[i] == name) return i;
         return null;
     }
     /// <summary>
@@ -83,7 +83,7 @@ public static class Converter
     /// <returns>'#rrggbb' 형식으로 길이가 7인 문자열을 반환합니다. (변환 실패시 '#000000')</returns>
     public static string LevelColor(long value)
     {
-        if (value < 0 || value >= Level.Colors.Length) return "#000000";
-        return Level.Colors[value];
+        if (value < 0 || value >= SolvedLevel.Colors.Length) return "#000000";
+        return SolvedLevel.Colors[value];
     }
 }

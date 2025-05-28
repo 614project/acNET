@@ -1,9 +1,11 @@
-﻿namespace acNET.Problem;
+﻿using Newtonsoft.Json;
+
+namespace AcNET.Problem;
 
 /// <summary>
 /// 수준별 문제
 /// </summary>
-public class Level : Type.Jsonable
+public class SolvedLevel : Type.Jsonable
 {
     /// <summary>
     /// 레벨값 마다 지정된 레벨 이름이 모인 문자열 배열
@@ -89,17 +91,19 @@ Master".Replace("\r",string.Empty).Split('\n');
     /// <summary>
     /// 레벨(티어)값입니다.
     /// </summary>
-    public long level { get; set; }
+    [JsonProperty("level")]
+    public long Level { get; set; }
     /// <summary>
     /// 이 문제 수준인 문제 수입니다.
     /// </summary>
-    public long count { get; set; }
+    [JsonProperty("count")]
+    public long Count { get; set; }
     /// <summary>
     /// 문제의 레벨(티어)값을 레벨 이름으로 가져옵니다.
     /// </summary>
-    public string GetTierName => Names[this.level];
+    public string GetTierName => Names[this.Level];
     /// <summary>
     /// 레벨(티어)값에 알맞는 색깔의 Hex 코드를 가져옵니다. (7자리 #rrggbb 로 구성되어있습니다.)
     /// </summary>
-    public string GetTierColor => Colors[this.level];
+    public string GetTierColor => Colors[this.Level];
 }
