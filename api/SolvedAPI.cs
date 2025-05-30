@@ -4,6 +4,7 @@ using AcNET.Account;
 using AcNET.Arena;
 using AcNET.Badge;
 using AcNET.Coin;
+using AcNET.Events;
 using AcNET.Image;
 using AcNET.Problem;
 using AcNET.Ranking;
@@ -61,7 +62,16 @@ public class SolvedAPI : IDisposable
         }
     }
     #region AccountVerifyCredentials
-    //public SolvedResult<RankedUser> GetAccountVerifyCredentials()
+    /// <summary>
+    /// 현재 로그인한 계정 정보를 가져옵니다.
+    /// </summary>
+    /// <returns>크레데션 관련 본인 정보</returns>
+    public SolvedResult<SolvedUserCredentials> GetAccountVerifyCredentials() => Get<SolvedUserCredentials>("account/verify_credentials");
+    /// <summary>
+    /// 현재 로그인한 계정 정보를 가져옵니다.
+    /// </summary>
+    /// <returns>크레데션 관련 본인 정보</returns>
+    public async Task<SolvedResult<SolvedUserCredentials>> GetAccountVerifyCredentialsAsync() => await GetAsync<SolvedUserCredentials>("account/verify_credentials");
     #endregion
     #region Background
     /// <summary>
@@ -476,6 +486,22 @@ public class SolvedAPI : IDisposable
     /// <param name="query">쿼리 문자열</param>
     /// <returns>자동 완성 및 상위 검색 결과를 반환합니다.</returns>
     public async Task<SolvedResult<SolvedSuggestion>> GetSearchAutoCompleteAsync(string query) => await GetAsync<SolvedSuggestion>("search/suggestion" , $"?query={query}");
+    #endregion
+    #region Produce101Status
+    public SolvedResult<SolvedProduce101Event> GetProduce101Status() => Get<SolvedProduce101Event>("event/250401/status");
+    public async Task<SolvedResult<SolvedProduce101Event>> GetProduce101StatusAsync() => await GetAsync<SolvedProduce101Event>("event/250401/status");
+    #endregion
+    #region HanbyeolForce
+    public SolvedResult<SolvedHanbyeolForceEvent> GetHanbyeolForceStatus() => Get<SolvedHanbyeolForceEvent>("event/220401/status");
+    public async Task<SolvedResult<SolvedHanbyeolForceEvent>> GetHanbyeolForceAsync() => await GetAsync<SolvedHanbyeolForceEvent>("event/220401/status");
+    #endregion
+    #region PeperoDay2021
+    public SolvedResult<SolvedPeperoDay2021Event> GetPeperoDay2021Status() => Get<SolvedPeperoDay2021Event>("event/211111/status");
+    public async Task<SolvedResult<SolvedPeperoDay2021Event>> GetPeperoDay2021Async() => await GetAsync<SolvedPeperoDay2021Event>("event/211111/status");
+    #endregion
+    #region DecorateSummerPostcard
+    public SolvedResult<SolvedDecorateSummerPostcardEvent> GetDecorateSummerPostcardStatus() => Get<SolvedDecorateSummerPostcardEvent>("event/220626/status");
+    public async Task<SolvedResult<SolvedDecorateSummerPostcardEvent>> GetDecorateSummerPostcardAsync() => await GetAsync<SolvedDecorateSummerPostcardEvent>("event/220626/status");
     #endregion
 
     readonly HttpClient client;
