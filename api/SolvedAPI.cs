@@ -24,7 +24,7 @@ public class SolvedAPI : IDisposable
     /// <summary>
     /// solved.ac API의 기본 주소.
     /// </summary>
-    public const string DefaultBaseUrl = "https://solved.ac/api/v3";
+    public const string DefaultBaseUrl = "https://solved.ac/api/v3/";
     /// <summary>
     /// SolvedAPI 생성.
     /// </summary>
@@ -483,10 +483,14 @@ public class SolvedAPI : IDisposable
     {
         try
         {
-            var ret = await client.GetAsync(url + option ?? string.Empty);
-            int code = (int)ret.StatusCode;
+            string requestUrl = url + (option ?? string.Empty);
+            using var response = await client.GetAsync(requestUrl);
+            if ((int)response.StatusCode >= 400)
+            {
+                return new(default , new SolvedAPIException(client.BaseAddress + requestUrl, response.StatusCode));
+            }
             return new(
-                JsonConvert.DeserializeObject<T>(await ret.Content.ReadAsStringAsync()),
+                JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync()),
                 null
             );
         } catch (Exception ex)
