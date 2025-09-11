@@ -1,16 +1,11 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 using AcNET.Account;
-using AcNET.Arena;
-using AcNET.Badge;
 using AcNET.Coin;
 using AcNET.Events;
 using AcNET.Image;
 using AcNET.Problem;
 using AcNET.Ranking;
 using AcNET.Search;
-using AcNET.Site;
-using AcNET.Type;
 using AcNET.User;
 using Newtonsoft.Json;
 
