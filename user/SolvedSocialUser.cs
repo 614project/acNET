@@ -1,4 +1,4 @@
-﻿using AcNET.Image;
+using AcNET.Image;
 using AcNET.Type;
 using Newtonsoft.Json;
 
@@ -14,6 +14,9 @@ public class SolvedSocialUser : Jsonable
     /// </summary>
     [JsonProperty("handle")]
     public string Handle { get; set; } = string.Empty;
+
+    [JsonProperty("verified")]
+    public bool Verified { get; set; }
     /// <summary>
     /// 사용자의 자기소개입니다.
     /// </summary>
@@ -74,6 +77,14 @@ public class SolvedSocialUser : Jsonable
     /// </summary>
     [JsonProperty("ratingByVoteCount")]
     public int RatingByVoteCount { get; set; }
+    /// <summary>
+    /// 사용자의 오버 레이팅입니다.
+    /// </summary>
+    [JsonProperty("overRating")]
+    public int OverRating { get; set; }
+
+    [JsonProperty("overRatingCutoff")]
+    public int OverRatingCutoff { get; set; }
     /// <summary>
     /// 사용자가 취득한 Class입니다.
     /// </summary>

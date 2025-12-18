@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using AcNET.Account;
 using AcNET.Coin;
 using AcNET.Events;
@@ -25,7 +25,7 @@ public class SolvedAPI : IDisposable
     /// SolvedAPI 생성.
     /// </summary>
     /// <param name="solvedacToken">solved.ac의 사용자 접근 토큰.  계정과 관련된 작업시에만 필요하며, 이외에는 null로 비워두어도 사용에 지장이 없습니다.</param>
-    /// <param name="baseUrl">solved.ac api 주소입니다.</param>
+    /// <param name="baseUrl">solved.ac api의 기본 주소입니다. null로 비워둘 경우 'solved.ac/api/v3' 를 사용합니다.</param>
     public SolvedAPI(string? solvedacToken = null, Uri? baseUrl = null)
     {
         baseUrl ??= new(DefaultBaseUrl);
