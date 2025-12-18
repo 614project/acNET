@@ -9,10 +9,10 @@ Refer to the [solved.ac unofficial API documentation](https://github.com/solveda
 
 ## Example
 ```cs
-using acNET;
+using AcNET;
 
-acAPI api = new();
-Console.Write(api.GetUser("jyunni").Result);
+SolvedAPI api = new();
+Console.Write(api.GetUser("jyunni").Result.OverRating);
 ```
 ## Usage
 This is a .NET Standard 2.1 library.  

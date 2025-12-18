@@ -6,10 +6,10 @@ solved.ac API를 다루기 위한 C# 래퍼 라이브러리입니다.<br><br>
 
 ## 예제
 ```cs
-using acNET;
+using AcNET;
 
-acAPI api = new();
-Console.Write(api.GetUser("jyunni").Result);
+SolvedAPI api = new();
+Console.Write(api.GetUser("jyunni").Result.OverRating);
 ```
 ## 사용
 .NET standard 2.1 라이브러리입니다.  

@@ -500,7 +500,7 @@ public class SolvedAPI : IDisposable
     #endregion
 
     readonly HttpClient client;
-    async Task<SolvedResult<T>> GetAsync<T>(string url, string? option = null)
+    async ValueTask<SolvedResult<T>> GetAsync<T>(string url, string? option = null)
     {
         try
         {
