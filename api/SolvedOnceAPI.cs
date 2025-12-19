@@ -1,8 +1,8 @@
-﻿namespace AcNET;
+namespace AcNET;
 
 internal static class SolvedOnceAPI
 {
-    internal static async Task<Exception?> SaveFile(string url , string savePath)
+    internal static async ValueTask<Exception?> SaveFile(string url , string savePath)
     {
         try
         {

@@ -9,7 +9,6 @@ using AcNET.Search;
 using AcNET.User;
 using Newtonsoft.Json;
 
-
 namespace AcNET;
 
 /// <summary>
@@ -61,7 +60,7 @@ public class SolvedAPI : IDisposable
     /// 현재 로그인한 계정 정보를 가져옵니다.
     /// </summary>
     /// <returns>크레데션 관련 본인 정보</returns>
-    public SolvedResult<SolvedUserCredentials> GetAccountVerifyCredentials() => Get<SolvedUserCredentials>("account/verify_credentials");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedUserCredentials> GetAccountVerifyCredentials() => Get<SolvedUserCredentials>("account/verify_credentials");
     /// <summary>
     /// 현재 로그인한 계정 정보를 가져옵니다.
     /// </summary>
@@ -74,7 +73,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="backgroundId">배경 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedBackground> GetBackground(in string backgroundId) => Get<SolvedBackground>("background/show" , $"?backgroundId={backgroundId}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedBackground> GetBackground(in string backgroundId) => Get<SolvedBackground>("background/show" , $"?backgroundId={backgroundId}");
     /// <summary>
     /// 배경의 정보를 가져옵니다.
     /// </summary>
@@ -88,7 +87,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="badgeId">뱃지 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<Badge.SolvedBadge> GetBadge(in string badgeId) => Get<Badge.SolvedBadge>("badge/show" , $"?badgeId={badgeId}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<Badge.SolvedBadge> GetBadge(in string badgeId) => Get<Badge.SolvedBadge>("badge/show" , $"?badgeId={badgeId}");
     /// <summary>
     /// 뱃지의 정보를 가져옵니다.
     /// </summary>
@@ -101,7 +100,7 @@ public class SolvedAPI : IDisposable
     /// 현재 코인->별조각 환율을 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedExchangeRate> GetExchangeRate() => Get<SolvedExchangeRate>("coins/exchange_rate");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedExchangeRate> GetExchangeRate() => Get<SolvedExchangeRate>("coins/exchange_rate");
     /// <summary>
     /// 현재 코인->별조각 환율을 가져옵니다.
     /// </summary>
@@ -113,7 +112,7 @@ public class SolvedAPI : IDisposable
     /// 코인샵에서 팔고 있는 상품 목록을 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedShopItem>> GetShopList() => Get<List<SolvedShopItem>>("coins/shop/list");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedShopItem>> GetShopList() => Get<List<SolvedShopItem>>("coins/shop/list");
     /// <summary>
     /// 코인샵에서 팔고 있는 상품 목록을 가져옵니다.
     /// </summary>
@@ -125,7 +124,7 @@ public class SolvedAPI : IDisposable
     /// 문제 개수를 문제 CLASS별로 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedClassInfo>> GetClassList() => Get<List<SolvedClassInfo>>("problem/class");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedClassInfo>> GetClassList() => Get<List<SolvedClassInfo>>("problem/class");
     /// <summary>
     /// 문제 개수를 문제 CLASS별로 가져옵니다.
     /// </summary>
@@ -138,7 +137,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="problemId">문제 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedTaggedProblem> GetProblem(long problemId) => Get<SolvedTaggedProblem>("problem/show" , $"?problemId={problemId}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedTaggedProblem> GetProblem(long problemId) => Get<SolvedTaggedProblem>("problem/show" , $"?problemId={problemId}");
     /// <summary>
     /// 해당하는 ID의 문제를 가져옵니다.
     /// </summary>
@@ -152,13 +151,13 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="problemIds">문제 ID 배열</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedTaggedProblem>> GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',' , problemIds));
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedTaggedProblem>> GetProblemList(params long[] problemIds) => GetProblemList(string.Join(',' , problemIds));
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
     /// <param name="problemIds">쉼표로 구분한 문제 ID 목록 (공백이 없어야 됩니다.)</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedTaggedProblem>> GetProblemList(in string problemIds) => Get<List<SolvedTaggedProblem>>("problem/lookup" , $"?problemIds={problemIds}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedTaggedProblem>> GetProblemList(in string problemIds) => Get<List<SolvedTaggedProblem>>("problem/lookup" , $"?problemIds={problemIds}");
     /// <summary>
     /// 해당하는 ID의 문제 목록을 가져옵니다.
     /// </summary>
@@ -177,7 +176,7 @@ public class SolvedAPI : IDisposable
     /// 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedLevel>> GetLevelList() => Get<List<SolvedLevel>>("problem/level");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedLevel>> GetLevelList() => Get<List<SolvedLevel>>("problem/level");
     /// <summary>
     /// 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
@@ -190,7 +189,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedUserRanking> GetTierRanking(int page) => Get<SolvedUserRanking>("ranking/tier" , $"?page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedUserRanking> GetTierRanking(int page) => Get<SolvedUserRanking>("ranking/tier" , $"?page={page}");
     /// <summary>
     /// 사용자 레이팅에 따른 순위를 가져옵니다.
     /// </summary>
@@ -204,7 +203,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedUserRanking> GetClassRanking(int page) => Get<SolvedUserRanking>("ranking/class" , $"?page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedUserRanking> GetClassRanking(int page) => Get<SolvedUserRanking>("ranking/class" , $"?page={page}");
     /// <summary>
     /// 사용자 CLASS에 따른 순위를 가져옵니다.
     /// </summary>
@@ -218,7 +217,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedUserRanking> GetStreakRanking(int page) => Get<SolvedUserRanking>("ranking/streak" , $"?page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedUserRanking> GetStreakRanking(int page) => Get<SolvedUserRanking>("ranking/streak" , $"?page={page}");
     /// <summary>
     /// 최장 스트릭에 따른 순위를 가져옵니다.
     /// </summary>
@@ -232,7 +231,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedUserRanking> GetContributionRanking(int page) => Get<SolvedUserRanking>("ranking/contribution" , $"?page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedUserRanking> GetContributionRanking(int page) => Get<SolvedUserRanking>("ranking/contribution" , $"?page={page}");
     /// <summary>
     /// 기여 횟수에 따른 순위를 가져옵니다.
     /// </summary>
@@ -246,7 +245,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="page">페이지 (자연수)</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedOrganizationRanking> GetOrganizationRanking(int page) => Get<SolvedOrganizationRanking>("ranking/organization" , $"?page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedOrganizationRanking> GetOrganizationRanking(int page) => Get<SolvedOrganizationRanking>("ranking/organization" , $"?page={page}");
     /// <summary>
     /// 레이팅에 따른 조직 순위를 가져옵니다.
     /// </summary>
@@ -261,7 +260,7 @@ public class SolvedAPI : IDisposable
     /// <param name="page">페이지 (자연수)</param>
     /// <param name="organizationId">단체 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedOrganizationRanking> GetInOrganizationRanking(int page , int organizationId) => Get<SolvedOrganizationRanking>("ranking/in_organization" , $"?organizationId={organizationId}&page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedOrganizationRanking> GetInOrganizationRanking(int page , int organizationId) => Get<SolvedOrganizationRanking>("ranking/in_organization" , $"?organizationId={organizationId}&page={page}");
     /// <summary>
     /// 레이팅에 따른 조직 순위를 가져옵니다.
     /// </summary>
@@ -277,7 +276,7 @@ public class SolvedAPI : IDisposable
     /// <param name="page">페이지 (자연수)</param>
     /// <param name="organizationId">단체 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedOrganizationRanking> GetArenaInOrganizationRanking(int page , int organizationId) => Get<SolvedOrganizationRanking>("ranking/arena_in_organization" , $"?organizationId={organizationId}&page={page}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedOrganizationRanking> GetArenaInOrganizationRanking(int page , int organizationId) => Get<SolvedOrganizationRanking>("ranking/arena_in_organization" , $"?organizationId={organizationId}&page={page}");
     /// <summary>
     /// 해당 단체에 속한 사용자 중에서 아레나 레이팅이 높은 사용자가 먼저 오도록 정렬한 목록을 가져옵니다.
     /// </summary>
@@ -292,7 +291,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedSearchResult<SolvedSocialUser>> GetSearchUser(in string query) => Get<SolvedSearchResult<SolvedSocialUser>>("search/user" , $"?query={query}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedSearchResult<SolvedSocialUser>> GetSearchUser(in string query) => Get<SolvedSearchResult<SolvedSocialUser>>("search/user" , $"?query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 사용자를 검색합니다.
     /// </summary>
@@ -306,7 +305,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedSearchResult<SolvedProblemTag>> GetSearchTag(in string query) => Get<SolvedSearchResult<SolvedProblemTag>>("search/tag" , $"?query={query}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedSearchResult<SolvedProblemTag>> GetSearchTag(in string query) => Get<SolvedSearchResult<SolvedProblemTag>>("search/tag" , $"?query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 문제 태그를 검색합니다.
     /// </summary>
@@ -321,7 +320,7 @@ public class SolvedAPI : IDisposable
     /// <param name="query">쿼리 문자열</param>
     /// <param name="descending_order">내림차순으로 정렬할지에 대한 여부입니다. 기본은 오름차순입니다.</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedSearchResult<SolvedTaggedProblem>> GetSearchProblem(in string query , bool descending_order = false) => Get<SolvedSearchResult<SolvedTaggedProblem>>("search/problem" , $"?direction={(descending_order ? "desc" : "asc")}&query={query}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedSearchResult<SolvedTaggedProblem>> GetSearchProblem(in string query , bool descending_order = false) => Get<SolvedSearchResult<SolvedTaggedProblem>>("search/problem" , $"?direction={(descending_order ? "desc" : "asc")}&query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 문제를 검색합니다.
     /// </summary>
@@ -336,7 +335,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedUserContributionStat>> GetUserContributionStats(in string handle) => Get<List<SolvedUserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedUserContributionStat>> GetUserContributionStats(in string handle) => Get<List<SolvedUserContributionStat>>("user/contribution_stats" , $"?handle={handle}");
     /// <summary>
     /// 해당 핸들의 사용자가 기여한 문제 수를 문제 수준별로 나누어 가져옵니다.
     /// </summary>
@@ -350,7 +349,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedUserClassStat>> GetUserClassStats(in string handle) => Get<List<SolvedUserClassStat>>("user/class_stats" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedUserClassStat>> GetUserClassStats(in string handle) => Get<List<SolvedUserClassStat>>("user/class_stats" , $"?handle={handle}");
     /// <summary>
     /// 유저의 클래스별 진행도를 가져옵니다. (추측)
     /// </summary>
@@ -364,7 +363,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedSearchResult<SolvedTagStat>> GetProblemTagStats(in string handle) => Get<SolvedSearchResult<SolvedTagStat>>("user/problem_tag_stats" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedSearchResult<SolvedTagStat>> GetProblemTagStats(in string handle) => Get<SolvedSearchResult<SolvedTagStat>>("user/problem_tag_stats" , $"?handle={handle}");
     /// <summary>
     /// 해당 핸들의 사용자가 푼 문제 수를 태그별로 나누어 가져옵니다.
     /// </summary>
@@ -377,7 +376,7 @@ public class SolvedAPI : IDisposable
     /// solved.ac 통계를 가져옵니다.
     /// </summary>
     /// <returns>실패시 null</returns>
-    public SolvedResult<Site.SolvedStats> GetSiteStats() => Get<Site.SolvedStats>("site/stats");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<Site.SolvedStats> GetSiteStats() => Get<Site.SolvedStats>("site/stats");
     /// <summary>
     /// solved.ac 통계를 가져옵니다.
     /// </summary>
@@ -390,7 +389,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<List<SolvedOrganization>> GetOrganizationsFromUser(in string handle) => Get<List<SolvedOrganization>>("user/organizations" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<List<SolvedOrganization>> GetOrganizationsFromUser(in string handle) => Get<List<SolvedOrganization>>("user/organizations" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 속한 조직 목록를 가져옵니다.
     /// </summary>
@@ -404,7 +403,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedUserSolvedInfo> GetSolvedFromUser(in string handle) => Get<SolvedUserSolvedInfo>("user/problem_stats" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedUserSolvedInfo> GetSolvedFromUser(in string handle) => Get<SolvedUserSolvedInfo>("user/problem_stats" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
     /// </summary>
@@ -418,7 +417,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedSocialUser> GetUser(in string handle) => Get<SolvedSocialUser>("user/show" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedSocialUser> GetUser(in string handle) => Get<SolvedSocialUser>("user/show" , $"?handle={handle}");
     /// <summary>
     /// 사용자의 정보를 가져옵니다. 만약 로그인한 경우, 라이벌 여부도 가져옵니다.
     /// </summary>
@@ -432,7 +431,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">사용자 ID</param>
     /// <returns>실패시 null</returns>
-    public SolvedResult<SolvedTop100> GetTop100FromUser(in string handle) => Get<SolvedTop100>("user/top_100" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedTop100> GetTop100FromUser(in string handle) => Get<SolvedTop100>("user/top_100" , $"?handle={handle}");
     /// <summary>
     /// 사용자가 푼 문제 중 상위 100문제를 가져옵니다.
     /// </summary>
@@ -446,7 +445,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="postId">요청할 게시글의 제목</param>
     /// <returns>게시글을 가져옵니다. 실패시 null</returns>
-    public SolvedResult<SolvedPost> GetPostFromTitle(in string postId) => Get<SolvedPost>("post/show" , $"?postId={postId}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedPost> GetPostFromTitle(in string postId) => Get<SolvedPost>("post/show" , $"?postId={postId}");
     /// <summary>
     /// 해당 제목의 게시글을 가져옵니다.
     /// </summary>
@@ -460,7 +459,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="handle">요청할 사용자명</param>
     /// <returns>부가 정보를 가져옵니다. 실패시 null</returns>
-    public SolvedResult<SolvedAdditionalInformation> GetUserAdditionalInfo(in string handle) => Get<SolvedAdditionalInformation>("user/additional_info" , $"?handle={handle}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedAdditionalInformation> GetUserAdditionalInfo(in string handle) => Get<SolvedAdditionalInformation>("user/additional_info" , $"?handle={handle}");
     /// <summary>
     /// 해당 핸들을 가진 사용자의 부가 정보를 가져옵니다.
     /// </summary>
@@ -474,7 +473,7 @@ public class SolvedAPI : IDisposable
     /// </summary>
     /// <param name="query">쿼리 문자열</param>
     /// <returns>자동 완성 및 상위 검색 결과를 반환합니다.</returns>
-    public SolvedResult<SolvedSuggestion> GetSearchAutoComplete(in string query) => Get<SolvedSuggestion>("search/suggestion" , $"?query={query}");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedSuggestion> GetSearchAutoComplete(in string query) => Get<SolvedSuggestion>("search/suggestion" , $"?query={query}");
     /// <summary>
     /// 주어진 쿼리에 따라 검색할 때 도움이 되도록 자동 완성 및 상위 검색 결과를 반환합니다. 자동 완성 결과는 언어에 의존적입니다.
     /// </summary>
@@ -483,19 +482,19 @@ public class SolvedAPI : IDisposable
     public async Task<SolvedResult<SolvedSuggestion>> GetSearchAutoCompleteAsync(string query) => await GetAsync<SolvedSuggestion>("search/suggestion" , $"?query={query}");
     #endregion
     #region Produce101Status
-    public SolvedResult<SolvedProduce101Event> GetProduce101Status() => Get<SolvedProduce101Event>("event/250401/status");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedProduce101Event> GetProduce101Status() => Get<SolvedProduce101Event>("event/250401/status");
     public async Task<SolvedResult<SolvedProduce101Event>> GetProduce101StatusAsync() => await GetAsync<SolvedProduce101Event>("event/250401/status");
     #endregion
     #region HanbyeolForce
-    public SolvedResult<SolvedHanbyeolForceEvent> GetHanbyeolForceStatus() => Get<SolvedHanbyeolForceEvent>("event/220401/status");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedHanbyeolForceEvent> GetHanbyeolForceStatus() => Get<SolvedHanbyeolForceEvent>("event/220401/status");
     public async Task<SolvedResult<SolvedHanbyeolForceEvent>> GetHanbyeolForceAsync() => await GetAsync<SolvedHanbyeolForceEvent>("event/220401/status");
     #endregion
     #region PeperoDay2021
-    public SolvedResult<SolvedPeperoDay2021Event> GetPeperoDay2021Status() => Get<SolvedPeperoDay2021Event>("event/211111/status");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedPeperoDay2021Event> GetPeperoDay2021Status() => Get<SolvedPeperoDay2021Event>("event/211111/status");
     public async Task<SolvedResult<SolvedPeperoDay2021Event>> GetPeperoDay2021Async() => await GetAsync<SolvedPeperoDay2021Event>("event/211111/status");
     #endregion
     #region DecorateSummerPostcard
-    public SolvedResult<SolvedDecorateSummerPostcardEvent> GetDecorateSummerPostcardStatus() => Get<SolvedDecorateSummerPostcardEvent>("event/220626/status");
+    [Obsolete(ObsoleteMessage)] public SolvedResult<SolvedDecorateSummerPostcardEvent> GetDecorateSummerPostcardStatus() => Get<SolvedDecorateSummerPostcardEvent>("event/220626/status");
     public async Task<SolvedResult<SolvedDecorateSummerPostcardEvent>> GetDecorateSummerPostcardAsync() => await GetAsync<SolvedDecorateSummerPostcardEvent>("event/220626/status");
     #endregion
 
@@ -519,8 +518,13 @@ public class SolvedAPI : IDisposable
             return new(default , ex);
         }
     }
+
+    // to do : 1.0에는 동기 함수 지원하지 않기.
     SolvedResult<T> Get<T>(in string url, in string? option = null)
     {
-        return GetAsync<T>(url , option).GetAwaiter().GetResult();
+        // Single-Threaded Apartment 프로젝트에서 에서 데드락 위험이 존재하므로 ConfigureAwait(false).
+        return GetAsync<T>(url , option).ConfigureAwait(false).GetAwaiter().GetResult();
     }
+
+    const string ObsoleteMessage = "동기 함수는 1.0에서 삭제될 예정입니다. 비동기 함수를 사용해주세요.";
 }

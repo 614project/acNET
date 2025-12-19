@@ -1,4 +1,4 @@
-﻿using AcNET.Type;
+using AcNET.Type;
 using Newtonsoft.Json;
 
 namespace AcNET.Image;
