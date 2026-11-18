@@ -9,23 +9,23 @@ namespace AcNET.Source;
 public class SolvedSourceGroup : Jsonable
 {
     /// <summary>그룹 ID 입니다. (<see cref="SolvedAPI.GetSourceGroupAsync"/>)</summary>
-    public long Id { get; init; }
+    public long Id { get; set; }
     /// <summary>그룹 이름입니다.</summary>
-    public string Name { get; init; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
     /// <summary>그룹 이름의 약어입니다.</summary>
-    public string? Abbreviation { get; init; }
+    public string? Abbreviation { get; set; }
     /// <summary>하위 그룹 수입니다.</summary>
-    public int GroupCount { get; init; }
+    public int GroupCount { get; set; }
     /// <summary>대회 수입니다.</summary>
-    public int ContestCount { get; init; }
+    public int ContestCount { get; set; }
     /// <summary>문제 수입니다.</summary>
-    public int? ProblemCount { get; init; }
+    public int? ProblemCount { get; set; }
     /// <summary>요청한 사용자가 푼 문제 수입니다.</summary>
-    public int? SolvedCount { get; init; }
+    public int? SolvedCount { get; set; }
     /// <summary>난이도 분포입니다.</summary>
-    public SolvedSourceLevel? Level { get; init; }
+    public SolvedSourceLevel? Level { get; set; }
     /// <summary>문제 난이도 순서입니다. ("ascending", "random", "mixed")</summary>
-    public string? Order { get; init; }
+    public string? Order { get; set; }
 }
 
 /// <summary>
@@ -34,19 +34,19 @@ public class SolvedSourceGroup : Jsonable
 public class SolvedSourceContest : Jsonable
 {
     /// <summary>대회 ID 입니다. (<see cref="SolvedAPI.GetSourceContestAsync"/>)</summary>
-    public long Id { get; init; }
+    public long Id { get; set; }
     /// <summary>대회 이름입니다.</summary>
-    public string Name { get; init; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
     /// <summary>대회 이름의 약어입니다.</summary>
-    public string? Abbreviation { get; init; }
+    public string? Abbreviation { get; set; }
     /// <summary>대회 시작 시각입니다.</summary>
-    public string? StartsAt { get; init; }
+    public string? StartsAt { get; set; }
     /// <summary>문제 수입니다.</summary>
-    public int ProblemCount { get; init; }
+    public int ProblemCount { get; set; }
     /// <summary>요청한 사용자가 푼 문제 수입니다.</summary>
-    public int? SolvedCount { get; init; }
+    public int? SolvedCount { get; set; }
     /// <summary>난이도 분포입니다.</summary>
-    public SolvedSourceLevel? Level { get; init; }
+    public SolvedSourceLevel? Level { get; set; }
 }
 
 /// <summary>
@@ -55,9 +55,9 @@ public class SolvedSourceContest : Jsonable
 public class SolvedSourceContestDetail : SolvedSourceContest
 {
     /// <summary>대회 페이지 주소입니다.</summary>
-    public string? Url { get; init; }
+    public string? Url { get; set; }
     /// <summary>대회 장소입니다.</summary>
-    public string? Venue { get; init; }
+    public string? Venue { get; set; }
 }
 
 /// <summary>
@@ -66,19 +66,19 @@ public class SolvedSourceContestDetail : SolvedSourceContest
 public class SolvedSourceLevel : Jsonable
 {
     /// <summary>난이도 하위 25% 값입니다.</summary>
-    public int Q25 { get; init; }
+    public int Q25 { get; set; }
     /// <summary>난이도 중앙값입니다.</summary>
-    public int Q50 { get; init; }
+    public int Q50 { get; set; }
     /// <summary>난이도 상위 25% 값입니다.</summary>
-    public int Q75 { get; init; }
+    public int Q75 { get; set; }
     /// <summary>레벨별 문제 수입니다. (레벨로 색인)</summary>
-    public List<int> TierCounts { get; init; } = [];
+    public List<int> TierCounts { get; set; } = [];
     /// <summary>난이도가 매겨진 문제 수입니다.</summary>
-    public int RatedCount { get; init; }
+    public int RatedCount { get; set; }
     /// <summary>문제 난이도 순서입니다. ("ascending", "random", "mixed")</summary>
-    public string? Order { get; init; }
+    public string? Order { get; set; }
     /// <summary>요청한 사용자의 진행도입니다.</summary>
-    public SolvedSourceProgress? Progress { get; init; }
+    public SolvedSourceProgress? Progress { get; set; }
 }
 
 /// <summary>
@@ -87,9 +87,9 @@ public class SolvedSourceLevel : Jsonable
 public class SolvedSourceProgress : Jsonable
 {
     /// <summary>푼 문제 수입니다.</summary>
-    public int Solved { get; init; }
+    public int Solved { get; set; }
     /// <summary>각 사분위 난이도까지 모두 풀었는지 여부입니다.</summary>
-    public SolvedSourceProgressThrough Through { get; init; } = new();
+    public SolvedSourceProgressThrough Through { get; set; } = new();
 }
 
 /// <summary>
@@ -98,11 +98,11 @@ public class SolvedSourceProgress : Jsonable
 public class SolvedSourceProgressThrough : Jsonable
 {
     /// <summary>하위 25% 까지</summary>
-    public bool Q25 { get; init; }
+    public bool Q25 { get; set; }
     /// <summary>중앙값까지</summary>
-    public bool Q50 { get; init; }
+    public bool Q50 { get; set; }
     /// <summary>상위 25% 까지</summary>
-    public bool Q75 { get; init; }
+    public bool Q75 { get; set; }
 }
 
 /// <summary>
@@ -111,9 +111,9 @@ public class SolvedSourceProgressThrough : Jsonable
 public class SolvedSourcePathItem : Jsonable
 {
     /// <summary>그룹 ID 입니다.</summary>
-    public long Id { get; init; }
+    public long Id { get; set; }
     /// <summary>그룹 이름입니다.</summary>
-    public string Name { get; init; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -122,11 +122,11 @@ public class SolvedSourcePathItem : Jsonable
 public class SolvedSourceLink : Jsonable
 {
     /// <summary>저지 ID 입니다.</summary>
-    public string OjId { get; init; } = string.Empty;
+    public string OjId { get; set; } = string.Empty;
     /// <summary>저지 이름입니다.</summary>
-    public string OjName { get; init; } = string.Empty;
+    public string OjName { get; set; } = string.Empty;
     /// <summary>페이지 주소입니다.</summary>
-    public string Url { get; init; } = string.Empty;
+    public string Url { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -135,17 +135,17 @@ public class SolvedSourceLink : Jsonable
 public class SolvedSourceGroupPage : Jsonable
 {
     /// <summary>그룹입니다.</summary>
-    public SolvedSourceGroup Group { get; init; } = new();
+    public SolvedSourceGroup Group { get; set; } = new();
     /// <summary>최상위부터 이 그룹까지의 경로입니다.</summary>
-    public List<SolvedSourcePathItem> Path { get; init; } = [];
+    public List<SolvedSourcePathItem> Path { get; set; } = [];
     /// <summary>저지 링크입니다.</summary>
-    public List<SolvedSourceLink> Links { get; init; } = [];
+    public List<SolvedSourceLink> Links { get; set; } = [];
     /// <summary>이 그룹의 문제를 찾는 검색 쿼리입니다.</summary>
-    public string? Query { get; init; }
+    public string? Query { get; set; }
     /// <summary>하위 그룹입니다.</summary>
-    public List<SolvedSourceGroup> Groups { get; init; } = [];
+    public List<SolvedSourceGroup> Groups { get; set; } = [];
     /// <summary>대회 목록입니다.</summary>
-    public List<SolvedSourceContest> Contests { get; init; } = [];
+    public List<SolvedSourceContest> Contests { get; set; } = [];
 }
 
 /// <summary>
@@ -154,15 +154,15 @@ public class SolvedSourceGroupPage : Jsonable
 public class SolvedSourceContestPage : Jsonable
 {
     /// <summary>대회입니다.</summary>
-    public SolvedSourceContestDetail Contest { get; init; } = new();
+    public SolvedSourceContestDetail Contest { get; set; } = new();
     /// <summary>최상위부터 이 대회까지의 경로입니다.</summary>
-    public List<SolvedSourcePathItem> Path { get; init; } = [];
+    public List<SolvedSourcePathItem> Path { get; set; } = [];
     /// <summary>저지 링크입니다.</summary>
-    public List<SolvedSourceLink> Links { get; init; } = [];
+    public List<SolvedSourceLink> Links { get; set; } = [];
     /// <summary>이 대회의 문제를 찾는 검색 쿼리입니다.</summary>
-    public string? Query { get; init; }
+    public string? Query { get; set; }
     /// <summary>대회 순서대로 정렬된 문제들입니다.</summary>
-    public List<SolvedContestProblem> Problems { get; init; } = [];
+    public List<SolvedContestProblem> Problems { get; set; } = [];
 }
 
 /// <summary>
@@ -171,7 +171,7 @@ public class SolvedSourceContestPage : Jsonable
 public class SolvedContestProblem : Jsonable
 {
     /// <summary>대회 안에서의 문제 번호입니다. (예: "A")</summary>
-    public string NumberInContest { get; init; } = string.Empty;
+    public string NumberInContest { get; set; } = string.Empty;
     /// <summary>문제입니다.</summary>
-    public SolvedProblem Problem { get; init; } = new();
+    public SolvedProblem Problem { get; set; } = new();
 }

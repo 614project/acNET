@@ -20,10 +20,20 @@ public class SpecConformanceTests
     public async Task Response_with_only_required_properties_and_nulls_deserializes_strictly(string label)
         => await AssertConforms(label, SampleMode.Minimal);
 
-    static async Task AssertConforms(string label, SampleMode mode)
+    [Theory]
+    [MemberData(nameof(Calls))]
+    public async Task Source_generated_metadata_reads_every_property(string label)
+        => await AssertConforms(label, SampleMode.Full, JsonResolver.SourceGenerated);
+
+    [Theory]
+    [MemberData(nameof(Calls))]
+    public async Task Source_generated_metadata_reads_required_properties_and_nulls(string label)
+        => await AssertConforms(label, SampleMode.Minimal, JsonResolver.SourceGenerated);
+
+    static async Task AssertConforms(string label, SampleMode mode, JsonResolver resolver = JsonResolver.Reflection)
     {
         SpecServer server = new(mode);
-        using SolvedAPI api = server.CreateClient();
+        using SolvedAPI api = server.CreateClient(resolver: resolver);
 
         Exception? exception = await EndpointCatalog.Get(label).Call(api);
 
@@ -96,6 +106,17 @@ public class SpecConformanceTests
 
         string[] cataloged = EndpointCatalog.All.Select(e => e.Method).Distinct().Order().ToArray();
         Assert.Equal(methods, cataloged);
+    }
+
+    [Fact]
+    public void Every_model_is_registered_in_the_source_generated_context()
+    {
+        string[] missing = typeof(SolvedAPI).Assembly.GetTypes()
+            .Where(t => t.IsPublic && !t.IsAbstract && !t.IsGenericTypeDefinition && typeof(AcNET.Type.Jsonable).IsAssignableFrom(t))
+            .Where(t => SolvedJson.Read.GetTypeInfo(t) is null)
+            .Select(t => t.FullName!)
+            .ToArray();
+        Assert.Empty(missing);
     }
 
     [Fact]

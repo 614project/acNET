@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Web;
 
 namespace AcNET.Tests.Infrastructure;
@@ -26,13 +27,20 @@ public sealed class SpecServer : HttpMessageHandler
     public ConcurrentBag<string> Violations { get; } = [];
 
     /// <summary>
-    /// 응답을 엄격하게 읽는 SolvedAPI 를 만듭니다.
-    /// Json 에 모델에 없는 속성이 있거나(누락된 속성), nullable 이 아닌 속성에 null 이 오면 실패합니다.
+    /// 응답을 엄격하게 읽는 SolvedAPI 를 만듭니다. Json 에 모델에 없는 속성이 있으면(모델에 누락된 속성) 실패합니다.
     /// </summary>
-    public SolvedAPI CreateClient(string? accessToken = "user-token")
+    /// <param name="resolver">
+    /// <see cref="JsonResolver.Reflection"/>: 리플렉션으로 읽으며 nullable 이 아닌 속성에 null 이 와도 실패합니다. (모델과 문서 대조용)
+    /// <see cref="JsonResolver.SourceGenerated"/>: 실제로 쓰이는 소스 생성 메타데이터로 읽습니다. (AOT 경로 확인용)
+    /// </param>
+    public SolvedAPI CreateClient(string? accessToken = "user-token", JsonResolver resolver = JsonResolver.Reflection)
     {
         SolvedAPI api = new(new SolvedAPIOptions("client-id", "client-secret") { AccessToken = accessToken, Language = "ko" }, new HttpClient(this));
-        api.JsonOptions = StrictOptions;
+        api.ReadTypeInfo = resolver switch
+        {
+            JsonResolver.Reflection => StrictOptions.GetTypeInfo,
+            _ => new SolvedJsonContext(new JsonSerializerOptions(JsonSerializerDefaults.Web) { UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow }).GetTypeInfo,
+        };
         return api;
     }
 
@@ -40,6 +48,7 @@ public sealed class SpecServer : HttpMessageHandler
     {
         UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
         RespectNullableAnnotations = true,
+        TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
     };
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -150,4 +159,10 @@ public sealed class SpecServer : HttpMessageHandler
                 Violations.Add($"{operation.Key}: 본문에 필수 속성 '{required}' 이 없습니다.");
         }
     }
+}
+
+public enum JsonResolver
+{
+    Reflection,
+    SourceGenerated,
 }

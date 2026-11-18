@@ -93,15 +93,15 @@ Master".Replace("\r", string.Empty).Split('\n');
     /// <summary>
     /// 레벨(티어)값입니다.
     /// </summary>
-    public int Level { get; init; }
+    public int Level { get; set; }
     /// <summary>
     /// 이 레벨인 문제 수입니다.
     /// </summary>
-    public int Count { get; init; }
+    public int Count { get; set; }
     /// <summary>
     /// 그 중 (요청한 사용자가) 푼 문제 수입니다. 사용자 정보가 없으면 null 입니다.
     /// </summary>
-    public int? Solved { get; init; }
+    public int? Solved { get; set; }
     /// <summary>
     /// 레벨(티어)값을 레벨 이름으로 가져옵니다.
     /// </summary>

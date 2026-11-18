@@ -92,8 +92,8 @@ public partial class SolvedAPI
     }
     #endregion
 
-    sealed class JudgesEnvelope
+    internal sealed class JudgesEnvelope
     {
-        public List<SolvedJudge> Judges { get; init; } = [];
+        public List<SolvedJudge> Judges { get; set; } = [];
     }
 }

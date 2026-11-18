@@ -113,8 +113,8 @@ public partial class SolvedAPI
     SolvedQuery CollectionQuery(SolvedItemKind kind, SolvedCollectionSort sort, string? category, string? query, int offset)
         => Lang().Add("kind", kind).Add("sort", sort).Add("category", category).Add("q", query).Add("offset", offset);
 
-    sealed class ItemsEnvelope<T>
+    internal sealed class ItemsEnvelope<T>
     {
-        public List<T> Items { get; init; } = [];
+        public List<T> Items { get; set; } = [];
     }
 }

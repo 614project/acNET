@@ -50,13 +50,13 @@ public partial class SolvedAPI
         => GetAsync<IdEnvelope, long>($"sources/oj/{Segment(ojId)}/contests/{Segment(nativeId)}", null, static e => e.Id, cancellationToken);
     #endregion
 
-    sealed class GroupsEnvelope
+    internal sealed class GroupsEnvelope
     {
-        public List<SolvedSourceGroup> Groups { get; init; } = [];
+        public List<SolvedSourceGroup> Groups { get; set; } = [];
     }
 
-    sealed class IdEnvelope
+    internal sealed class IdEnvelope
     {
-        public long Id { get; init; }
+        public long Id { get; set; }
     }
 }

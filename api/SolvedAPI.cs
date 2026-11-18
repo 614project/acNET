@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace AcNET;
 
@@ -85,7 +86,7 @@ public partial class SolvedAPI : IDisposable
         ownsClient = false;
         AccessToken = accessToken;
         Language = parent.Language;
-        JsonOptions = parent.JsonOptions;
+        ReadTypeInfo = parent.ReadTypeInfo;
     }
 
     /// <summary>
@@ -129,9 +130,10 @@ public partial class SolvedAPI : IDisposable
     }
 
     /// <summary>
-    /// 응답을 읽을 때 쓰는 Json 설정입니다. (테스트에서 엄격한 설정으로 바꾸기 위해 internal 로 열어둡니다.)
+    /// 응답 형식의 Json 메타데이터를 찾습니다. 기본값은 소스 생성된 <see cref="SolvedJsonContext"/> 입니다.
+    /// (테스트에서 엄격한 설정으로 바꾸기 위해 internal 로 열어둡니다.)
     /// </summary>
-    internal JsonSerializerOptions JsonOptions { get; set; } = SolvedJson.Read;
+    internal Func<System.Type, JsonTypeInfo?> ReadTypeInfo { get; set; } = SolvedJson.Read.GetTypeInfo;
 
     #region Transport
     HttpRequestMessage CreateRequest(HttpMethod method, string path, SolvedQuery? query, HttpContent? content, bool sendUserToken)
@@ -180,7 +182,7 @@ public partial class SolvedAPI : IDisposable
 
             TWire? wire;
             using (Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                wire = await JsonSerializer.DeserializeAsync<TWire>(stream, JsonOptions, cancellationToken).ConfigureAwait(false);
+                wire = await JsonSerializer.DeserializeAsync(stream, SolvedJson.TypeInfo<TWire>(ReadTypeInfo), cancellationToken).ConfigureAwait(false);
             if (wire is null)
                 return new(default, new JsonException($"'{request.Method} {request.RequestUri}' 의 응답 본문이 비어있습니다.")) { RateLimit = rateLimit };
             return new(map(wire), null) { RateLimit = rateLimit };

@@ -15,7 +15,7 @@ var user = await api.GetUserAsync("jyunni");
 Console.WriteLine(user.IsSuccess ? user.Result!.Rating : user.Exception);
 ```
 ## Usage
-This is a .NET Standard 2.1 library, usable from .NET 5 (C# 9.0) or higher. All APIs are asynchronous and return `SolvedResult<T>`;
+This is a .NET Standard 2.1 library, usable from .NET 5 (C# 9.0) or higher, and compatible with Native AOT and trimming. All APIs are asynchronous and return `SolvedResult<T>`;
 errors from solved.ac are exposed as `SolvedAPIException` (`ErrorCode`, `ErrorMessage`, `ErrorDetails`).
 
 For more detailed usage, please refer to the README and wiki of the GitHub repository!

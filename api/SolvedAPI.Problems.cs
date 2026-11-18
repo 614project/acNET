@@ -160,23 +160,23 @@ public partial class SolvedAPI
 
     static string? NullIfEmpty(string? value) => string.IsNullOrEmpty(value) ? null : value;
 
-    sealed class DiagnosticsEnvelope
+    internal sealed class DiagnosticsEnvelope
     {
-        public List<SolvedSearchDiagnostic> Diagnostics { get; init; } = [];
+        public List<SolvedSearchDiagnostic> Diagnostics { get; set; } = [];
     }
 
-    sealed class SuggestionsEnvelope
+    internal sealed class SuggestionsEnvelope
     {
-        public List<SolvedSuggestion> Suggestions { get; init; } = [];
+        public List<SolvedSuggestion> Suggestions { get; set; } = [];
     }
 
-    sealed class VoteEnvelope
+    internal sealed class VoteEnvelope
     {
-        public SolvedVote? Vote { get; init; }
+        public SolvedVote? Vote { get; set; }
     }
 
-    sealed class TagsEnvelope<T>
+    internal sealed class TagsEnvelope<T>
     {
-        public List<T> Tags { get; init; } = [];
+        public List<T> Tags { get; set; } = [];
     }
 }

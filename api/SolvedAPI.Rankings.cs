@@ -133,13 +133,13 @@ public partial class SolvedAPI
         => GetAsync<SolvedAffiliationRanking>("rankings/affiliation-board", Lang().Add("page", page).Add("type", type), cancellationToken);
     #endregion
 
-    sealed class RegionsEnvelope
+    internal sealed class RegionsEnvelope
     {
-        public List<SolvedRegion> Regions { get; init; } = [];
+        public List<SolvedRegion> Regions { get; set; } = [];
     }
 
-    sealed class AffiliationsEnvelope
+    internal sealed class AffiliationsEnvelope
     {
-        public List<SolvedRankableAffiliation> Affiliations { get; init; } = [];
+        public List<SolvedRankableAffiliation> Affiliations { get; set; } = [];
     }
 }

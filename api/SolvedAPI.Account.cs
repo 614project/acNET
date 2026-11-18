@@ -121,23 +121,23 @@ public partial class SolvedAPI
         => GetAsync<ItemsEnvelope<SolvedEmoticon>, List<SolvedEmoticon>>("me/emoticons", null, static e => e.Items, cancellationToken);
     #endregion
 
-    sealed class SettingsEnvelope
+    internal sealed class SettingsEnvelope
     {
-        public SolvedAccountSettings Settings { get; init; } = new();
+        public SolvedAccountSettings Settings { get; set; } = new();
     }
 
-    sealed class ProfileEnvelope
+    internal sealed class ProfileEnvelope
     {
-        public SolvedAccountProfile Profile { get; init; } = new();
+        public SolvedAccountProfile Profile { get; set; } = new();
     }
 
-    sealed class BackgroundsEnvelope
+    internal sealed class BackgroundsEnvelope
     {
-        public List<SolvedOwnedBackground> Backgrounds { get; init; } = [];
+        public List<SolvedOwnedBackground> Backgrounds { get; set; } = [];
     }
 
-    sealed class ConsentsEnvelope
+    internal sealed class ConsentsEnvelope
     {
-        public List<SolvedPendingConsent> Pending { get; init; } = [];
+        public List<SolvedPendingConsent> Pending { get; set; } = [];
     }
 }

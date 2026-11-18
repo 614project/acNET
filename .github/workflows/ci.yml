@@ -23,3 +23,8 @@ jobs:
 
     - name: Test
       run: dotnet test tests/acNET.Tests --configuration Release
+
+    - name: Native AOT check
+      run: |
+        dotnet publish tests/acNET.AotProbe --configuration Release
+        tests/acNET.AotProbe/bin/Release/net10.0/linux-x64/publish/acNET.AotProbe

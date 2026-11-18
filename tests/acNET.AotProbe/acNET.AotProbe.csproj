@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    acNET 이 Native AOT / 트리밍을 방해하지 않는지 확인하는 프로그램입니다.
+    dotnet publish -c Release 로 AOT 컴파일했을 때 acNET 에서 경고가 없어야 하고, 실행 결과가 "AOT OK" 여야 합니다.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <TrimmerSingleWarn>false</TrimmerSingleWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\acNET.csproj" />
+    <!-- acNET 을 트리밍/AOT 분석 대상으로 포함시킵니다. -->
+    <TrimmerRootAssembly Include="acNET" />
+  </ItemGroup>
+
+</Project>

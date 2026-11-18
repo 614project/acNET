@@ -133,8 +133,8 @@ public partial class SolvedAPI
 
     static string? Month(DateTime? month) => month?.ToString("yyyy-MM", CultureInfo.InvariantCulture);
 
-    sealed class HistoryEnvelope
+    internal sealed class HistoryEnvelope
     {
-        public List<SolvedDailyValue> History { get; init; } = [];
+        public List<SolvedDailyValue> History { get; set; } = [];
     }
 }

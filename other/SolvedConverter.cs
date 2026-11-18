@@ -74,11 +74,11 @@ public static class SolvedConverter
     /// <summary>
     /// solved.ac API 에서 가져온 Json 문자열을 acNET 내에 있는 클래스로 변환합니다.
     /// </summary>
-    /// <typeparam name="T">acNET.Type.Jsonable 을 상속한 클래스</typeparam>
+    /// <typeparam name="T">acNET 의 모델 클래스</typeparam>
     /// <param name="json">Json 형식의 문자열</param>
     /// <returns>클래스 내 변수에 값이 담긴채로 반환</returns>
     public static T? ParsingJson<T>(string json) where T : Jsonable
-        => JsonSerializer.Deserialize<T>(json, SolvedJson.Read);
+        => JsonSerializer.Deserialize(json, SolvedJson.TypeInfo<T>(SolvedJson.Read.GetTypeInfo));
 
     /// <summary>
     /// solved.ac API 에서 가져온 Json 문자열을 acNET 내에 있는 클래스의 리스트로 변환합니다.
@@ -87,5 +87,14 @@ public static class SolvedConverter
     /// <param name="json">Json 형식의 문자열 (상위가 배열이여야됨)</param>
     /// <returns>클래스가 담긴 리스트</returns>
     public static List<T>? ParsingJsonList<T>(string json) where T : Jsonable
-        => JsonSerializer.Deserialize<List<T>>(json, SolvedJson.Read);
+    {
+        var typeInfo = SolvedJson.TypeInfo<T>(SolvedJson.Read.GetTypeInfo);
+        using JsonDocument document = JsonDocument.Parse(json);
+        if (document.RootElement.ValueKind == JsonValueKind.Null)
+            return null;
+        List<T> list = [];
+        foreach (JsonElement element in document.RootElement.EnumerateArray())
+            list.Add(JsonSerializer.Deserialize(element.GetRawText(), typeInfo)!);
+        return list;
+    }
 }

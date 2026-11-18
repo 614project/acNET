@@ -71,6 +71,9 @@ token = (await api.RefreshTokenAsync(token.RefreshToken!)).GetResultOrThrow();
 즉, .NET 5 (C# 9.0) 이상의 모든 프로젝트에서
 최신 버전의 NuGet 을 추가하여 사용하시면 됩니다!
 
+**Native AOT 와 트리밍**에서도 쓸 수 있습니다. 모든 Json 처리는 리플렉션 없이 System.Text.Json 소스 생성으로 이루어집니다.
+CI 에서 `tests/acNET.AotProbe` 를 Native AOT 로 게시해서 트리밍/AOT 경고가 하나라도 나오면 실패하도록 확인합니다.
+
 ### 0.9 에서 옮겨오기
 - `new SolvedAPI()` → `new SolvedAPI(clientId, clientSecret)` (쿠키 `solvedacToken` 대신 OAuth 토큰을 사용합니다)
 - 동기 함수는 모두 삭제되었습니다. `...Async` 함수를 사용해주세요.

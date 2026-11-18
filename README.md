@@ -74,6 +74,9 @@ This is a .NET Standard 2.1 library.
 That means you can use it in any project targeting .NET 5 (C# 9.0) or higher
 by simply adding the latest version from NuGet!
 
+It also works with **Native AOT and trimming**: all JSON goes through System.Text.Json source generation, without reflection.
+CI publishes `tests/acNET.AotProbe` with Native AOT and fails on any trim/AOT warning.
+
 ### Migrating from 0.9
 - `new SolvedAPI()` → `new SolvedAPI(clientId, clientSecret)` (OAuth tokens replace the `solvedacToken` cookie)
 - All synchronous methods were removed. Use the `...Async` methods.

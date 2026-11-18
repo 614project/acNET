@@ -111,7 +111,7 @@ public partial class SolvedAPI
     public Task<SolvedResult<SolvedBookmarkFolderChange>> AddBookmarkProblemsAsync(string slug, IEnumerable<int> problemIds, CancellationToken cancellationToken = default)
     {
         Guard.NotNull(problemIds);
-        return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Post, $"account/bookmarks/{Segment(slug)}/problems", new ProblemIdsBody(problemIds.ToList()), cancellationToken);
+        return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Post, $"account/bookmarks/{Segment(slug)}/problems", new ProblemIdsBody { ProblemIds = problemIds.ToList() }, cancellationToken);
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ public partial class SolvedAPI
     public Task<SolvedResult<SolvedBookmarkFolderChange>> RemoveBookmarkProblemsAsync(string slug, IEnumerable<int> problemIds, CancellationToken cancellationToken = default)
     {
         Guard.NotNull(problemIds);
-        return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Post, $"account/bookmarks/{Segment(slug)}/problems/remove", new ProblemIdsBody(problemIds.ToList()), cancellationToken);
+        return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Post, $"account/bookmarks/{Segment(slug)}/problems/remove", new ProblemIdsBody { ProblemIds = problemIds.ToList() }, cancellationToken);
     }
 
     /// <summary>
@@ -154,7 +154,7 @@ public partial class SolvedAPI
     public Task<SolvedResult<bool>> ReorderBookmarkFoldersAsync(IEnumerable<string> slugs, CancellationToken cancellationToken = default)
     {
         Guard.NotNull(slugs);
-        return SendNoContentAsync(HttpMethod.Post, "account/bookmarks/order", new SlugsBody(slugs.ToList()), cancellationToken);
+        return SendNoContentAsync(HttpMethod.Post, "account/bookmarks/order", new SlugsBody { Slugs = slugs.ToList() }, cancellationToken);
     }
 
     /// <summary>
@@ -187,12 +187,18 @@ public partial class SolvedAPI
         => SendJsonAsync<SolvedBookmarkFavorite>(HttpMethod.Delete, $"account/bookmark-favorites/{Segment(handle)}/{Segment(slug)}", null, cancellationToken);
     #endregion
 
-    sealed class FoldersEnvelope<T>
+    internal sealed class FoldersEnvelope<T>
     {
-        public List<T> Folders { get; init; } = [];
+        public List<T> Folders { get; set; } = [];
     }
 
-    sealed record ProblemIdsBody(List<int> ProblemIds);
+    internal sealed class ProblemIdsBody
+    {
+        public List<int> ProblemIds { get; set; } = [];
+    }
 
-    sealed record SlugsBody(List<string> Slugs);
+    internal sealed class SlugsBody
+    {
+        public List<string> Slugs { get; set; } = [];
+    }
 }

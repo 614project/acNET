@@ -18,27 +18,27 @@ public sealed class SolvedToken : Jsonable
     /// 접근 토큰입니다. <see cref="SolvedAPI.AccessToken"/> 에 넣어 사용합니다.
     /// </summary>
     [JsonPropertyName("access_token")]
-    public string AccessToken { get; init; } = string.Empty;
+    public string AccessToken { get; set; } = string.Empty;
     /// <summary>
     /// 토큰 종류입니다. 항상 "Bearer" 입니다.
     /// </summary>
     [JsonPropertyName("token_type")]
-    public string TokenType { get; init; } = string.Empty;
+    public string TokenType { get; set; } = string.Empty;
     /// <summary>
     /// 접근 토큰의 유효 시간(초)입니다.
     /// </summary>
     [JsonPropertyName("expires_in")]
-    public long ExpiresIn { get; init; }
+    public long ExpiresIn { get; set; }
     /// <summary>
     /// refresh token 입니다. <see cref="SolvedScope.OfflineAccess"/> 가 없으면 null 입니다.
     /// </summary>
     [JsonPropertyName("refresh_token")]
-    public string? RefreshToken { get; init; }
+    public string? RefreshToken { get; set; }
     /// <summary>
     /// 토큰이 가진 scope 들입니다. (공백으로 구분)
     /// </summary>
     [JsonPropertyName("scope")]
-    public string Scope { get; init; } = string.Empty;
+    public string Scope { get; set; } = string.Empty;
 
     /// <summary>
     /// acNET 이 이 토큰 응답을 받은 시각입니다.
