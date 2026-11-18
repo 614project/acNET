@@ -1,78 +1,44 @@
-﻿using AcNET.Type;
-using Newtonsoft.Json;
+using AcNET.Type;
 
 namespace AcNET.Problem;
 
 /// <summary>
-/// 문제 정보입니다.
+/// 다른 응답에 포함되는 가장 작은 문제 정보입니다. (번호, 난이도, 풀이 상태)
 /// </summary>
-public class SolvedProblem : Jsonable
+public class SolvedProblemRef : Jsonable
 {
     /// <summary>
-    /// 문제 ID입니다.
+    /// 문제 번호입니다.
     /// </summary>
-    [JsonProperty("problemId")]
-    public int ProblemId { get; set; }
+    public int ProblemId { get; init; }
     /// <summary>
-    /// 한국어 문제 제목입니다. HTML 엔티티나 LaTeX 수식을 포함할 수 있습니다.
+    /// 하위 문제 ID 입니다. 일반 문제는 빈 문자열입니다.
     /// </summary>
-    [JsonProperty("titleKo")]
-    public string TitleKo { get; set; } = string.Empty;
+    public string SubId { get; init; } = string.Empty;
     /// <summary>
-    /// 언어별 문제 제목입니다.
+    /// 각 저지에서 이 문제를 부르는 번호입니다.
     /// </summary>
-    [JsonProperty("titles")]
-    public List<SolvedProblemTitle> Titles { get; set; } = null!;
+    public List<SolvedJudgeId> JudgeIds { get; init; } = [];
     /// <summary>
-    /// 채점 가능 여부입니다.
+    /// 문제의 레벨(티어)값입니다. (0: Unrated, 1: Bronze V, ..., 30: Ruby I)
     /// </summary>
-    [JsonProperty("isSolvable")]
-    public bool IsSolvable { get; set; }
+    public int Level { get; init; }
     /// <summary>
-    /// 부분 점수 혹은 서브태스크 문제 여부입니다.
+    /// 난이도 계산에 반영된 기여 수입니다.
     /// </summary>
-    [JsonProperty("isPartial")]
-    public bool IsPartial { get; set; }
+    public int EffectiveVoteCount { get; init; }
     /// <summary>
-    /// 맞은 사람 수입니다.
+    /// 레이팅을 주지 않는 문제인지 여부입니다.
     /// </summary>
-    [JsonProperty("acceptedUserCount")]
-    public int AcceptedUserCount { get; set; }
+    public bool GivesNoRating { get; init; }
     /// <summary>
-    /// 문제의 레벨(티어)값
+    /// 표준 문제인지 여부입니다.
     /// </summary>
-    [JsonProperty("level")]
-    public int Level { get; set; }
+    public bool IsStandard { get; init; }
     /// <summary>
-    /// 난이도 기여자의 수입니다.
+    /// 요청한 사용자의 풀이 상태입니다. 사용자 토큰에 <c>solves</c> scope 가 없거나 시도하지 않았다면 null 입니다.
     /// </summary>
-    [JsonProperty("votedUserCount")]
-    public int VotedUserCount { get; set; }
-    /// <summary>
-    /// 새싹 문제인지 여부입니다.
-    /// </summary>
-    [JsonProperty("sprout")]
-    public bool Sprout { get; set; }
-    /// <summary>
-    /// 레이팅을 주지 않는지 여부입니다.
-    /// </summary>
-    [JsonProperty("givesNoRating")]
-    public bool GivesNoRating { get; set; }
-    /// <summary>
-    /// 난이도 기여 제한 여부입니다.
-    /// </summary>
-    [JsonProperty("isLevelLocked")]
-    public bool IsLevelLocked { get; set; }
-    /// <summary>
-    /// 평균 시도 횟수입니다.
-    /// </summary>
-    [JsonProperty("averageTries")]
-    public long AverageTries { get; set; }
-    /// <summary>
-    /// 공식 문제 여부입니다.
-    /// </summary>
-    [JsonProperty("official")]
-    public bool Official { get; set; }
+    public SolvedUserStatus? UserStatus { get; init; }
     /// <summary>
     /// 문제 레벨에 맞는 티어 이름을 가져옵니다.
     /// </summary>
@@ -84,74 +50,227 @@ public class SolvedProblem : Jsonable
 }
 
 /// <summary>
-/// 태그가 포함된 문제 정보입니다.
+/// 제목이 포함된 문제 정보입니다.
 /// </summary>
-public class SolvedTaggedProblem : SolvedProblem
+public class SolvedProblemSummary : SolvedProblemRef
 {
     /// <summary>
-    /// 태그 목록입니다.
+    /// 언어별 문제 제목입니다.
     /// </summary>
-    [JsonProperty("tags")]
-    public List<SolvedProblemTag> Tags { get; set; } = null!;
+    public List<SolvedProblemTitle> Titles { get; init; } = [];
+
+    /// <summary>
+    /// 해당 언어의 제목을 가져옵니다. 없으면 원문 제목, 그것도 없으면 첫 번째 제목을 가져옵니다.
+    /// </summary>
+    /// <param name="language">언어 (예: "ko", "en")</param>
+    /// <returns>제목이 하나도 없으면 null</returns>
+    public string? GetTitle(string? language = null)
+        => (Titles.Find(t => t.Language == language) ?? Titles.Find(t => t.IsOriginal) ?? Titles.FirstOrDefault())?.Title;
+}
+
+/// <summary>
+/// 문제 정보입니다. (문제 목록, 검색 결과)
+/// </summary>
+public class SolvedProblem : SolvedProblemSummary
+{
+    /// <summary>
+    /// solved.ac 내부 문제 ID 입니다.
+    /// </summary>
+    public long Id { get; init; }
+    /// <summary>
+    /// 기여된 난이도의 평균입니다.
+    /// </summary>
+    public double LevelAverage { get; init; }
+    /// <summary>
+    /// 기여된 난이도의 표준편차입니다.
+    /// </summary>
+    public double LevelStdev { get; init; }
+    /// <summary>
+    /// 난이도 기여자의 수입니다.
+    /// </summary>
+    public int VotedUserCount { get; init; }
+    /// <summary>
+    /// 맞은 사람 수입니다.
+    /// </summary>
+    public int SolvedUserCount { get; init; }
+    /// <summary>
+    /// 레이팅을 주지 않는 이유입니다. ("unofficial", "legacy", "staff", "unsettled")
+    /// </summary>
+    public List<string> NoRatingReasons { get; init; } = [];
+    /// <summary>
+    /// 레이팅에 대한 경고입니다. (같은 문제, 검색 가능 등)
+    /// </summary>
+    public List<SolvedNoRatingWarning> NoRatingWarnings { get; init; } = [];
+    /// <summary>
+    /// 문제가 출제된 대회 목록입니다.
+    /// </summary>
+    public List<SolvedProblemContest> Contests { get; init; } = [];
+    /// <summary>
+    /// 태그 목록입니다. 태그 이름은 <see cref="SolvedAPI.GetTagListAsync"/> 로 가져온 목록에서 key 로 찾을 수 있습니다.
+    /// </summary>
+    public List<SolvedTagRef> Tags { get; init; } = [];
+    /// <summary>
+    /// 이 문제가 들어있는 요청한 사용자의 북마크 폴더입니다. 목록 응답에서만 채워집니다.
+    /// </summary>
+    public List<SolvedFolderRef> ViewerFolders { get; init; } = [];
+}
+
+/// <summary>
+/// 문제 상세 정보입니다. (<see cref="SolvedAPI.GetProblemAsync"/>)
+/// </summary>
+public class SolvedProblemDetail : SolvedProblem
+{
+    /// <summary>
+    /// 각 저지의 문제 페이지 링크입니다.
+    /// </summary>
+    public List<SolvedOjLink> OjLinks { get; init; } = [];
+}
+
+/// <summary>
+/// 한 저지에서 문제를 부르는 번호입니다.
+/// </summary>
+public class SolvedJudgeId : Jsonable
+{
+    /// <summary>
+    /// 저지 ID 입니다. (예: "boj")
+    /// </summary>
+    public string OjId { get; init; } = string.Empty;
+    /// <summary>
+    /// 그 저지의 문제 번호입니다.
+    /// </summary>
+    public string ProblemId { get; init; } = string.Empty;
+    /// <summary>
+    /// 그 저지의 하위 문제 ID 입니다.
+    /// </summary>
+    public string SubId { get; init; } = string.Empty;
 }
 
 /// <summary>
 /// 문제의 제목에 대한 정보
 /// </summary>
-public class SolvedProblemTitle
+public class SolvedProblemTitle : Jsonable
 {
     /// <summary>
     /// 언어입니다.
     /// </summary>
-    [JsonProperty("language")]
-    public string Language { get; set; } = string.Empty;
-    /// <summary>
-    /// 표시되는 언어의 이름입니다.
-    /// </summary>
-    [JsonProperty("languageDisplayName")]
-    public string LanguageDisplayName { get; set; } = string.Empty;
+    public string Language { get; init; } = string.Empty;
     /// <summary>
     /// 문제의 제목입니다.
     /// </summary>
-    [JsonProperty("title")]
-    public string Title { get; set; } = string.Empty;
+    public string Title { get; init; } = string.Empty;
     /// <summary>
-    /// 원본과 동일한지 여부입니다.
+    /// 원문 제목인지 여부입니다.
     /// </summary>
-    [JsonProperty("isOriginal")]
-    public bool IsOriginal { get; set; }
+    public bool IsOriginal { get; init; }
+    /// <summary>
+    /// 제목에 LaTeX 수식이 들어있는지 여부입니다.
+    /// </summary>
+    public bool Latex { get; init; }
+    /// <summary>
+    /// 제목에 HTML 이 들어있는지 여부입니다.
+    /// </summary>
+    public bool Html { get; init; }
 }
 
 /// <summary>
-/// 표시된 이름
+/// 문제가 출제된 대회입니다.
 /// </summary>
-public class SolvedDisplayName
+public class SolvedProblemContest : Jsonable
 {
     /// <summary>
-    /// 언어입니다.
+    /// 대회 ID 입니다. (<see cref="SolvedAPI.GetSourceContestAsync"/>)
     /// </summary>
-    [JsonProperty("language")]
-    public string Language { get; set; } = string.Empty;
+    public long Id { get; init; }
     /// <summary>
-    /// 태그의 이름입니다.
+    /// 대회 안에서의 문제 표시 번호입니다. (예: "A")
     /// </summary>
-    [JsonProperty("name")]
-    public string Name { get; set; } = string.Empty;
+    public string DisplayId { get; init; } = string.Empty;
     /// <summary>
-    /// 태그의 짧은 이름입니다.
+    /// 대회 이름입니다.
     /// </summary>
-    [JsonProperty("short")]
-    public string ShortName { get; set; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
+    /// <summary>
+    /// 대회 이름의 약어입니다.
+    /// </summary>
+    public string? Abbreviation { get; init; }
 }
 
 /// <summary>
-/// 별칭
+/// 다른 응답에 포함되는 태그 정보입니다.
 /// </summary>
-public class SolvedAlias
+public class SolvedTagRef : Jsonable
 {
     /// <summary>
-    /// 별칭입니다.
+    /// 태그 ID 입니다.
     /// </summary>
-    [JsonProperty("alias")]
-    public string Alias { get; set; } = string.Empty;
+    public long Id { get; init; }
+    /// <summary>
+    /// 태그의 key 입니다. (예: "dp")
+    /// </summary>
+    public string Key { get; init; } = string.Empty;
+    /// <summary>
+    /// 메타 태그인지 여부입니다.
+    /// </summary>
+    public bool IsMeta { get; init; }
+}
+
+/// <summary>
+/// 다른 응답에 포함되는 북마크 폴더 정보입니다.
+/// </summary>
+public class SolvedFolderRef : Jsonable
+{
+    /// <summary>
+    /// 폴더의 slug 입니다.
+    /// </summary>
+    public string Slug { get; init; } = string.Empty;
+    /// <summary>
+    /// 폴더 이름입니다.
+    /// </summary>
+    public string Name { get; init; } = string.Empty;
+    /// <summary>
+    /// 폴더 색입니다.
+    /// </summary>
+    public SolvedFolderColor? Color { get; init; }
+}
+
+/// <summary>
+/// 저지의 문제 페이지 링크입니다.
+/// </summary>
+public class SolvedOjLink : Jsonable
+{
+    /// <summary>
+    /// 저지 ID 입니다.
+    /// </summary>
+    public string OjId { get; init; } = string.Empty;
+    /// <summary>
+    /// 저지 이름입니다.
+    /// </summary>
+    public string OjName { get; init; } = string.Empty;
+    /// <summary>
+    /// 그 저지의 문제 번호입니다.
+    /// </summary>
+    public string NativeProblemId { get; init; } = string.Empty;
+    /// <summary>
+    /// 문제 페이지 주소입니다.
+    /// </summary>
+    public string Url { get; init; } = string.Empty;
+    /// <summary>
+    /// 저지 로고 주소입니다.
+    /// </summary>
+    public string? LogoUrl { get; init; }
+}
+
+/// <summary>
+/// 레이팅에 대한 경고입니다.
+/// </summary>
+public class SolvedNoRatingWarning : Jsonable
+{
+    /// <summary>
+    /// 경고 종류입니다. ("same", "searchable", "wrong-inputs", "insufficient-conditions", "no-special-judge", "wrong-conditions", "wrong-statement")
+    /// </summary>
+    public string Type { get; init; } = string.Empty;
+    /// <summary>
+    /// 관련된 문제입니다. (같은 문제 등)
+    /// </summary>
+    public SolvedProblemRef? Problem { get; init; }
 }

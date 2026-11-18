@@ -1,30 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1</TargetFrameworks>
-		<LangVersion>13.0</LangVersion>
-		<NoStandardLib>false</NoStandardLib>
+		<TargetFramework>net10.0</TargetFramework>
+		<RootNamespace>AcNET</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>acNET</PackageId>
 		<PackageProjectUrl>https://github.com/614project/acNET</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/614project/acNET</RepositoryUrl>
-		<Description>sovled.ac API wrapper for c#
+		<Description>solved.ac API (v4) wrapper for C#
 (unofficial)
 </Description>
 		<Title>acNET</Title>
 		<Copyright>made by 614project</Copyright>
 		<PackageIcon>acNETIcon.png</PackageIcon>
-		<PackageReadmeFile>nuget.md</PackageReadmeFile>
-		<PackageTags>wrapper, api, library</PackageTags>
+		<PackageReadmeFile>Nuget.md</PackageReadmeFile>
+		<PackageTags>solved.ac, solvedac, baekjoon, boj, wrapper, api, library</PackageTags>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>1.0.0</FileVersion>
-		<Version>0.9.1</Version>
+		<Version>1.0.0</Version>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IncludeSymbols>True</IncludeSymbols>
 		<ApplicationIcon>acNETIcon.ico</ApplicationIcon>
 		<Authors>614project</Authors>
 		<PackAsTool>False</PackAsTool>
+		<!-- 테스트 프로젝트는 같은 폴더 아래에 있지만 라이브러리에 포함되지 않도록 제외합니다. -->
+		<DefaultItemExcludes>$(DefaultItemExcludes);tests/**</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -40,30 +42,20 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="nuget.md" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Include="acNETIcon.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="nuget.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<None Include="Nuget.md" Pack="true" PackagePath="\" />
 		<None Include="acNETIcon.png" Pack="true" PackagePath="\" />
 		<None Update="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="acNET.Tests" />
 	</ItemGroup>
 
 </Project>
