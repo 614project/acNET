@@ -73,7 +73,7 @@ public partial class SolvedAPI
     /// <returns>만든 폴더</returns>
     public Task<SolvedResult<SolvedBookmarkFolder>> CreateBookmarkFolderAsync(SolvedBookmarkFolderCreate folder, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(folder);
+        Guard.NotNull(folder);
         return SendJsonAsync<SolvedBookmarkFolder>(HttpMethod.Post, "account/bookmarks", folder, cancellationToken);
     }
 
@@ -87,7 +87,7 @@ public partial class SolvedAPI
     /// <returns>바뀐 폴더</returns>
     public Task<SolvedResult<SolvedBookmarkFolder>> UpdateBookmarkFolderAsync(string slug, SolvedBookmarkFolderUpdate update, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(update);
+        Guard.NotNull(update);
         return SendJsonAsync<SolvedBookmarkFolder>(HttpMethod.Patch, $"account/bookmarks/{Segment(slug)}", update, cancellationToken);
     }
 
@@ -110,7 +110,7 @@ public partial class SolvedAPI
     /// <param name="cancellationToken">취소 토큰</param>
     public Task<SolvedResult<SolvedBookmarkFolderChange>> AddBookmarkProblemsAsync(string slug, IEnumerable<int> problemIds, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(problemIds);
+        Guard.NotNull(problemIds);
         return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Post, $"account/bookmarks/{Segment(slug)}/problems", new ProblemIdsBody(problemIds.ToList()), cancellationToken);
     }
 
@@ -123,7 +123,7 @@ public partial class SolvedAPI
     /// <param name="cancellationToken">취소 토큰</param>
     public Task<SolvedResult<SolvedBookmarkFolderChange>> RemoveBookmarkProblemsAsync(string slug, IEnumerable<int> problemIds, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(problemIds);
+        Guard.NotNull(problemIds);
         return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Post, $"account/bookmarks/{Segment(slug)}/problems/remove", new ProblemIdsBody(problemIds.ToList()), cancellationToken);
     }
 
@@ -137,7 +137,7 @@ public partial class SolvedAPI
     /// <param name="cancellationToken">취소 토큰</param>
     public Task<SolvedResult<SolvedBookmarkFolderChange>> UpdateBookmarkProblemAsync(string slug, int problemId, SolvedBookmarkProblemUpdate update, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(update);
+        Guard.NotNull(update);
         return SendJsonAsync<SolvedBookmarkFolderChange>(HttpMethod.Patch, $"account/bookmarks/{Segment(slug)}/problems/{Segment(problemId)}", update, cancellationToken);
     }
 
@@ -153,7 +153,7 @@ public partial class SolvedAPI
     /// <returns>성공시 true</returns>
     public Task<SolvedResult<bool>> ReorderBookmarkFoldersAsync(IEnumerable<string> slugs, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(slugs);
+        Guard.NotNull(slugs);
         return SendNoContentAsync(HttpMethod.Post, "account/bookmarks/order", new SlugsBody(slugs.ToList()), cancellationToken);
     }
 

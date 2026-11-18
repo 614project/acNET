@@ -120,10 +120,21 @@ public class SolvedBookmarkFavorite : Jsonable
 /// </summary>
 public class SolvedBookmarkFolderCreate : Jsonable
 {
+    /// <summary>
+    /// 만들 폴더를 정합니다.
+    /// </summary>
+    /// <param name="slug">폴더의 slug (영문 소문자, 숫자, '_' 1~32자)</param>
+    /// <param name="name">폴더 이름</param>
+    public SolvedBookmarkFolderCreate(string slug, string name)
+    {
+        Slug = Guard.NotNullOrEmpty(slug);
+        Name = Guard.NotNullOrEmpty(name);
+    }
+
     /// <summary>폴더의 slug 입니다. (영문 소문자, 숫자, '_' 1~32자)</summary>
-    public required string Slug { get; init; }
+    public string Slug { get; }
     /// <summary>폴더 이름입니다.</summary>
-    public required string Name { get; init; }
+    public string Name { get; }
     /// <summary>폴더 설명입니다.</summary>
     public string? Description { get; init; }
     /// <summary>폴더 색입니다.</summary>

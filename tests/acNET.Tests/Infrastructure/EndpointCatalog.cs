@@ -12,8 +12,8 @@ public static class EndpointCatalog
 {
     public sealed record Entry(string Label, string Method, Func<SolvedAPI, Task<Exception?>> Call);
 
-    static readonly DateOnly Jan1 = new(2025, 1, 1);
-    static readonly DateOnly Dec31 = new(2025, 12, 31);
+    static readonly DateTime Jan1 = new(2025, 1, 1);
+    static readonly DateTime Dec31 = new(2025, 12, 31);
 
     public static IReadOnlyList<Entry> All { get; } =
     [
@@ -25,7 +25,7 @@ public static class EndpointCatalog
         E(nameof(SolvedAPI.GetUserActivityFeedAsync), api => api.GetUserActivityFeedAsync("jyunni", "cursor", Jan1, Dec31, 50)),
         E(nameof(SolvedAPI.GetUserContributionsAsync), api => api.GetUserContributionsAsync("jyunni", 2, 20, SolvedContributionSort.Helpful, SolvedContributionFilter.Vouched, true)),
         E(nameof(SolvedAPI.GetUserReputationAsync), api => api.GetUserReputationAsync("jyunni", SolvedHistoryRange.Year1)),
-        E(nameof(SolvedAPI.GetUserReputationLogAsync), api => api.GetUserReputationLogAsync("jyunni", new DateOnly(2025, 3, 15))),
+        E(nameof(SolvedAPI.GetUserReputationLogAsync), api => api.GetUserReputationLogAsync("jyunni", new DateTime(2025, 3, 15))),
         E(nameof(SolvedAPI.GetUserRatingHistoryAsync), api => api.GetUserRatingHistoryAsync("jyunni", SolvedHistoryRange.Days90)),
 
         // Problems
@@ -82,7 +82,7 @@ public static class EndpointCatalog
         E(nameof(SolvedAPI.GetAccountCollectionAsync), api => api.GetAccountCollectionAsync(SolvedItemKind.Badge, SolvedCollectionSort.Name, null, "a", 0)),
         E(nameof(SolvedAPI.GetAccountItemsAsync), api => api.GetAccountItemsAsync()),
         E(nameof(SolvedAPI.GetAccountWalletAsync), api => api.GetAccountWalletAsync()),
-        E(nameof(SolvedAPI.GetAccountWalletHistoryAsync), api => api.GetAccountWalletHistoryAsync(new DateOnly(2025, 11, 1))),
+        E(nameof(SolvedAPI.GetAccountWalletHistoryAsync), api => api.GetAccountWalletHistoryAsync(new DateTime(2025, 11, 1))),
         E(nameof(SolvedAPI.GetMyEmoticonsAsync), api => api.GetMyEmoticonsAsync()),
 
         // Bookmarks
@@ -90,7 +90,7 @@ public static class EndpointCatalog
         E(nameof(SolvedAPI.GetUserBookmarkFoldersAsync), api => api.GetUserBookmarkFoldersAsync("jyunni", 2)),
         E(nameof(SolvedAPI.GetUserBookmarkFolderAsync), api => api.GetUserBookmarkFolderAsync("jyunni", "my_list", 2, SolvedBookmarkProblemSort.AverageTry, SolvedSortDirection.Descending, "#dp")),
         E(nameof(SolvedAPI.GetAccountBookmarkFoldersAsync), api => api.GetAccountBookmarkFoldersAsync(1000)),
-        E(nameof(SolvedAPI.CreateBookmarkFolderAsync), api => api.CreateBookmarkFolderAsync(new SolvedBookmarkFolderCreate { Slug = "my_list", Name = "내 목록", Description = "설명", Color = SolvedFolderColor.Violet, Visibility = SolvedFolderVisibility.Unlisted })),
+        E(nameof(SolvedAPI.CreateBookmarkFolderAsync), api => api.CreateBookmarkFolderAsync(new SolvedBookmarkFolderCreate("my_list", "내 목록") { Description = "설명", Color = SolvedFolderColor.Violet, Visibility = SolvedFolderVisibility.Unlisted })),
         E(nameof(SolvedAPI.UpdateBookmarkFolderAsync), api => api.UpdateBookmarkFolderAsync("my_list", new SolvedBookmarkFolderUpdate { Name = "새 이름", Color = SolvedFolderColor.Orange, Visibility = SolvedFolderVisibility.Private })),
         E(nameof(SolvedAPI.DeleteBookmarkFolderAsync), api => api.DeleteBookmarkFolderAsync("my_list")),
         E(nameof(SolvedAPI.AddBookmarkProblemsAsync), api => api.AddBookmarkProblemsAsync("my_list", [1000, 1001])),

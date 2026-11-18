@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace AcNET;
@@ -43,7 +43,7 @@ public partial class SolvedAPI : IDisposable
     /// <param name="clientSecret">애플리케이션의 클라이언트 시크릿 (x-client-secret)</param>
     /// <param name="accessToken">사용자 접근 토큰. 사용자 권한이 필요한 작업에만 필요하며, 이외에는 null로 비워두어도 됩니다.</param>
     public SolvedAPI(string clientId, string clientSecret, string? accessToken = null)
-        : this(new SolvedAPIOptions { ClientId = clientId, ClientSecret = clientSecret, AccessToken = accessToken })
+        : this(new SolvedAPIOptions(clientId, clientSecret) { AccessToken = accessToken })
     {
     }
 
@@ -57,9 +57,7 @@ public partial class SolvedAPI : IDisposable
     /// </param>
     public SolvedAPI(SolvedAPIOptions options, HttpClient? httpClient = null)
     {
-        ArgumentNullException.ThrowIfNull(options);
-        ArgumentException.ThrowIfNullOrWhiteSpace(options.ClientId, nameof(options.ClientId));
-        ArgumentException.ThrowIfNullOrWhiteSpace(options.ClientSecret, nameof(options.ClientSecret));
+        Guard.NotNull(options);
 
         this.options = options;
         AccessToken = options.AccessToken;
@@ -67,10 +65,9 @@ public partial class SolvedAPI : IDisposable
 
         if (httpClient is null)
         {
-            client = new HttpClient(new SocketsHttpHandler
+            client = new HttpClient(new HttpClientHandler
             {
-                PooledConnectionLifetime = TimeSpan.FromMinutes(5),
-                AutomaticDecompression = DecompressionMethods.All,
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
             });
             ownsClient = true;
         }
@@ -181,9 +178,9 @@ public partial class SolvedAPI : IDisposable
             if (map is null)
                 return new(default, null) { RateLimit = rateLimit };
 
-            TWire? wire = await response.Content
-                .ReadFromJsonAsync<TWire>(JsonOptions, cancellationToken)
-                .ConfigureAwait(false);
+            TWire? wire;
+            using (Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                wire = await JsonSerializer.DeserializeAsync<TWire>(stream, JsonOptions, cancellationToken).ConfigureAwait(false);
             if (wire is null)
                 return new(default, new JsonException($"'{request.Method} {request.RequestUri}' 의 응답 본문이 비어있습니다.")) { RateLimit = rateLimit };
             return new(map(wire), null) { RateLimit = rateLimit };
@@ -217,6 +214,6 @@ public partial class SolvedAPI : IDisposable
     }
 
     static HttpContent? JsonBody(object? body)
-        => body is null ? null : JsonContent.Create(body, body.GetType(), options: SolvedJson.Write);
+        => body is null ? null : new StringContent(JsonSerializer.Serialize(body, body.GetType(), SolvedJson.Write), Encoding.UTF8, "application/json");
     #endregion
 }

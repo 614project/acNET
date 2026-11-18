@@ -56,7 +56,7 @@ using AcNET.OAuth;
 // 1. Send the user to the authorize page (keep pkce.CodeVerifier and state in the session)
 SolvedPkce pkce = SolvedPkce.Create();
 string state = SolvedPkce.CreateState();
-Uri url = api.GetAuthorizeUrl("https://example.com/callback", [SolvedScope.Solves, SolvedScope.OfflineAccess], state, pkce);
+Uri url = api.GetAuthorizeUrl("https://example.com/callback", new[] { SolvedScope.Solves, SolvedScope.OfflineAccess }, state, pkce);
 
 // 2. Exchange the returned code for tokens
 SolvedToken token = (await api.ExchangeCodeAsync(code, "https://example.com/callback", pkce)).GetResultOrThrow();
@@ -70,18 +70,21 @@ token = (await api.RefreshTokenAsync(token.RefreshToken!)).GetResultOrThrow();
 ```
 
 ## Usage
-This is a .NET 10 library. Add the latest version from NuGet!
+This is a .NET Standard 2.1 library.
+That means you can use it in any project targeting .NET 5 (C# 9.0) or higher
+by simply adding the latest version from NuGet!
 
 ### Migrating from 0.9
 - `new SolvedAPI()` → `new SolvedAPI(clientId, clientSecret)` (OAuth tokens replace the `solvedacToken` cookie)
 - All synchronous methods were removed. Use the `...Async` methods.
 - `Language` is sent as the `lang` query parameter instead of a header.
 - "organization" is now "affiliation", following solved.ac (`GetAffiliationRankingAsync`, `GetInAffiliationRankingAsync`).
+- Dates passed to APIs are `DateTime` (only the date part is used).
 - Features that v4 does not have were removed (coins/shop, class list, level list, class/streak rankings, arena, top 100, events, multi-problem lookup).
 - Models follow the v4 responses. For example the user's `OverRating` is gone, and problem titles come from `GetTitle("ko")`.
 
 ## Debugging
-All you need is the .NET 10 SDK!
+All you need is the .NET 10 SDK! (pinned by `global.json`)
 
 ```sh
 dotnet build

@@ -9,9 +9,9 @@ namespace AcNET;
 public enum SolvedSortDirection
 {
     /// <summary>오름차순</summary>
-    [JsonStringEnumMemberName("asc")] Ascending,
+    [ApiValue("asc")] Ascending,
     /// <summary>내림차순</summary>
-    [JsonStringEnumMemberName("desc")] Descending,
+    [ApiValue("desc")] Descending,
 }
 
 /// <summary>
@@ -23,11 +23,11 @@ public enum SolvedUserStatus
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>맞았습니다</summary>
-    [JsonStringEnumMemberName("solved")] Solved,
+    [ApiValue("solved")] Solved,
     /// <summary>부분 점수를 받았습니다</summary>
-    [JsonStringEnumMemberName("partial")] Partial,
+    [ApiValue("partial")] Partial,
     /// <summary>시도했지만 맞지 못했습니다</summary>
-    [JsonStringEnumMemberName("tried")] Tried,
+    [ApiValue("tried")] Tried,
 }
 
 /// <summary>
@@ -39,9 +39,9 @@ public enum SolvedItemKind
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>뱃지</summary>
-    [JsonStringEnumMemberName("badge")] Badge,
+    [ApiValue("badge")] Badge,
     /// <summary>배경</summary>
-    [JsonStringEnumMemberName("background")] Background,
+    [ApiValue("background")] Background,
 }
 
 /// <summary>
@@ -53,19 +53,19 @@ public enum SolvedAffiliationType
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>분류되지 않음 (API 값 "undefined")</summary>
-    [JsonStringEnumMemberName("undefined")] Undefined,
+    [ApiValue("undefined")] Undefined,
     /// <summary>대학교</summary>
-    [JsonStringEnumMemberName("university")] University,
+    [ApiValue("university")] University,
     /// <summary>고등학교</summary>
-    [JsonStringEnumMemberName("high_school")] HighSchool,
+    [ApiValue("high_school")] HighSchool,
     /// <summary>중학교</summary>
-    [JsonStringEnumMemberName("middle_school")] MiddleSchool,
+    [ApiValue("middle_school")] MiddleSchool,
     /// <summary>초등학교</summary>
-    [JsonStringEnumMemberName("elementary_school")] ElementarySchool,
+    [ApiValue("elementary_school")] ElementarySchool,
     /// <summary>회사</summary>
-    [JsonStringEnumMemberName("company")] Company,
+    [ApiValue("company")] Company,
     /// <summary>커뮤니티</summary>
-    [JsonStringEnumMemberName("community")] Community,
+    [ApiValue("community")] Community,
 }
 
 /// <summary>
@@ -77,9 +77,9 @@ public enum SolvedBanType
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>레이팅 정지</summary>
-    [JsonStringEnumMemberName("rating")] Rating,
+    [ApiValue("rating")] Rating,
     /// <summary>난이도 기여 정지</summary>
-    [JsonStringEnumMemberName("vote")] Vote,
+    [ApiValue("vote")] Vote,
 }
 
 /// <summary>
@@ -91,19 +91,19 @@ public enum SolvedFolderColor
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>빨강</summary>
-    [JsonStringEnumMemberName("red")] Red,
+    [ApiValue("red")] Red,
     /// <summary>보라</summary>
-    [JsonStringEnumMemberName("violet")] Violet,
+    [ApiValue("violet")] Violet,
     /// <summary>파랑</summary>
-    [JsonStringEnumMemberName("blue")] Blue,
+    [ApiValue("blue")] Blue,
     /// <summary>청록</summary>
-    [JsonStringEnumMemberName("teal")] Teal,
+    [ApiValue("teal")] Teal,
     /// <summary>연두</summary>
-    [JsonStringEnumMemberName("lime")] Lime,
+    [ApiValue("lime")] Lime,
     /// <summary>노랑</summary>
-    [JsonStringEnumMemberName("yellow")] Yellow,
+    [ApiValue("yellow")] Yellow,
     /// <summary>주황</summary>
-    [JsonStringEnumMemberName("orange")] Orange,
+    [ApiValue("orange")] Orange,
 }
 
 /// <summary>
@@ -115,11 +115,11 @@ public enum SolvedFolderVisibility
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>비공개</summary>
-    [JsonStringEnumMemberName("private")] Private,
+    [ApiValue("private")] Private,
     /// <summary>링크가 있는 사람만</summary>
-    [JsonStringEnumMemberName("unlisted")] Unlisted,
+    [ApiValue("unlisted")] Unlisted,
     /// <summary>공개</summary>
-    [JsonStringEnumMemberName("public")] Public,
+    [ApiValue("public")] Public,
 }
 
 /// <summary>
@@ -131,19 +131,19 @@ public enum SolvedActivityType
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>문제를 풀었습니다</summary>
-    [JsonStringEnumMemberName("solved")] Solved,
+    [ApiValue("solved")] Solved,
     /// <summary>푼 문제가 풀지 않은 것으로 바뀌었습니다</summary>
-    [JsonStringEnumMemberName("unsolved")] Unsolved,
+    [ApiValue("unsolved")] Unsolved,
     /// <summary>난이도에 기여했습니다</summary>
-    [JsonStringEnumMemberName("vote")] Vote,
+    [ApiValue("vote")] Vote,
     /// <summary>레이팅이 바뀌었습니다</summary>
-    [JsonStringEnumMemberName("rating")] Rating,
+    [ApiValue("rating")] Rating,
     /// <summary>티어가 바뀌었습니다</summary>
-    [JsonStringEnumMemberName("tier")] Tier,
+    [ApiValue("tier")] Tier,
     /// <summary>푼 문제 수 기념</summary>
-    [JsonStringEnumMemberName("solvedMilestone")] SolvedMilestone,
+    [ApiValue("solvedMilestone")] SolvedMilestone,
     /// <summary>기여 수 기념</summary>
-    [JsonStringEnumMemberName("voteMilestone")] VoteMilestone,
+    [ApiValue("voteMilestone")] VoteMilestone,
 }
 
 /// <summary>
@@ -153,15 +153,15 @@ public enum SolvedActivityType
 public enum SolvedProblemSort
 {
     /// <summary>문제 번호</summary>
-    [JsonStringEnumMemberName("id")] Id,
+    [ApiValue("id")] Id,
     /// <summary>난이도</summary>
-    [JsonStringEnumMemberName("level")] Level,
+    [ApiValue("level")] Level,
     /// <summary>맞은 사람 수</summary>
-    [JsonStringEnumMemberName("solved")] Solved,
+    [ApiValue("solved")] Solved,
     /// <summary>평균 시도 횟수</summary>
-    [JsonStringEnumMemberName("average_try")] AverageTry,
+    [ApiValue("average_try")] AverageTry,
     /// <summary>무작위 (seed 로 순서를 고정할 수 있습니다)</summary>
-    [JsonStringEnumMemberName("random")] Random,
+    [ApiValue("random")] Random,
 }
 
 /// <summary>
@@ -171,11 +171,11 @@ public enum SolvedProblemSort
 public enum SolvedUserRankingSort
 {
     /// <summary>레이팅</summary>
-    [JsonStringEnumMemberName("rating")] Rating,
+    [ApiValue("rating")] Rating,
     /// <summary>푼 문제 수</summary>
-    [JsonStringEnumMemberName("solved")] Solved,
+    [ApiValue("solved")] Solved,
     /// <summary>기여</summary>
-    [JsonStringEnumMemberName("contribution")] Contribution,
+    [ApiValue("contribution")] Contribution,
 }
 
 /// <summary>
@@ -185,11 +185,11 @@ public enum SolvedUserRankingSort
 public enum SolvedCollectionSort
 {
     /// <summary>최근 획득</summary>
-    [JsonStringEnumMemberName("recent")] Recent,
+    [ApiValue("recent")] Recent,
     /// <summary>희귀도</summary>
-    [JsonStringEnumMemberName("rarity")] Rarity,
+    [ApiValue("rarity")] Rarity,
     /// <summary>이름</summary>
-    [JsonStringEnumMemberName("name")] Name,
+    [ApiValue("name")] Name,
 }
 
 /// <summary>
@@ -199,9 +199,9 @@ public enum SolvedCollectionSort
 public enum SolvedHolderSort
 {
     /// <summary>최근 획득</summary>
-    [JsonStringEnumMemberName("recent")] Recent,
+    [ApiValue("recent")] Recent,
     /// <summary>먼저 획득</summary>
-    [JsonStringEnumMemberName("first")] First,
+    [ApiValue("first")] First,
 }
 
 /// <summary>
@@ -211,11 +211,11 @@ public enum SolvedHolderSort
 public enum SolvedVoteSort
 {
     /// <summary>최근</summary>
-    [JsonStringEnumMemberName("recent")] Recent,
+    [ApiValue("recent")] Recent,
     /// <summary>난이도</summary>
-    [JsonStringEnumMemberName("level")] Level,
+    [ApiValue("level")] Level,
     /// <summary>가중치</summary>
-    [JsonStringEnumMemberName("weight")] Weight,
+    [ApiValue("weight")] Weight,
 }
 
 /// <summary>
@@ -225,9 +225,9 @@ public enum SolvedVoteSort
 public enum SolvedContributionSort
 {
     /// <summary>최근</summary>
-    [JsonStringEnumMemberName("recent")] Recent,
+    [ApiValue("recent")] Recent,
     /// <summary>도움이 돼요 순</summary>
-    [JsonStringEnumMemberName("helpful")] Helpful,
+    [ApiValue("helpful")] Helpful,
 }
 
 /// <summary>
@@ -237,11 +237,11 @@ public enum SolvedContributionSort
 public enum SolvedContributionFilter
 {
     /// <summary>평판 점수를 받은 기여만</summary>
-    [JsonStringEnumMemberName("scoring")] Scoring,
+    [ApiValue("scoring")] Scoring,
     /// <summary>도움이 돼요를 받은 기여만</summary>
-    [JsonStringEnumMemberName("helpful")] Helpful,
+    [ApiValue("helpful")] Helpful,
     /// <summary>보증받은 기여만</summary>
-    [JsonStringEnumMemberName("vouched")] Vouched,
+    [ApiValue("vouched")] Vouched,
 }
 
 /// <summary>
@@ -251,11 +251,11 @@ public enum SolvedContributionFilter
 public enum SolvedHistoryRange
 {
     /// <summary>최근 90일</summary>
-    [JsonStringEnumMemberName("90d")] Days90,
+    [ApiValue("90d")] Days90,
     /// <summary>최근 1년</summary>
-    [JsonStringEnumMemberName("1y")] Year1,
+    [ApiValue("1y")] Year1,
     /// <summary>전체</summary>
-    [JsonStringEnumMemberName("all")] All,
+    [ApiValue("all")] All,
 }
 
 /// <summary>
@@ -265,9 +265,9 @@ public enum SolvedHistoryRange
 public enum SolvedBookmarkFolderSort
 {
     /// <summary>최근 수정</summary>
-    [JsonStringEnumMemberName("updated")] Updated,
+    [ApiValue("updated")] Updated,
     /// <summary>문제 수</summary>
-    [JsonStringEnumMemberName("problems")] Problems,
+    [ApiValue("problems")] Problems,
 }
 
 /// <summary>
@@ -277,15 +277,15 @@ public enum SolvedBookmarkFolderSort
 public enum SolvedBookmarkProblemSort
 {
     /// <summary>폴더에 정한 순서</summary>
-    [JsonStringEnumMemberName("order")] Order,
+    [ApiValue("order")] Order,
     /// <summary>난이도</summary>
-    [JsonStringEnumMemberName("level")] Level,
+    [ApiValue("level")] Level,
     /// <summary>맞은 사람 수</summary>
-    [JsonStringEnumMemberName("solved")] Solved,
+    [ApiValue("solved")] Solved,
     /// <summary>평균 시도 횟수</summary>
-    [JsonStringEnumMemberName("average_try")] AverageTry,
+    [ApiValue("average_try")] AverageTry,
     /// <summary>문제 번호</summary>
-    [JsonStringEnumMemberName("id")] Id,
+    [ApiValue("id")] Id,
 }
 
 /// <summary>
@@ -297,19 +297,19 @@ public enum SolvedPolicyKind
     /// <summary>acNET 이 모르는 값</summary>
     Unknown = 0,
     /// <summary>이용약관</summary>
-    [JsonStringEnumMemberName("tos")] Tos,
+    [ApiValue("tos")] Tos,
     /// <summary>정기 결제 약관</summary>
-    [JsonStringEnumMemberName("tos_recurring")] TosRecurring,
+    [ApiValue("tos_recurring")] TosRecurring,
     /// <summary>개인정보 처리방침</summary>
-    [JsonStringEnumMemberName("privacy")] Privacy,
+    [ApiValue("privacy")] Privacy,
     /// <summary>크롬 확장 프로그램 개인정보 처리방침</summary>
-    [JsonStringEnumMemberName("chrome_privacy")] ChromePrivacy,
+    [ApiValue("chrome_privacy")] ChromePrivacy,
     /// <summary>가이드라인</summary>
-    [JsonStringEnumMemberName("guideline")] Guideline,
+    [ApiValue("guideline")] Guideline,
     /// <summary>운영 정책</summary>
-    [JsonStringEnumMemberName("rules")] Rules,
+    [ApiValue("rules")] Rules,
     /// <summary>개발자 약관</summary>
-    [JsonStringEnumMemberName("developer_terms")] DeveloperTerms,
+    [ApiValue("developer_terms")] DeveloperTerms,
     /// <summary>파트너 약관</summary>
-    [JsonStringEnumMemberName("partner_terms")] PartnerTerms,
+    [ApiValue("partner_terms")] PartnerTerms,
 }

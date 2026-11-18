@@ -1,4 +1,3 @@
-using System.Buffers.Text;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -29,13 +28,14 @@ public sealed class SolvedPkce
     SolvedPkce(string codeVerifier)
     {
         CodeVerifier = codeVerifier;
-        CodeChallenge = Base64Url.EncodeToString(SHA256.HashData(Encoding.ASCII.GetBytes(codeVerifier)));
+        using SHA256 sha256 = SHA256.Create();
+        CodeChallenge = Base64Url(sha256.ComputeHash(Encoding.ASCII.GetBytes(codeVerifier)));
     }
 
     /// <summary>
     /// 새 무작위 verifier 로 PKCE 쌍을 만듭니다.
     /// </summary>
-    public static SolvedPkce Create() => new(Base64Url.EncodeToString(RandomNumberGenerator.GetBytes(32)));
+    public static SolvedPkce Create() => new(Base64Url(RandomBytes(32)));
 
     /// <summary>
     /// 보관해둔 verifier 로 PKCE 쌍을 다시 만듭니다.
@@ -43,7 +43,7 @@ public sealed class SolvedPkce
     /// <param name="codeVerifier">43~128자의 verifier (영문, 숫자, '-', '.', '_', '~')</param>
     public static SolvedPkce FromVerifier(string codeVerifier)
     {
-        ArgumentNullException.ThrowIfNull(codeVerifier);
+        Guard.NotNull(codeVerifier);
         if (codeVerifier.Length is < 43 or > 128 || !codeVerifier.All(IsUnreserved))
             throw new ArgumentException("code verifier 는 43~128자의 영문, 숫자, '-', '.', '_', '~' 로만 이루어져야 합니다.", nameof(codeVerifier));
         return new(codeVerifier);
@@ -52,7 +52,20 @@ public sealed class SolvedPkce
     /// <summary>
     /// CSRF 방지를 위한 무작위 state 값을 만듭니다.
     /// </summary>
-    public static string CreateState() => Base64Url.EncodeToString(RandomNumberGenerator.GetBytes(16));
+    public static string CreateState() => Base64Url(RandomBytes(16));
 
-    static bool IsUnreserved(char c) => char.IsAsciiLetterOrDigit(c) || c is '-' or '.' or '_' or '~';
+    static bool IsUnreserved(char c) => c is (>= 'a' and <= 'z') or (>= 'A' and <= 'Z') or (>= '0' and <= '9') or '-' or '.' or '_' or '~';
+
+    static byte[] RandomBytes(int count)
+    {
+        byte[] bytes = new byte[count];
+        RandomNumberGenerator.Fill(bytes);
+        return bytes;
+    }
+
+    /// <summary>
+    /// BASE64URL (RFC 4648 §5, 패딩 없음)
+    /// </summary>
+    static string Base64Url(byte[] bytes)
+        => Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
 }

@@ -52,8 +52,8 @@ public class SolvedActivityDay : Jsonable
     public bool FreezeUsed { get; init; }
     /// <summary>스트릭을 복구했는지 여부입니다.</summary>
     public bool StreakRepaired { get; init; }
-    /// <summary>날짜를 C# DateOnly 로 가져옵니다.</summary>
-    public DateOnly? GetDay => SolvedConverter.ToDay(Day);
+    /// <summary>날짜를 C# DateTime 으로 가져옵니다.</summary>
+    public DateTime? GetDay => SolvedConverter.ToDay(Day);
 }
 
 /// <summary>
@@ -198,8 +198,8 @@ public class SolvedDailyValue : Jsonable
     public string Day { get; init; } = string.Empty;
     /// <summary>그 날이 끝났을 때의 값입니다.</summary>
     public int Value { get; init; }
-    /// <summary>날짜를 C# DateOnly 로 가져옵니다.</summary>
-    public DateOnly? GetDay => SolvedConverter.ToDay(Day);
+    /// <summary>날짜를 C# DateTime 으로 가져옵니다.</summary>
+    public DateTime? GetDay => SolvedConverter.ToDay(Day);
 }
 
 /// <summary>

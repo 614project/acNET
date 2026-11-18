@@ -53,7 +53,7 @@ using AcNET.OAuth;
 // 1. 인가 페이지로 보내기 (pkce.CodeVerifier 와 state 는 세션에 보관)
 SolvedPkce pkce = SolvedPkce.Create();
 string state = SolvedPkce.CreateState();
-Uri url = api.GetAuthorizeUrl("https://example.com/callback", [SolvedScope.Solves, SolvedScope.OfflineAccess], state, pkce);
+Uri url = api.GetAuthorizeUrl("https://example.com/callback", new[] { SolvedScope.Solves, SolvedScope.OfflineAccess }, state, pkce);
 
 // 2. 돌아온 code 를 토큰으로 교환
 SolvedToken token = (await api.ExchangeCodeAsync(code, "https://example.com/callback", pkce)).GetResultOrThrow();
@@ -67,18 +67,21 @@ token = (await api.RefreshTokenAsync(token.RefreshToken!)).GetResultOrThrow();
 ```
 
 ## 사용
-.NET 10 라이브러리입니다. NuGet 에서 최신 버전을 추가하여 사용하시면 됩니다!
+.NET Standard 2.1 라이브러리입니다.
+즉, .NET 5 (C# 9.0) 이상의 모든 프로젝트에서
+최신 버전의 NuGet 을 추가하여 사용하시면 됩니다!
 
 ### 0.9 에서 옮겨오기
 - `new SolvedAPI()` → `new SolvedAPI(clientId, clientSecret)` (쿠키 `solvedacToken` 대신 OAuth 토큰을 사용합니다)
 - 동기 함수는 모두 삭제되었습니다. `...Async` 함수를 사용해주세요.
 - 언어 지정(`Language`)은 헤더 대신 `lang` 쿼리로 보내집니다.
 - organization 은 solved.ac 용어에 맞춰 affiliation 으로 바뀌었습니다. (`GetAffiliationRankingAsync`, `GetInAffiliationRankingAsync`)
+- API 에 넘기는 날짜는 `DateTime` 입니다. (날짜 부분만 사용합니다)
 - v4 에 없는 기능(코인/상점, 클래스 목록, 레벨 목록, 클래스/스트릭 랭킹, 아레나, 상위 100문제, 이벤트, 여러 문제 한 번에 조회)은 삭제되었습니다.
 - 모델이 v4 응답에 맞게 바뀌었습니다. 예를 들어 사용자의 `OverRating` 은 없어졌고, 문제 제목은 `GetTitle("ko")` 로 가져옵니다.
 
 ## 디버깅
-.NET 10 SDK 만 있으면 됩니다!
+.NET 10 SDK 만 있으면 됩니다! (`global.json` 으로 지정되어 있습니다)
 
 ```sh
 dotnet build

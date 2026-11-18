@@ -6,15 +6,26 @@ namespace AcNET;
 public sealed class SolvedAPIOptions
 {
     /// <summary>
+    /// 설정을 만듭니다.
+    /// </summary>
+    /// <param name="clientId">애플리케이션의 클라이언트 ID (x-client-id)</param>
+    /// <param name="clientSecret">애플리케이션의 클라이언트 시크릿 (x-client-secret)</param>
+    public SolvedAPIOptions(string clientId, string clientSecret)
+    {
+        ClientId = Guard.NotNullOrWhiteSpace(clientId);
+        ClientSecret = Guard.NotNullOrWhiteSpace(clientSecret);
+    }
+
+    /// <summary>
     /// solved.ac Backstage(https://backstage.solved.ac/developer)에서 등록한 애플리케이션의 클라이언트 ID 입니다. (x-client-id)
     /// </summary>
-    public required string ClientId { get; init; }
+    public string ClientId { get; }
 
     /// <summary>
     /// 애플리케이션의 클라이언트 시크릿입니다. (x-client-secret)
     /// 시크릿이 노출되지 않도록 서버 등 신뢰할 수 있는 환경에서만 사용하세요.
     /// </summary>
-    public required string ClientSecret { get; init; }
+    public string ClientSecret { get; }
 
     /// <summary>
     /// 처음부터 사용할 사용자 접근 토큰(OAuth access token)입니다. 사용자 권한이 필요없다면 비워두세요.

@@ -62,7 +62,7 @@ public partial class SolvedAPI
     /// <param name="cancellationToken">취소 토큰</param>
     public Task<SolvedResult<SolvedPost>> GetHelpPageAsync(string path, CancellationToken cancellationToken = default)
     {
-        ArgumentException.ThrowIfNullOrEmpty(path);
+        Guard.NotNullOrEmpty(path);
         return GetAsync<SolvedPost>("posts/help/page", Lang().Add("path", path), cancellationToken);
     }
 

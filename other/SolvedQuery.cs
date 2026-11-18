@@ -44,7 +44,7 @@ internal sealed class SolvedQuery
     /// </summary>
     public static string Segment(string value, [System.Runtime.CompilerServices.CallerArgumentExpression(nameof(value))] string? name = null)
     {
-        ArgumentException.ThrowIfNullOrEmpty(value, name);
+        Guard.NotNullOrEmpty(value, name);
         return Uri.EscapeDataString(value);
     }
 

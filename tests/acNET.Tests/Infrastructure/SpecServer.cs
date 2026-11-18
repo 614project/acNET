@@ -31,7 +31,7 @@ public sealed class SpecServer : HttpMessageHandler
     /// </summary>
     public SolvedAPI CreateClient(string? accessToken = "user-token")
     {
-        SolvedAPI api = new(new SolvedAPIOptions { ClientId = "client-id", ClientSecret = "client-secret", AccessToken = accessToken, Language = "ko" }, new HttpClient(this));
+        SolvedAPI api = new(new SolvedAPIOptions("client-id", "client-secret") { AccessToken = accessToken, Language = "ko" }, new HttpClient(this));
         api.JsonOptions = StrictOptions;
         return api;
     }

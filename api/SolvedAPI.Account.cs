@@ -23,7 +23,7 @@ public partial class SolvedAPI
     /// <returns>바뀐 뒤의 전체 설정</returns>
     public Task<SolvedResult<SolvedAccountSettings>> UpdateAccountSettingsAsync(SolvedAccountSettingsUpdate settings, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(settings);
+        Guard.NotNull(settings);
         return SendJsonAsync<SettingsEnvelope, SolvedAccountSettings>(HttpMethod.Patch, "account/settings", settings, static e => e.Settings, cancellationToken);
     }
 
@@ -109,7 +109,7 @@ public partial class SolvedAPI
     /// <remarks>사용자 토큰 필요 (scope: <c>wallet</c>)</remarks>
     /// <param name="month">조회할 달 (연도와 월만 사용). null 이면 이번 달</param>
     /// <param name="cancellationToken">취소 토큰</param>
-    public Task<SolvedResult<SolvedWalletHistory>> GetAccountWalletHistoryAsync(DateOnly? month = null, CancellationToken cancellationToken = default)
+    public Task<SolvedResult<SolvedWalletHistory>> GetAccountWalletHistoryAsync(DateTime? month = null, CancellationToken cancellationToken = default)
         => GetAsync<SolvedWalletHistory>("account/wallet/history", Lang().Add("month", Month(month)), cancellationToken);
 
     /// <summary>

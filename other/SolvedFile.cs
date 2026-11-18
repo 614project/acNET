@@ -5,23 +5,20 @@ namespace AcNET;
 /// </summary>
 internal static class SolvedFile
 {
-    static readonly Lazy<HttpClient> client = new(() => new HttpClient(new SocketsHttpHandler
-    {
-        PooledConnectionLifetime = TimeSpan.FromMinutes(5),
-    }));
+    static readonly Lazy<HttpClient> client = new(() => new HttpClient());
 
     internal static async Task<Exception?> SaveAsync(string? url, string savePath, CancellationToken cancellationToken)
     {
         try
         {
-            ArgumentException.ThrowIfNullOrEmpty(url);
-            ArgumentException.ThrowIfNullOrEmpty(savePath);
+            Guard.NotNullOrEmpty(url);
+            Guard.NotNullOrEmpty(savePath);
             using var response = await client.Value.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            await using Stream contentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             await using FileStream fileStream = new(savePath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
-            await contentStream.CopyToAsync(fileStream, cancellationToken).ConfigureAwait(false);
+            await contentStream.CopyToAsync(fileStream, 81920, cancellationToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {

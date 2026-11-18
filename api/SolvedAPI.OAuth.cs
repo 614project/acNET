@@ -15,10 +15,10 @@ public partial class SolvedAPI
     /// <returns>인가 페이지 주소</returns>
     public Uri GetAuthorizeUrl(string redirectUri, IEnumerable<string> scopes, string state, SolvedPkce pkce)
     {
-        ArgumentException.ThrowIfNullOrEmpty(redirectUri);
-        ArgumentNullException.ThrowIfNull(scopes);
-        ArgumentException.ThrowIfNullOrEmpty(state);
-        ArgumentNullException.ThrowIfNull(pkce);
+        Guard.NotNullOrEmpty(redirectUri);
+        Guard.NotNull(scopes);
+        Guard.NotNullOrEmpty(state);
+        Guard.NotNull(pkce);
 
         string query = new SolvedQuery()
             .Add("response_type", "code")
@@ -46,9 +46,9 @@ public partial class SolvedAPI
     /// <returns>토큰</returns>
     public Task<SolvedResult<SolvedToken>> ExchangeCodeAsync(string code, string redirectUri, string codeVerifier, CancellationToken cancellationToken = default)
     {
-        ArgumentException.ThrowIfNullOrEmpty(code);
-        ArgumentException.ThrowIfNullOrEmpty(redirectUri);
-        ArgumentException.ThrowIfNullOrEmpty(codeVerifier);
+        Guard.NotNullOrEmpty(code);
+        Guard.NotNullOrEmpty(redirectUri);
+        Guard.NotNullOrEmpty(codeVerifier);
         return TokenRequestAsync(new Dictionary<string, string>
         {
             ["grant_type"] = "authorization_code",
@@ -68,7 +68,7 @@ public partial class SolvedAPI
     /// <returns>토큰</returns>
     public Task<SolvedResult<SolvedToken>> ExchangeCodeAsync(string code, string redirectUri, SolvedPkce pkce, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(pkce);
+        Guard.NotNull(pkce);
         return ExchangeCodeAsync(code, redirectUri, pkce.CodeVerifier, cancellationToken);
     }
 
@@ -85,7 +85,7 @@ public partial class SolvedAPI
     /// <returns>새 토큰</returns>
     public Task<SolvedResult<SolvedToken>> RefreshTokenAsync(string refreshToken, IEnumerable<string>? scopes = null, CancellationToken cancellationToken = default)
     {
-        ArgumentException.ThrowIfNullOrEmpty(refreshToken);
+        Guard.NotNullOrEmpty(refreshToken);
         Dictionary<string, string> form = new()
         {
             ["grant_type"] = "refresh_token",
@@ -108,7 +108,7 @@ public partial class SolvedAPI
     /// <returns>성공시 true</returns>
     public async Task<SolvedResult<bool>> RevokeTokenAsync(string token, CancellationToken cancellationToken = default)
     {
-        ArgumentException.ThrowIfNullOrEmpty(token);
+        Guard.NotNullOrEmpty(token);
         SolvedResult<object> result = await SendAsync<object, object>(
             HttpMethod.Post,
             "oauth/revoke",

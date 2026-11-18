@@ -41,7 +41,7 @@ public partial class SolvedAPI
     /// <param name="from">시작일</param>
     /// <param name="to">종료일 (기간이 너무 길면 400 에러)</param>
     /// <param name="cancellationToken">취소 토큰</param>
-    public Task<SolvedResult<SolvedActivityDays>> GetUserActivityDaysAsync(string handle, DateOnly from, DateOnly to, CancellationToken cancellationToken = default)
+    public Task<SolvedResult<SolvedActivityDays>> GetUserActivityDaysAsync(string handle, DateTime from, DateTime to, CancellationToken cancellationToken = default)
         => GetAsync<SolvedActivityDays>(
             $"users/{Segment(handle)}/activity/days",
             new SolvedQuery().Add("from", Day(from)).Add("to", Day(to)),
@@ -56,7 +56,7 @@ public partial class SolvedAPI
     /// <param name="to">종료일</param>
     /// <param name="limit">가져올 개수 (1~500)</param>
     /// <param name="cancellationToken">취소 토큰</param>
-    public Task<SolvedResult<SolvedActivityFeed>> GetUserActivityFeedAsync(string handle, string? before = null, DateOnly? from = null, DateOnly? to = null, int? limit = null, CancellationToken cancellationToken = default)
+    public Task<SolvedResult<SolvedActivityFeed>> GetUserActivityFeedAsync(string handle, string? before = null, DateTime? from = null, DateTime? to = null, int? limit = null, CancellationToken cancellationToken = default)
         => GetAsync<SolvedActivityFeed>(
             $"users/{Segment(handle)}/activity/feed",
             new SolvedQuery().Add("before", before).Add("from", Day(from)).Add("to", Day(to)).Add("limit", limit),
@@ -106,7 +106,7 @@ public partial class SolvedAPI
     /// <param name="handle">사용자명</param>
     /// <param name="month">조회할 달 (연도와 월만 사용). null 이면 이번 달</param>
     /// <param name="cancellationToken">취소 토큰</param>
-    public Task<SolvedResult<SolvedReputationLog>> GetUserReputationLogAsync(string handle, DateOnly? month = null, CancellationToken cancellationToken = default)
+    public Task<SolvedResult<SolvedReputationLog>> GetUserReputationLogAsync(string handle, DateTime? month = null, CancellationToken cancellationToken = default)
         => GetAsync<SolvedReputationLog>($"users/{Segment(handle)}/reputation/log", new SolvedQuery().Add("month", Month(month)), cancellationToken);
 
     /// <summary>
@@ -129,9 +129,9 @@ public partial class SolvedAPI
     /// </summary>
     SolvedQuery Lang() => new SolvedQuery().Add("lang", Language);
 
-    static string? Day(DateOnly? day) => day?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    static string? Day(DateTime? day) => day?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-    static string? Month(DateOnly? month) => month?.ToString("yyyy-MM", CultureInfo.InvariantCulture);
+    static string? Month(DateTime? month) => month?.ToString("yyyy-MM", CultureInfo.InvariantCulture);
 
     sealed class HistoryEnvelope
     {

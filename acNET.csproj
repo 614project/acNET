@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<!-- .NET 5 이상 등에서 쓸 수 있도록 .NET Standard 2.1 을 대상으로 합니다. (빌드는 .NET 10 SDK) -->
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
 		<RootNamespace>AcNET</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -52,6 +54,15 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--
+		  .NET Standard 2.1 에는 System.Text.Json 이 없어서 패키지로 참조합니다.
+		  8.0 이상은 .NET 5 등에서 'doesn't support' 경고를 내므로, 경고 없이 netcoreapp3.1 이상을 지원하는 6.0 계열을 씁니다.
+		  .NET 6 이상에서는 프레임워크에 들어있는 더 높은 버전이 사용됩니다.
+		-->
+		<PackageReference Include="System.Text.Json" Version="6.0.11" />
 	</ItemGroup>
 
 	<ItemGroup>

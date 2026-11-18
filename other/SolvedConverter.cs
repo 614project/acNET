@@ -25,15 +25,15 @@ public static class SolvedConverter
     }
 
     /// <summary>
-    /// solved.ac API 의 날짜 문자열(<c>yyyy-MM-dd</c>)을 <see cref="DateOnly"/> 로 변환합니다.
+    /// solved.ac API 의 날짜 문자열(<c>yyyy-MM-dd</c>)을 <see cref="DateTime"/> 로 변환합니다.
     /// </summary>
     /// <param name="day">날짜 문자열</param>
     /// <returns>변환 실패시 null을 반환합니다.</returns>
-    public static DateOnly? ToDay(string? day)
+    public static DateTime? ToDay(string? day)
     {
         if (string.IsNullOrEmpty(day))
             return null;
-        return DateOnly.TryParseExact(day, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var result)
+        return DateTime.TryParseExact(day, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var result)
             ? result
             : null;
     }

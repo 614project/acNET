@@ -6,7 +6,7 @@ namespace AcNET;
 
 /// <summary>
 /// solved.ac 의 문자열 값과 C# 열거형을 서로 변환합니다.
-/// 각 멤버의 <see cref="JsonStringEnumMemberNameAttribute"/> 를 API 문자열로 사용합니다.
+/// 각 멤버의 <see cref="ApiValueAttribute"/> 를 API 문자열로 사용합니다.
 /// </summary>
 internal static class SolvedEnum<TEnum> where TEnum : struct, Enum
 {
@@ -17,7 +17,7 @@ internal static class SolvedEnum<TEnum> where TEnum : struct, Enum
     {
         foreach (FieldInfo field in typeof(TEnum).GetFields(BindingFlags.Public | BindingFlags.Static))
         {
-            string? name = field.GetCustomAttribute<JsonStringEnumMemberNameAttribute>()?.Name;
+            string? name = field.GetCustomAttribute<ApiValueAttribute>()?.Value;
             if (name is null)
                 continue;
             TEnum value = (TEnum)field.GetValue(null)!;

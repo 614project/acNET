@@ -100,7 +100,7 @@ public class SolvedAPIException : Exception
 
     internal static async Task<SolvedAPIException> FromResponseAsync(HttpRequestMessage request, HttpResponseMessage response, CancellationToken cancellationToken)
     {
-        string body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+        string body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         string code = SolvedErrorCode.Unknown;
         string? message = null;
         Dictionary<string, JsonElement>? details = null;

@@ -70,7 +70,7 @@ public partial class SolvedAPI
     /// <returns>최대 8개의 추천 값</returns>
     public Task<SolvedResult<List<SolvedSuggestion>>> GetSearchSuggestionAsync(string topic, string? value = null, CancellationToken cancellationToken = default)
     {
-        ArgumentException.ThrowIfNullOrEmpty(topic);
+        Guard.NotNullOrEmpty(topic);
         return GetAsync<SuggestionsEnvelope, List<SolvedSuggestion>>(
             "search/suggest",
             new SolvedQuery().Add("topic", topic).Add("value", value),

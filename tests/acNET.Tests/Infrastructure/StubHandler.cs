@@ -19,7 +19,7 @@ public sealed class StubHandler(Func<HttpRequestMessage, HttpResponseMessage> re
         });
 
     public SolvedAPI CreateClient(string? accessToken = null, string? language = null)
-        => new(new SolvedAPIOptions { ClientId = "client-id", ClientSecret = "client-secret", AccessToken = accessToken, Language = language }, new HttpClient(this));
+        => new(new SolvedAPIOptions("client-id", "client-secret") { AccessToken = accessToken, Language = language }, new HttpClient(this));
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {

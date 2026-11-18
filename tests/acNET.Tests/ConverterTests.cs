@@ -32,7 +32,7 @@ public class ConverterTests
     public void Times_and_days()
     {
         Assert.Equal(new DateTimeOffset(2025, 4, 1, 12, 30, 0, 500, TimeSpan.Zero), SolvedConverter.ToTime("2025-04-01T12:30:00.500Z"));
-        Assert.Equal(new DateOnly(2025, 4, 1), SolvedConverter.ToDay("2025-04-01"));
+        Assert.Equal(new DateTime(2025, 4, 1), SolvedConverter.ToDay("2025-04-01"));
         Assert.Null(SolvedConverter.ToTime("not a time"));
         Assert.Null(SolvedConverter.ToDay(null));
     }
