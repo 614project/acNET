@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
+using AcNET.Type;
 
 namespace AcNET.Problem;
 
 /// <summary>
-/// 수준별 문제
+/// 레벨(티어)별 문제 수입니다. 레벨 이름과 색깔 표도 함께 제공합니다.
 /// </summary>
-public class SolvedLevel : Type.Jsonable
+public class SolvedLevel : Jsonable
 {
     /// <summary>
-    /// 레벨값 마다 지정된 레벨 이름이 모인 문자열 배열
+    /// 레벨값 마다 지정된 레벨 이름이 모인 문자열 배열 (0: Unrated, 1: Bronze V, ..., 30: Ruby I, 31: Master)
     /// </summary>
     public static readonly string[] Names = @"Unrated
 Bronze V
@@ -41,12 +41,13 @@ Ruby IV
 Ruby III
 Ruby II
 Ruby I
-Master".Replace("\r",string.Empty).Split('\n');
+Master".Replace("\r", string.Empty).Split('\n');
+
     /// <summary>
     /// 레벨값 마다 지정된 레벨 색깔이 모인 문자열 배열. (형식은 7자리 Hex 코드)
     /// </summary>
     public static readonly string[] Colors =
-    {
+    [
         //unrated
         "#2D2D2D",
         //bronze
@@ -87,23 +88,26 @@ Master".Replace("\r",string.Empty).Split('\n');
         "#FF3071",
         //master
         "#B491FF"
-    };
+    ];
+
     /// <summary>
     /// 레벨(티어)값입니다.
     /// </summary>
-    [JsonProperty("level")]
-    public long Level { get; set; }
+    public int Level { get; set; }
     /// <summary>
-    /// 이 문제 수준인 문제 수입니다.
+    /// 이 레벨인 문제 수입니다.
     /// </summary>
-    [JsonProperty("count")]
-    public long Count { get; set; }
+    public int Count { get; set; }
     /// <summary>
-    /// 문제의 레벨(티어)값을 레벨 이름으로 가져옵니다.
+    /// 그 중 (요청한 사용자가) 푼 문제 수입니다. 사용자 정보가 없으면 null 입니다.
     /// </summary>
-    public string GetTierName => Names[this.Level];
+    public int? Solved { get; set; }
+    /// <summary>
+    /// 레벨(티어)값을 레벨 이름으로 가져옵니다.
+    /// </summary>
+    public string? GetTierName => SolvedConverter.LevelName(Level);
     /// <summary>
     /// 레벨(티어)값에 알맞는 색깔의 Hex 코드를 가져옵니다. (7자리 #rrggbb 로 구성되어있습니다.)
     /// </summary>
-    public string GetTierColor => Colors[this.Level];
+    public string GetTierColor => SolvedConverter.LevelColor(Level);
 }

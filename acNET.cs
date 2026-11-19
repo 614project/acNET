@@ -1,16 +1,21 @@
 ﻿/*
  * acNET
- * 
- * C# API Library for solved.ac
- * 
+ *
+ * C# API Library for solved.ac (API v4)
+ *
  * copyright 614project.
  */
 
-/*
- * 미리 정의된 IsExternalInit가 없다는 오류 <<< vs2022 버그...? 일지도
- * https://stackoverflow.com/questions/64749385/predefined-type-system-runtime-compilerservices-isexternalinit-is-not-defined
- */
-namespace System.Runtime.CompilerServices
+namespace AcNET;
+
+/// <summary>
+/// acNET 라이브러리 정보입니다.
+/// </summary>
+public static class SolvedLibrary
 {
-    internal static class IsExternalInit { }
+    /// <summary>
+    /// 라이브러리 버전입니다. 요청의 User-Agent 에도 사용됩니다.
+    /// </summary>
+    public static string Version { get; } =
+        typeof(SolvedLibrary).Assembly.GetName().Version?.ToString(3) ?? "1.0.0";
 }
