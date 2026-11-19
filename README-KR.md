@@ -94,3 +94,6 @@ dotnet test tests/acNET.Tests
 테스트는 `tests/acNET.Tests/Fixtures/solvedac-v4-openapi.json` 에 저장된 OpenAPI 문서로 가짜 서버를 만들어,
 모든 엔드포인트의 요청(경로, 쿼리, 본문)과 응답 모델이 문서와 정확히 맞는지 확인합니다.
 solved.ac 가 API 를 바꾸면 이 파일을 `https://backstage.solved.ac/api/v4/openapi` 에서 다시 받아 테스트를 돌려보세요.
+
+`SOLVEDAC_CLIENT_ID`, `SOLVEDAC_CLIENT_SECRET` 환경 변수를 설정하면 실제 solved.ac 서버에도 요청하는 테스트(`LiveApiTests`)가 함께 실행됩니다.
+앱 권한으로 부를 수 있는 모든 엔드포인트를 호출하고, 실제 응답이 문서와 다른 곳이 있으면 알려줍니다. 환경 변수가 없으면 건너뜁니다.

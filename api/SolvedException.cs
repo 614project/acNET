@@ -174,6 +174,14 @@ public static class SolvedErrorCode
     /// </summary>
     public const string Unknown = "UNKNOWN";
     /// <summary>
+    /// 요청한 대상(사용자, 문제, 태그 등)이 없습니다. (404)
+    /// </summary>
+    public const string NotFound = "NOT_FOUND";
+    /// <summary>
+    /// 로그인한 사용자만 볼 수 있습니다. (예: 문제의 난이도 기여 목록) (401)
+    /// </summary>
+    public const string Unauthenticated = "UNAUTHENTICATED";
+    /// <summary>
     /// 사용자 토큰이 필요한 요청인데 토큰이 없습니다. (401)
     /// </summary>
     public const string UserTokenRequired = "USER_TOKEN_REQUIRED";

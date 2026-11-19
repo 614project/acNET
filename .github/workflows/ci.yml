@@ -23,6 +23,10 @@ jobs:
 
     - name: Test
       run: dotnet test tests/acNET.Tests --configuration Release
+      env:
+        # 저장소 시크릿이 있으면 실제 solved.ac API 테스트도 실행합니다. (없으면 건너뜀)
+        SOLVEDAC_CLIENT_ID: ${{ secrets.SOLVEDAC_CLIENT_ID }}
+        SOLVEDAC_CLIENT_SECRET: ${{ secrets.SOLVEDAC_CLIENT_SECRET }}
 
     - name: Native AOT check
       run: |

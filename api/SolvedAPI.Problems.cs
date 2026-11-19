@@ -81,7 +81,7 @@ public partial class SolvedAPI
     /// <summary>
     /// 문제의 난이도 기여 요약(그래프 점, 태그 분포)을 가져옵니다. (<c>GET /problems/{problemId}/votes/summary</c>)
     /// </summary>
-    /// <remarks>로그인한 사용자가 푼 문제만 볼 수 있습니다. 그렇지 않으면 401 또는 403 에러가 납니다.</remarks>
+    /// <remarks>로그인한 사용자가 푼 문제만 볼 수 있습니다. 사용자 토큰이 없으면 401(<see cref="SolvedErrorCode.Unauthenticated"/>), 풀지 않았으면 403 에러가 납니다.</remarks>
     /// <param name="problemId">문제 번호</param>
     /// <param name="subId">하위 문제 ID</param>
     /// <param name="cancellationToken">취소 토큰</param>
@@ -91,7 +91,7 @@ public partial class SolvedAPI
     /// <summary>
     /// 문제의 난이도 기여 목록을 가져옵니다. 페이지 크기는 30으로 고정입니다. (<c>GET /problems/{problemId}/votes</c>)
     /// </summary>
-    /// <remarks>요청 비용이 2 입니다. 로그인한 사용자가 푼 문제만 볼 수 있습니다.</remarks>
+    /// <remarks>요청 비용이 2 입니다. 로그인한 사용자가 푼 문제만 볼 수 있습니다. 사용자 토큰이 없으면 401(<see cref="SolvedErrorCode.Unauthenticated"/>), 풀지 않았으면 403 에러가 납니다.</remarks>
     /// <param name="problemId">문제 번호</param>
     /// <param name="page">페이지 (1부터)</param>
     /// <param name="sort">정렬 기준</param>

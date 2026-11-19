@@ -97,3 +97,6 @@ dotnet test tests/acNET.Tests
 The tests build a fake server from the OpenAPI document saved at `tests/acNET.Tests/Fixtures/solvedac-v4-openapi.json`
 and check that every endpoint's request (path, query, body) and response model match it exactly.
 When solved.ac changes the API, download the file again from `https://backstage.solved.ac/api/v4/openapi` and rerun the tests.
+
+Set the `SOLVEDAC_CLIENT_ID` and `SOLVEDAC_CLIENT_SECRET` environment variables to also run `LiveApiTests` against the real solved.ac server.
+It calls every endpoint available with app credentials and reports where real responses differ from the document. Without them it is skipped.
