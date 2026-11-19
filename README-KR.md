@@ -4,6 +4,8 @@
 solved.ac API를 다루기 위한 C# 래퍼 라이브러리입니다.<br>
 1.0 부터는 solved.ac 공식 API v4 ([API 문서](https://backstage.solved.ac/developer/docs))를 사용합니다.<br>
 
+> **예전 solved.ac API v3 를 써야 하나요?** acNET **0.9.0 이하** 버전을 사용해주세요. (`dotnet add package acNET --version 0.9.0`) 1.0 부터는 v4 만 지원합니다.
+
 ## 준비
 solved.ac API v4 는 모든 요청에 애플리케이션 인증이 필요합니다.
 [solved.ac Backstage](https://backstage.solved.ac/developer)에서 애플리케이션을 등록하고 **클라이언트 ID** 와 **클라이언트 시크릿**을 받아주세요.

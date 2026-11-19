@@ -23,7 +23,10 @@
 		<FileVersion>1.0.0</FileVersion>
 		<Version>1.0.0</Version>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<IncludeSymbols>True</IncludeSymbols>
+		<!-- PDB 는 dll 에 포함(embedded)되므로 별도 심볼 패키지는 만들지 않습니다. -->
+		<IncludeSymbols>False</IncludeSymbols>
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+		<PackageReleaseNotes>1.0.0: solved.ac API v4 전용으로 새로 작성되었습니다. v3 API 가 필요하면 0.9.0 이하 버전을 사용하세요. https://github.com/614project/acNET/releases/tag/v1.0.0</PackageReleaseNotes>
 		<ApplicationIcon>acNETIcon.ico</ApplicationIcon>
 		<Authors>614project</Authors>
 		<PackAsTool>False</PackAsTool>

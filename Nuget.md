@@ -6,6 +6,8 @@ A C# wrapper library for interacting with the solved.ac API (v4).<br><br>
 Refer to the [solved.ac API documentation](https://backstage.solved.ac/developer/docs).<br>
 Register an application on [solved.ac Backstage](https://backstage.solved.ac/developer) to get a client ID and secret.
 
+> Need the old solved.ac API v3? Use acNET 0.9.0 or lower. 1.0 and later support v4 only.
+
 ## Example
 ```cs
 using AcNET;
