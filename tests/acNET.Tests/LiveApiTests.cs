@@ -93,11 +93,16 @@ public class LiveApiTests(ITestOutputHelper output)
         var regions = await Run("rankings/regions", a => a.GetRegionListAsync());
         await Run("rankings/regions/{cc}", a => a.GetRegionRankingAsync(regions?.FirstOrDefault()?.CountryCode ?? "kr"));
         var affiliations = await Run("rankings/affiliations", a => a.GetAffiliationListAsync());
-        long? affiliationId = affiliations?.FirstOrDefault()?.AffiliationId;
-        if (affiliationId is long aid)
+        var firstAffiliation = affiliations?.FirstOrDefault();
+        if (firstAffiliation is not null)
         {
-            await Run("affiliations/{id}", a => a.GetAffiliationAsync(aid));
-            await Run("rankings/affiliations/{id}", a => a.GetInAffiliationRankingAsync(aid));
+            // 상세는 Id, 소속 랭킹은 AffiliationId 를 씁니다. (두 값은 다릅니다)
+            var detail = await Run("affiliations/{id}", a => a.GetAffiliationAsync(firstAffiliation.Id));
+            if (detail is not null && detail.Name != firstAffiliation.Name)
+                failures.Add($"affiliations/{{id}}: {firstAffiliation.Name} 을(를) 요청했는데 {detail.Name} 이(가) 왔습니다.");
+            var inside = await Run("rankings/affiliations/{id}", a => a.GetInAffiliationRankingAsync(firstAffiliation.AffiliationId));
+            if (inside is not null && inside.Total != firstAffiliation.UserCount)
+                failures.Add($"rankings/affiliations/{{id}}: {firstAffiliation.Name} 사용자 {firstAffiliation.UserCount}명인데 랭킹은 {inside.Total}명입니다.");
         }
         await Run("rankings/affiliation-board", a => a.GetAffiliationRankingAsync());
         await Run("rankings/affiliation-board (university)", a => a.GetAffiliationRankingAsync(1, SolvedAffiliationType.University));

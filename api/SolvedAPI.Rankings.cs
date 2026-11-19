@@ -97,15 +97,15 @@ public partial class SolvedAPI
     /// <summary>
     /// 소속(학교, 회사, 커뮤니티)의 상세 정보를 가져옵니다. (<c>GET /affiliations/{id}</c>)
     /// </summary>
-    /// <param name="affiliationId">소속 ID (<see cref="SolvedAffiliationRef.AffiliationId"/>)</param>
+    /// <param name="id">소속 ID (<see cref="SolvedAffiliationRef.Id"/>). <see cref="SolvedAffiliationRef.AffiliationId"/> 가 아닙니다.</param>
     /// <param name="cancellationToken">취소 토큰</param>
-    public Task<SolvedResult<SolvedAffiliation>> GetAffiliationAsync(long affiliationId, CancellationToken cancellationToken = default)
-        => GetAsync<SolvedAffiliation>($"affiliations/{Segment(affiliationId)}", Lang(), cancellationToken);
+    public Task<SolvedResult<SolvedAffiliation>> GetAffiliationAsync(long id, CancellationToken cancellationToken = default)
+        => GetAsync<SolvedAffiliation>($"affiliations/{Segment(id)}", Lang(), cancellationToken);
 
     /// <summary>
     /// 한 소속 안의 사용자 랭킹을 가져옵니다. (<c>GET /rankings/affiliations/{affiliationId}</c>)
     /// </summary>
-    /// <param name="affiliationId">소속 ID</param>
+    /// <param name="affiliationId">소속 랭킹 ID (<see cref="SolvedAffiliationRef.AffiliationId"/>). <see cref="SolvedAffiliationRef.Id"/> 가 아닙니다.</param>
     /// <param name="page">페이지 (1부터)</param>
     /// <param name="cancellationToken">취소 토큰</param>
     public Task<SolvedResult<SolvedUserRanking>> GetInAffiliationRankingAsync(long affiliationId, int page = 1, CancellationToken cancellationToken = default)
