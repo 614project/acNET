@@ -8,11 +8,12 @@ namespace AcNET.User;
 public class SolvedAffiliationRef : Jsonable
 {
     /// <summary>
-    /// 소속 항목 ID 입니다.
+    /// 소속 ID 입니다. 소속 상세(<see cref="SolvedAPI.GetAffiliationAsync"/>)에 사용합니다.
     /// </summary>
     public long Id { get; set; }
     /// <summary>
-    /// 소속 ID 입니다. 소속 상세와 소속 랭킹에 사용합니다.
+    /// 소속 랭킹 ID 입니다. 소속 안의 사용자 랭킹(<see cref="SolvedAPI.GetInAffiliationRankingAsync"/>)에 사용합니다.
+    /// <see cref="Id"/> 와 값이 다르니 주의하세요.
     /// </summary>
     public long AffiliationId { get; set; }
     /// <summary>
@@ -50,11 +51,12 @@ public class SolvedRankableAffiliation : SolvedAffiliationRef
 public class SolvedAffiliation : Jsonable
 {
     /// <summary>
-    /// 소속 항목 ID 입니다.
+    /// 소속 ID 입니다. 소속 상세(<see cref="SolvedAPI.GetAffiliationAsync"/>)에 사용합니다.
     /// </summary>
     public long Id { get; set; }
     /// <summary>
-    /// 소속 ID 입니다.
+    /// 소속 랭킹 ID 입니다. 소속 안의 사용자 랭킹(<see cref="SolvedAPI.GetInAffiliationRankingAsync"/>)에 사용합니다.
+    /// <see cref="Id"/> 와 값이 다르니 주의하세요.
     /// </summary>
     public long AffiliationId { get; set; }
     /// <summary>

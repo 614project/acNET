@@ -65,7 +65,10 @@ public partial class SolvedAPI
     /// <summary>
     /// 사용자의 난이도 기여와 그로 받은 평판을 가져옵니다. (<c>GET /users/{handle}/contributions</c>)
     /// </summary>
-    /// <remarks>사용자 토큰에 <c>votes</c> scope 가 있으면 요청한 사용자 기준 정보(평가 여부 등)가 채워집니다.</remarks>
+    /// <remarks>
+    /// 사용자 토큰에 <c>votes</c> scope 가 있으면 요청한 사용자 기준 정보(평가 여부 등)가 채워집니다.
+    /// 실제 서버는 사용자 토큰 없이(앱 권한만으로) 요청하면 빈 목록을 돌려줍니다. 기여 수 자체는 <see cref="User.SolvedUser.VoteCount"/> 와 <see cref="GetUserReputationAsync"/> 로 볼 수 있습니다.
+    /// </remarks>
     /// <param name="handle">사용자명</param>
     /// <param name="page">페이지 (1부터)</param>
     /// <param name="limit">페이지 크기 (1~20)</param>
